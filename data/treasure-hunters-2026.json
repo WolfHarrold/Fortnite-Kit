@@ -90,5 +90,60 @@
       "title": "Prima Games: schedule (1 Nov - 5 Dec)",
       "url": "https://primagames.com/gaming/complete-fortnite-treasure-chest-rewards-odds-schedule"
     }
-  ]
+  ],
+  "treasureHours": [
+    {
+      "start": "2026-11-07T19:00:00Z",
+      "end": "2026-11-07T21:00:00Z",
+      "status": "official",
+      "multipliers": {
+        "pirate-shop-access": 1.5,
+        "weekly-gold-outfit": 7.5,
+        "weekly-vehicle-decal": 10
+      }
+    },
+    {
+      "start": "2026-11-08T02:00:00Z",
+      "end": "2026-11-08T04:00:00Z",
+      "status": "official",
+      "multipliers": {
+        "pirate-shop-access": 2.0,
+        "weekly-gold-outfit": 10,
+        "weekly-vehicle-decal": 10
+      }
+    },
+    {
+      "start": "2026-11-14T19:00:00Z",
+      "end": "2026-11-14T21:00:00Z",
+      "status": "official",
+      "name": "Cursed"
+    },
+    {
+      "start": "2026-11-15T02:00:00Z",
+      "end": "2026-11-15T04:00:00Z",
+      "status": "official",
+      "name": "Cursed"
+    },
+    {
+      "start": "2026-11-21T19:00:00Z",
+      "end": "2026-11-21T21:00:00Z",
+      "status": "expected"
+    },
+    {
+      "start": "2026-11-22T02:00:00Z",
+      "end": "2026-11-22T04:00:00Z",
+      "status": "expected"
+    },
+    {
+      "start": "2026-11-28T19:00:00Z",
+      "end": "2026-11-28T21:00:00Z",
+      "status": "expected"
+    },
+    {
+      "start": "2026-11-29T02:00:00Z",
+      "end": "2026-11-29T04:00:00Z",
+      "status": "expected"
+    }
+  ],
+  "treasureHoursNote": "Times in UTC. 'expected' = Saturday pattern (2-4 PM and 9-11 PM US Eastern), not yet confirmed by Epic. Change status to 'official' and add multipliers when Epic posts the notice."
 }

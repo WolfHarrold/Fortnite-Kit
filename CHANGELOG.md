@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.0 — 18 Nov 2026
+- LOOT > GUIDE: field guide from research (game plan, chest routes, quiet routes, Sprites, Treasure Hours, modes, myths, sources). Each line is tagged EPIC, REPORTED, TIP, MYTH or RUMOUR.
+- Treasure Hours schedule in the viewer's local time, with LIVE / NEXT countdown (`treasureHourSessions()` in `src/treasure.js`).
+- Guide text in `data/guide-treasure-hunters-2026.json`; schedule in `data/treasure-hunters-2026.json` (`treasureHours`).
+
 ## 0.3.0 — 18 Nov 2026
 - API guard (`worker/guard.js`): no CORS by default; cross-site browser calls refused; bad player names refused before any upstream call; 30 player lookups per IP per 5 minutes.
 - Private / not-found lookups cached for 10 minutes (no repeat calls on the key).

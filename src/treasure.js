@@ -126,3 +126,20 @@ export function planTreasure({
     gain: projected - chanceAtLeastOne(reward.odds, base),
   };
 }
+
+// Treasure Hour sessions from event.treasureHours, each with a state:
+//   'past' | 'live' | 'next' (the first one still to come) | 'upcoming'
+export function treasureHourSessions(event, now = new Date()) {
+  const t = +now;
+  let nextMarked = false;
+  return [...(event.treasureHours ?? [])]
+    .sort((a, b) => Date.parse(a.start) - Date.parse(b.start))
+    .map((s) => {
+      const start = Date.parse(s.start); const end = Date.parse(s.end);
+      let state = 'upcoming';
+      if (t >= end) state = 'past';
+      else if (t >= start) state = 'live';
+      else if (!nextMarked) { state = 'next'; nextMarked = true; }
+      return { ...s, state, startsInMs: Math.max(0, start - t), endsInMs: Math.max(0, end - t) };
+    });
+}

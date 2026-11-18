@@ -10,12 +10,13 @@
 import { createFortniteApiCom } from '../src/sources/fortniteApiCom.js';
 import { createEpicStatus } from '../src/sources/epicStatus.js';
 import { fromFortniteApiCom } from '../src/normalize.js';
-import { treasureReport, planTreasure, eventWeek } from '../src/treasure.js';
+import { treasureReport, planTreasure, eventWeek, treasureHourSessions } from '../src/treasure.js';
 import { chanceAtLeastOneMixed, pct } from '../src/odds.js';
 import { normalizeShop, normalizeNews, normalizeMap } from '../src/content.js';
 import { createCache } from '../src/cache.js';
 import { getJson } from '../src/http.js';
 import event from '../data/treasure-hunters-2026.json';
+import guide from '../data/guide-treasure-hunters-2026.json';
 import { DEMO } from './demo-data.js';
 
 // ---------------------------------------------------------------- storage
@@ -27,7 +28,7 @@ const lsStore = { get: (k) => ls('c.' + k), set: (k, v) => lsSet('c.' + k, v) };
 // ---------------------------------------------------------------- state
 const TABS = [
   { id: 'stat', label: 'STAT', subs: ['SEASON', 'CAREER', 'MODES', 'INPUT'] },
-  { id: 'loot', label: 'LOOT', subs: ['ODDS', 'PLANNER', 'METHOD'] },
+  { id: 'loot', label: 'LOOT', subs: ['ODDS', 'PLANNER', 'METHOD', 'GUIDE'] },
   { id: 'shop', label: 'SHOP', subs: ['ITEMS', 'NEWS'] },
   { id: 'map', label: 'MAP', subs: [] },
   { id: 'sys', label: 'SYS', subs: ['STATUS', 'SETTINGS'] },
@@ -415,6 +416,25 @@ const views = {
     return out;
   },
 
+  'loot/GUIDE'() {
+    const secs = guide.sections;
+    let out = `<div class="h"><span>${esc(event.name)} · FIELD GUIDE</span><span class="s">CHECKED ${dmy(guide.checked)}</span></div>`;
+    out += listView('guide', secs.map((s) => ({ l: s.label, r: s.schedule ? nextHourBadge() : '' })), (i) => {
+      const s = secs[i];
+      let d = `<div class="h"><span>${esc(s.label.toUpperCase())}</span>${s.schedule ? '<span class="s">YOUR LOCAL TIME</span>' : ''}</div>`;
+      if (s.schedule) d += scheduleHtml();
+      if (s.lines) {
+        d += `<ul class="gsec">${s.lines.map((ln) => `<li class="gline"><span>${esc(ln.t)}</span><span class="gtag${ln.tag === 'MYTH' || ln.tag === 'RUMOUR' ? ' gtag-doubt' : ''}" title="${esc(guide.tags[ln.tag] ?? '')}">${esc(ln.tag)}</span></li>`).join('')}</ul>`;
+      }
+      if (s.links) {
+        d += `<ul class="gsec">${s.links.map((l) => `<li class="gline"><a class="glink" href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.title)}</a></li>`).join('')}</ul>`;
+      }
+      return d;
+    });
+    out += `<p class="p">${Object.entries(guide.tags).map(([k, v]) => `<b>${k}</b>: ${esc(v)}`).join(' · ')}.</p>`;
+    return out;
+  },
+
   'shop/ITEMS'() {
     let out = stateLine('shop', 'NO SHOP DATA.');
     const items = S.data.shop; if (!items || S.busy.shop) return out;
@@ -493,6 +513,32 @@ const views = {
         <span class="hint">Send this line if the footer is cut off. FOOTER must be no more than VISUAL.</span></div>`;
   },
 };
+
+const dhm = (ms) => { const m = Math.round(ms / 6e4); const d = Math.floor(m / 1440); const h = Math.floor((m % 1440) / 60); return `${d ? `${d}D ` : ''}${h}H ${String(m % 60).padStart(2, '0')}M`; };
+
+// Next Treasure Hour, as a short badge for the GUIDE list ("LIVE" or "IN 3D 11H 20M").
+function nextHourBadge() {
+  const s = treasureHourSessions(event, new Date()).find((x) => x.state === 'live' || x.state === 'next');
+  if (!s) return '';
+  return s.state === 'live' ? 'LIVE' : `IN ${dhm(s.startsInMs)}`;
+}
+
+// Treasure Hour schedule in the viewer's own time zone.
+function scheduleHtml() {
+  const all = treasureHourSessions(event, new Date());
+  const open = all.filter((x) => x.state !== 'past');
+  const pastCount = all.length - open.length;
+  if (!open.length) return '<div class="msg">NO MORE SESSIONS LISTED.</div>';
+  const rows = open.map((s) => {
+    const mult = s.multipliers?.['pirate-shop-access'];
+    const when = `${dmy(s.start)} ${t12(s.start)}–${t12(s.end)}`;
+    const state = s.state === 'live' ? `LIVE · ENDS IN ${dhm(s.endsInMs)}` : s.state === 'next' ? `NEXT · IN ${dhm(s.startsInMs)}` : '';
+    return `<li class="sched${s.state === 'live' ? ' sched-live' : ''}${s.state === 'next' ? ' sched-next' : ''}">
+      <span>${when}${s.name ? ` · ${esc(s.name.toUpperCase())}` : ''}${state ? `<br><b>${state}</b>` : ''}</span>
+      <span class="r">${s.status === 'official' ? 'OFFICIAL' : 'EXPECTED'}${mult ? ` · TOKEN ×${mult}` : ''}</span></li>`;
+  }).join('');
+  return `<ul class="gsec">${rows}</ul><p class="p">EXPECTED = Saturday pattern, not yet confirmed by Epic.${pastCount ? ` ${pastCount} past sessions hidden.` : ''}</p>`;
+}
 
 // Placement tiles: show the two most useful placements that have data.
 // Epic only counts some placements in some modes (top25 = Solo only, top6 = Trios/Squads), so 0 often means "not tracked".

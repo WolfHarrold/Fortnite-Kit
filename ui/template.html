@@ -127,6 +127,18 @@ svg.chart { width: 100%; height: auto; display: block; overflow: visible; }
 svg.chart text { fill: var(--t2); font-family: var(--f-tab); font-size: 10px; }
 canvas.map { width: 100%; height: auto; display: block; border: 1px solid var(--t3); }
 
+/* ---------- guide ---------- */
+.gsec { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; }
+.gline { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.75rem; padding: 0.4rem 0.5rem; border-bottom: 1px solid var(--t4); font-size: 0.9rem; line-height: 1.4; }
+.gtag { flex: none; font-family: var(--f-tab); font-size: 0.7rem; text-transform: uppercase; color: var(--t2); border: 1px solid var(--t2); padding: 0 0.3rem; margin-top: 0.15rem; }
+.gtag-doubt { border-style: dashed; }
+.glink { color: var(--t1); text-decoration: underline; text-underline-offset: 2px; }
+.sched { display: flex; justify-content: space-between; gap: 0.75rem; padding: 0.4rem 0.5rem; border-bottom: 1px solid var(--t4); font-variant-numeric: tabular-nums; font-size: 0.9rem; }
+.sched .r { font-family: var(--f-tab); font-size: 0.78rem; color: var(--t2); text-align: right; }
+.sched-next { outline: 1px solid var(--t1); outline-offset: -1px; }
+.sched-live { background: var(--t1); color: var(--t4); text-shadow: none; }
+.sched-live .r { color: var(--t4); }
+
 /* ---------- effects (top layers, never hide data) ---------- */
 .fx { position: fixed; inset: 0; pointer-events: none; z-index: 10; }
 .fx.scan { background: repeating-linear-gradient(to bottom, rgba(0,0,0,0.35) 0 1px, transparent 1px 2px); }

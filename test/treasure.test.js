@@ -86,3 +86,16 @@ test('inverse and expected value', () => {
   assert.equal(expectedDrops(127, 1270), 10);
   assert.equal(chanceAtLeastOne(100, 0), 0);
 });
+
+test('treasure hour sessions: past, live, next, upcoming', async () => {
+  const { treasureHourSessions } = await import('../src/treasure.js');
+  const s = treasureHourSessions(event, new Date('2026-11-18T06:00:00Z'));
+  assert.equal(s.find((x) => x.start === '2026-11-15T02:00:00Z').state, 'past');
+  const next = s.find((x) => x.state === 'next');
+  assert.equal(next.start, '2026-11-21T19:00:00Z');
+  assert.equal(next.status, 'expected');
+  assert.equal(s.filter((x) => x.state === 'next').length, 1);
+  const live = treasureHourSessions(event, new Date('2026-11-08T03:00:00Z')).find((x) => x.state === 'live');
+  assert.equal(live.multipliers['pirate-shop-access'], 2);
+  assert.equal(live.endsInMs, 3600000);
+});

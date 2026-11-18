@@ -127,6 +127,18 @@ svg.chart { width: 100%; height: auto; display: block; overflow: visible; }
 svg.chart text { fill: var(--t2); font-family: var(--f-tab); font-size: 10px; }
 canvas.map { width: 100%; height: auto; display: block; border: 1px solid var(--t3); }
 
+/* ---------- guide ---------- */
+.gsec { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; }
+.gline { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.75rem; padding: 0.4rem 0.5rem; border-bottom: 1px solid var(--t4); font-size: 0.9rem; line-height: 1.4; }
+.gtag { flex: none; font-family: var(--f-tab); font-size: 0.7rem; text-transform: uppercase; color: var(--t2); border: 1px solid var(--t2); padding: 0 0.3rem; margin-top: 0.15rem; }
+.gtag-doubt { border-style: dashed; }
+.glink { color: var(--t1); text-decoration: underline; text-underline-offset: 2px; }
+.sched { display: flex; justify-content: space-between; gap: 0.75rem; padding: 0.4rem 0.5rem; border-bottom: 1px solid var(--t4); font-variant-numeric: tabular-nums; font-size: 0.9rem; }
+.sched .r { font-family: var(--f-tab); font-size: 0.78rem; color: var(--t2); text-align: right; }
+.sched-next { outline: 1px solid var(--t1); outline-offset: -1px; }
+.sched-live { background: var(--t1); color: var(--t4); text-shadow: none; }
+.sched-live .r { color: var(--t4); }
+
 /* ---------- effects (top layers, never hide data) ---------- */
 .fx { position: fixed; inset: 0; pointer-events: none; z-index: 10; }
 .fx.scan { background: repeating-linear-gradient(to bottom, rgba(0,0,0,0.35) 0 1px, transparent 1px 2px); }
@@ -456,6 +468,22 @@ body.nofx .glow { text-shadow: none; }
       gain: projected - chanceAtLeastOne(reward.odds, base)
     };
   }
+  function treasureHourSessions(event, now = /* @__PURE__ */ new Date()) {
+    const t = +now;
+    let nextMarked = false;
+    return [...event.treasureHours ?? []].sort((a, b) => Date.parse(a.start) - Date.parse(b.start)).map((s) => {
+      const start2 = Date.parse(s.start);
+      const end = Date.parse(s.end);
+      let state = "upcoming";
+      if (t >= end) state = "past";
+      else if (t >= start2) state = "live";
+      else if (!nextMarked) {
+        state = "next";
+        nextMarked = true;
+      }
+      return { ...s, state, startsInMs: Math.max(0, start2 - t), endsInMs: Math.max(0, end - t) };
+    });
+  }
 
   // src/content.js
   function normalizeShop(data) {
@@ -618,6 +646,177 @@ body.nofx .glow { text-shadow: none; }
         title: "Prima Games: schedule (1 Nov - 5 Dec)",
         url: "https://primagames.com/gaming/complete-fortnite-treasure-chest-rewards-odds-schedule"
       }
+    ],
+    treasureHours: [
+      {
+        start: "2026-11-07T19:00:00Z",
+        end: "2026-11-07T21:00:00Z",
+        status: "official",
+        multipliers: {
+          "pirate-shop-access": 1.5,
+          "weekly-gold-outfit": 7.5,
+          "weekly-vehicle-decal": 10
+        }
+      },
+      {
+        start: "2026-11-08T02:00:00Z",
+        end: "2026-11-08T04:00:00Z",
+        status: "official",
+        multipliers: {
+          "pirate-shop-access": 2,
+          "weekly-gold-outfit": 10,
+          "weekly-vehicle-decal": 10
+        }
+      },
+      {
+        start: "2026-11-14T19:00:00Z",
+        end: "2026-11-14T21:00:00Z",
+        status: "official",
+        name: "Cursed"
+      },
+      {
+        start: "2026-11-15T02:00:00Z",
+        end: "2026-11-15T04:00:00Z",
+        status: "official",
+        name: "Cursed"
+      },
+      {
+        start: "2026-11-21T19:00:00Z",
+        end: "2026-11-21T21:00:00Z",
+        status: "expected"
+      },
+      {
+        start: "2026-11-22T02:00:00Z",
+        end: "2026-11-22T04:00:00Z",
+        status: "expected"
+      },
+      {
+        start: "2026-11-28T19:00:00Z",
+        end: "2026-11-28T21:00:00Z",
+        status: "expected"
+      },
+      {
+        start: "2026-11-29T02:00:00Z",
+        end: "2026-11-29T04:00:00Z",
+        status: "expected"
+      }
+    ],
+    treasureHoursNote: "Times in UTC. 'expected' = Saturday pattern (2-4 PM and 9-11 PM US Eastern), not yet confirmed by Epic. Change status to 'official' and add multipliers when Epic posts the notice."
+  };
+
+  // data/guide-treasure-hunters-2026.json
+  var guide_treasure_hunters_2026_default = {
+    event: "treasure-hunters-2026",
+    checked: "2026-11-18",
+    tags: {
+      EPIC: "Said by Epic",
+      REPORTED: "Reported by trusted Fortnite sites",
+      TIP: "Our advice from the data",
+      MYTH: "Claim with no support",
+      RUMOUR: "Not confirmed"
+    },
+    sections: [
+      {
+        id: "plan",
+        label: "Game Plan",
+        lines: [
+          { t: "Play squads together. Rewards go to the whole squad, so each chest any of you opens is a roll for all of you.", tag: "REPORTED" },
+          { t: "Play Battle Royale or Zero Build. Ranked also counts.", tag: "REPORTED" },
+          { t: "Land at Lantern Landing for chests, or Skull Lagoon for fewer players.", tag: "TIP" },
+          { t: "Equip a Fortune Sprite. It shows nearby chests.", tag: "REPORTED" },
+          { t: "Open every chest on your route. Go back when chests refill.", tag: "REPORTED" },
+          { t: "Save long sessions for the second Treasure Hour session.", tag: "EPIC" }
+        ]
+      },
+      {
+        id: "routes",
+        label: "Chest Routes",
+        lines: [
+          { t: "Most chests: Rubber Resort 47, Lantern Landing 45, Loguetown 41.", tag: "REPORTED" },
+          { t: "Route: Lantern Landing, then Arlong Park, Loguetown, Cursed Cavern.", tag: "REPORTED" },
+          { t: "South of Lantern Landing: the Frog Statue puzzle has 2 Rare Chests.", tag: "REPORTED" },
+          { t: "Fortune's Fort: the secret waterfall room has Sprite Chests and Rare Chests.", tag: "REPORTED" },
+          { t: "Crossbones Isle has 901 chest spawn spots. 243 always spawn a chest.", tag: "REPORTED" },
+          { t: "Count chests per minute. Do not skip normal chests to chase vaults.", tag: "TIP" }
+        ]
+      },
+      {
+        id: "quiet",
+        label: "Quiet Routes",
+        lines: [
+          { t: "Skull Lagoon: 32 chests and fewer players.", tag: "REPORTED" },
+          { t: "Buried chests sit on shorelines and sandbars: Smuggler's Sandbar and the Anchor Cove beaches.", tag: "REPORTED" },
+          { t: "The Chest POI holds 34 of the 62 mapped buried chests.", tag: "REPORTED" },
+          { t: "Arlong Park is busy. Rubber Resort is busy since the captains took it over on 15 Nov.", tag: "REPORTED" },
+          { t: "Jump late, away from the bus path. Loot toward the centre as the storm moves.", tag: "TIP" },
+          { t: "Do not farm bot lobbies. Nobody reports a token from them.", tag: "REPORTED" }
+        ]
+      },
+      {
+        id: "sprites",
+        label: "Sprites",
+        lines: [
+          { t: "Chest farming: a Fortune finish. It keeps the base ability and shows nearby chests.", tag: "REPORTED" },
+          { t: "Chester (Epic): chance of extra chest loot, no fall damage.", tag: "REPORTED" },
+          { t: "Plundarrgh (Mythic): speed boost each time you open a chest.", tag: "REPORTED" },
+          { t: "Wayfinder (Rare): shows nearby Sprites, more Buried Chest loot.", tag: "REPORTED" },
+          { t: "Squads: Lil' Uzi Vert Jr. (team heal) or Transponder Snail (shared materials).", tag: "REPORTED" },
+          { t: "Fights: Re-Pete (best overall) or Lil' Flacko (shockwave when you land).", tag: "REPORTED" },
+          { t: "Cursed finish: water damages you. Do not use it near water.", tag: "REPORTED" },
+          { t: "No Sprite changes treasure odds. Sprites only get you to more chests.", tag: "TIP" }
+        ]
+      },
+      {
+        id: "hours",
+        label: "Treasure Hours",
+        schedule: true,
+        lines: [
+          { t: "Saturdays in the US: 2 to 4 PM and 9 to 11 PM Eastern. In Australia that is Sunday morning and Sunday afternoon.", tag: "EPIC" },
+          { t: "7 Nov boosts: token 1.5x in session 1 and 2x in session 2.", tag: "EPIC" },
+          { t: "Boosts change each week. Read Epic's notice before you play.", tag: "EPIC" },
+          { t: "A map fragment came during the 14 Nov Treasure Hours.", tag: "REPORTED" }
+        ]
+      },
+      {
+        id: "modes",
+        label: "Modes",
+        lines: [
+          { t: "Token: Battle Royale and Zero Build, any team size, ranked or not.", tag: "REPORTED" },
+          { t: "Reload, OG and bot lobbies: not confirmed for the token.", tag: "REPORTED" },
+          { t: "Respawn Rumble: small prizes reported, no token yet.", tag: "REPORTED" },
+          { t: "Fast XP: Creative XP islands give up to 4,000,000 XP a week (50 levels). No treasure there.", tag: "REPORTED" },
+          { t: "Weekly quests: 20,000 XP each. New quests every Thursday 9 AM Eastern (Friday 1 AM in Sydney).", tag: "REPORTED" },
+          { t: "One Battle Pass level = 80,000 XP.", tag: "REPORTED" },
+          { t: "The season ends on 5 Dec 2026.", tag: "EPIC" }
+        ]
+      },
+      {
+        id: "myths",
+        label: "Myths",
+        lines: [
+          { t: '"Looting in the storm lowers token odds." No evidence. Epic says rates do not change during the day, except in Treasure Hours.', tag: "MYTH" },
+          { t: `"The token only drops on Captain's Days." Leakers debunked it.`, tag: "MYTH" },
+          { t: '"New or low-skill accounts get better odds." False. Epic says every player has an equal chance.', tag: "MYTH" },
+          { t: '"Datamined odds." Nothing in the game files shows the odds. Epic published 1 in 137,500.', tag: "MYTH" },
+          { t: "Token compasses, finder tools and bought accounts are scams.", tag: "MYTH" },
+          { t: '"Only some chest types count." Reports name Treasure, Buried, Sprite and Rare chests. Epic has not confirmed.', tag: "RUMOUR" }
+        ]
+      },
+      {
+        id: "sources",
+        label: "Sources",
+        links: [
+          { title: "Dexerto: best landing spots", url: "https://www.dexerto.com/fortnite/fortnite-best-landing-spots-loot-locations-1474008/" },
+          { title: "ChestTracker: chest locations", url: "https://chesttracker.cc/chest-locations" },
+          { title: "Fortnite Wiki: Treasure Hunters", url: "https://fortnite.weirdgloop.org/w/Treasure_Hunters" },
+          { title: "AccountShark: Treasure Hunters sprites", url: "https://accountshark.net/blog/fortnite-chapter-7-season-5-sprites" },
+          { title: "The Spike: token odds and Treasure Hours", url: "https://www.thespike.gg/fortnite/beginner-guides/fortnite-pirate-token-odds" },
+          { title: "Yahoo: Treasure Hours times", url: "https://tech.yahoo.com/gaming/articles/fortnite-treasure-hours-november-7-094849027.html" },
+          { title: "PirateToken.net: myths checked", url: "https://piratetoken.net/pirate-token-myths" },
+          { title: "Forbes: odds clarified", url: "https://www.forbes.com/sites/paultassi/2026/11/04/fortnite-clarifies-the-odds-of-opening-a-pirate-shop-token-chest/" },
+          { title: "LFCarry: level up fast", url: "https://lfcarry.com/guides/fortnite-level-up-fast" }
+        ]
+      }
     ]
   };
 
@@ -731,7 +930,7 @@ body.nofx .glow { text-shadow: none; }
   var lsStore = { get: (k) => ls("c." + k), set: (k, v) => lsSet("c." + k, v) };
   var TABS = [
     { id: "stat", label: "STAT", subs: ["SEASON", "CAREER", "MODES", "INPUT"] },
-    { id: "loot", label: "LOOT", subs: ["ODDS", "PLANNER", "METHOD"] },
+    { id: "loot", label: "LOOT", subs: ["ODDS", "PLANNER", "METHOD", "GUIDE"] },
     { id: "shop", label: "SHOP", subs: ["ITEMS", "NEWS"] },
     { id: "map", label: "MAP", subs: [] },
     { id: "sys", label: "SYS", subs: ["STATUS", "SETTINGS"] }
@@ -1169,6 +1368,24 @@ body.nofx .glow { text-shadow: none; }
       if (r?.error) out += `<div class="msg alert">ERROR: ${esc(r.error)}</div>`;
       return out;
     },
+    "loot/GUIDE"() {
+      const secs = guide_treasure_hunters_2026_default.sections;
+      let out = `<div class="h"><span>${esc(treasure_hunters_2026_default.name)} \xB7 FIELD GUIDE</span><span class="s">CHECKED ${dmy(guide_treasure_hunters_2026_default.checked)}</span></div>`;
+      out += listView("guide", secs.map((s) => ({ l: s.label, r: s.schedule ? nextHourBadge() : "" })), (i) => {
+        const s = secs[i];
+        let d = `<div class="h"><span>${esc(s.label.toUpperCase())}</span>${s.schedule ? '<span class="s">YOUR LOCAL TIME</span>' : ""}</div>`;
+        if (s.schedule) d += scheduleHtml();
+        if (s.lines) {
+          d += `<ul class="gsec">${s.lines.map((ln) => `<li class="gline"><span>${esc(ln.t)}</span><span class="gtag${ln.tag === "MYTH" || ln.tag === "RUMOUR" ? " gtag-doubt" : ""}" title="${esc(guide_treasure_hunters_2026_default.tags[ln.tag] ?? "")}">${esc(ln.tag)}</span></li>`).join("")}</ul>`;
+        }
+        if (s.links) {
+          d += `<ul class="gsec">${s.links.map((l) => `<li class="gline"><a class="glink" href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.title)}</a></li>`).join("")}</ul>`;
+        }
+        return d;
+      });
+      out += `<p class="p">${Object.entries(guide_treasure_hunters_2026_default.tags).map(([k, v]) => `<b>${k}</b>: ${esc(v)}`).join(" \xB7 ")}.</p>`;
+      return out;
+    },
     "shop/ITEMS"() {
       let out = stateLine("shop", "NO SHOP DATA.");
       const items = S.data.shop;
@@ -1247,6 +1464,32 @@ body.nofx .glow { text-shadow: none; }
         <span class="hint">Send this line if the footer is cut off. FOOTER must be no more than VISUAL.</span></div>`;
     }
   };
+  var dhm = (ms) => {
+    const m = Math.round(ms / 6e4);
+    const d = Math.floor(m / 1440);
+    const h = Math.floor(m % 1440 / 60);
+    return `${d ? `${d}D ` : ""}${h}H ${String(m % 60).padStart(2, "0")}M`;
+  };
+  function nextHourBadge() {
+    const s = treasureHourSessions(treasure_hunters_2026_default, /* @__PURE__ */ new Date()).find((x) => x.state === "live" || x.state === "next");
+    if (!s) return "";
+    return s.state === "live" ? "LIVE" : `IN ${dhm(s.startsInMs)}`;
+  }
+  function scheduleHtml() {
+    const all = treasureHourSessions(treasure_hunters_2026_default, /* @__PURE__ */ new Date());
+    const open = all.filter((x) => x.state !== "past");
+    const pastCount = all.length - open.length;
+    if (!open.length) return '<div class="msg">NO MORE SESSIONS LISTED.</div>';
+    const rows = open.map((s) => {
+      const mult = s.multipliers?.["pirate-shop-access"];
+      const when = `${dmy(s.start)} ${t12(s.start)}\u2013${t12(s.end)}`;
+      const state = s.state === "live" ? `LIVE \xB7 ENDS IN ${dhm(s.endsInMs)}` : s.state === "next" ? `NEXT \xB7 IN ${dhm(s.startsInMs)}` : "";
+      return `<li class="sched${s.state === "live" ? " sched-live" : ""}${s.state === "next" ? " sched-next" : ""}">
+      <span>${when}${s.name ? ` \xB7 ${esc(s.name.toUpperCase())}` : ""}${state ? `<br><b>${state}</b>` : ""}</span>
+      <span class="r">${s.status === "official" ? "OFFICIAL" : "EXPECTED"}${mult ? ` \xB7 TOKEN \xD7${mult}` : ""}</span></li>`;
+    }).join("");
+    return `<ul class="gsec">${rows}</ul><p class="p">EXPECTED = Saturday pattern, not yet confirmed by Epic.${pastCount ? ` ${pastCount} past sessions hidden.` : ""}</p>`;
+  }
   function placementFigs(o) {
     const order = ["top10", "top25", "top5", "top3", "top6", "top12"];
     const picks = order.filter((k) => (o[k] ?? 0) > 0).slice(0, 2);
