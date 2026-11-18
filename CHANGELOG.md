@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.2.4 — 18 Nov 2026
+- Real footer fix: the footer used the class `bar`, which is also the progress-bar style (height 0.55rem). Renamed to `foot`.
+
 ## 0.2.3 — 18 Nov 2026
 - Screen height from window.visualViewport (the area Chrome really shows).
 - SYS > SETTINGS shows a SCREEN line (viewport, safe area, footer position) for layout checks.

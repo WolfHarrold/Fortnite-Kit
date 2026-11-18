@@ -1,6 +1,6 @@
 {
   "name": "fortnite-kit",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Reusable Fortnite data toolkit: API clients, stats normaliser, treasure odds engine and a caching proxy. Zero dependencies. Runs in the browser, Node 18+ and Cloudflare Workers.",
   "type": "module",
   "main": "src/index.js",

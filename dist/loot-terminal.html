@@ -56,7 +56,7 @@ nav.tabs::before { left: 0; } nav.tabs::after { right: 0; }
 
 main { overflow-y: auto; overflow-x: hidden; padding: 0.5rem 0 0.75rem; scrollbar-color: var(--t3) transparent; scrollbar-width: thin; }
 
-footer.bar { display: grid; gap: var(--gap); grid-auto-flow: column; grid-auto-columns: 1fr; margin: 0.35rem 0 0.5rem; }
+footer.foot { display: grid; gap: var(--gap); grid-auto-flow: column; grid-auto-columns: 1fr; margin: 0.35rem 0 0.5rem; }
 .cell { background: var(--t4); color: var(--t1); font-family: var(--f-tab); font-size: 0.82rem; text-transform: uppercase; padding: 0.2rem 0.5rem; display: flex; gap: 0.5rem; align-items: center; justify-content: space-between; min-height: 1.5rem; white-space: nowrap; overflow: hidden; }
 .cell .xp { flex: 1; height: 0.45rem; border: 1px solid var(--t1); max-width: 6rem; }
 .cell .xp i { display: block; height: 100%; background: var(--t1); }
@@ -156,7 +156,7 @@ body.nofx .glow { text-shadow: none; }
   <nav class="tabs" id="tabs" aria-label="Main tabs"></nav>
   <div class="subtabs" id="subtabs" role="tablist" aria-label="Sub tabs"></div>
   <main id="content" tabindex="-1" aria-live="polite"></main>
-  <footer class="bar" id="footer"></footer>
+  <footer class="foot" id="footer"></footer>
 </div>
 <div id="safeProbe" aria-hidden="true" style="position:fixed;left:0;top:0;width:0;height:0;padding-bottom:env(safe-area-inset-bottom);visibility:hidden"></div>
 <div class="fx band" aria-hidden="true"></div>
