@@ -26,6 +26,7 @@ Read first: `docs/HOW-FUNAGLET-WORKS.md` (the reverse engineering) and `docs/DAT
 | `src/odds.js` | Generic "1 in X" drop maths |
 | `src/treasure.js` | Treasure report, weeks, planner, Treasure Hours |
 | `src/cache.js` | TTL cache with refresh cooldown |
+| `data/rarest.json` | Rarest shop items, rebuilt daily by `.github/workflows/rarest.yml` (do not edit by hand) |
 | `data/guide-treasure-hunters-2026.json` | LOOT > GUIDE text (edit to update the guide) |
 | `data/treasure-hunters-2026.json` | Event odds, dates, multipliers, chest rate (2 per alive minute), presets |
 | `worker/` | Cloudflare Worker proxy |

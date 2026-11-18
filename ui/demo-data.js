@@ -2,6 +2,8 @@
 // runs the same normalisers as DIRECT and WORKER mode. Item, news and place names are
 // invented samples. Season numbers match FUNAGLET's LilAvlis snapshot (350 / 73 / 940 / 67h 35m).
 
+import { computeRarity } from '../src/rarity.js';
+
 const blk = (matches, wins, kills, minutesPlayed, extra = {}) => ({
   score: 0, scorePerMin: 0, scorePerMatch: 0, wins, kills,
   killsPerMin: minutesPlayed ? kills / minutesPlayed : 0, killsPerMatch: matches ? kills / matches : 0,
@@ -83,3 +85,30 @@ export const DEMO = {
     components: { 'Game Services': 'operational', Login: 'operational', Matchmaking: 'operational', Parties: 'operational', 'Item Shop': 'degraded_performance' },
   },
 };
+
+// ---- DEMO rarest list: invented items with shop histories, run through the real engine ----
+const run = (start, n) => Array.from({ length: n }, (_, i) => new Date(Date.parse(`${start}T00:00:00Z`) + i * 864e5).toISOString());
+const demoCosmetics = {
+  br: [
+    { id: 'd-o1', name: 'Brine Admiral', type: { value: 'outfit', displayValue: 'Outfit' }, rarity: { displayValue: 'Legendary' }, set: { value: 'Brine' }, shopHistory: [...run('2019-03-02', 2)] },
+    { id: 'd-b0', name: 'Brine Cape', type: { value: 'backpack', displayValue: 'Back Bling' }, rarity: { displayValue: 'Legendary' }, set: { value: 'Brine' }, shopHistory: [...run('2019-03-02', 2)] },
+    { id: 'd-o2', name: 'Lantern Keeper', type: { value: 'outfit', displayValue: 'Outfit' }, rarity: { displayValue: 'Epic' }, shopHistory: [...run('2020-06-10', 3), ...run('2021-01-05', 2)] },
+    { id: 'd-o3', name: 'Reef Runner', type: { value: 'outfit', displayValue: 'Outfit' }, rarity: { displayValue: 'Rare' }, shopHistory: [...run('2023-08-01', 2), ...run('2026-11-18', 1)] },
+    { id: 'd-o4', name: 'Tidewalker Captain', type: { value: 'outfit', displayValue: 'Outfit' }, rarity: { displayValue: 'Epic' }, shopHistory: run('2026-11-18', 1) },
+    { id: 'd-b1', name: 'Barnacle Pack', type: { value: 'backpack', displayValue: 'Back Bling' }, rarity: { displayValue: 'Rare' }, shopHistory: run('2019-11-20', 2) },
+    { id: 'd-p1', name: 'Anchor Axe', type: { value: 'pickaxe', displayValue: 'Harvesting Tool' }, rarity: { displayValue: 'Uncommon' }, shopHistory: [...run('2018-12-01', 1), ...run('2022-02-02', 1)] },
+    { id: 'd-g1', name: 'Gull Glider', type: { value: 'glider', displayValue: 'Glider' }, rarity: { displayValue: 'Rare' }, shopHistory: [...run('2021-05-05', 2), ...run('2026-11-18', 1)] },
+    { id: 'd-e1', name: 'Shanty Stomp', type: { value: 'emote', displayValue: 'Emote' }, rarity: { displayValue: 'Rare' }, shopHistory: run('2020-02-14', 1) },
+    { id: 'd-e2', name: 'Plank Walk', type: { value: 'emote', displayValue: 'Emote' }, rarity: { displayValue: 'Uncommon' }, shopHistory: run('2024-09-09', 2) },
+    { id: 'd-w1', name: 'Kelp Wrap', type: { value: 'wrap', displayValue: 'Wrap' }, rarity: { displayValue: 'Rare' }, shopHistory: run('2022-07-07', 3) },
+  ],
+  tracks: [
+    { id: 'd-t1', title: 'Low Tide Signal', shopHistory: run('2024-01-10', 2) },
+    { id: 'd-t2', title: 'Harbour Lights', shopHistory: [...run('2024-03-03', 1), ...run('2026-11-18', 1)] },
+  ],
+  cars: [{ id: 'd-c1', name: 'Harbour Runner', type: { value: 'body', displayValue: 'Car Body' }, rarity: { displayValue: 'Epic' }, shopHistory: run('2024-02-20', 2) }],
+  instruments: [{ id: 'd-i1', name: 'Driftwood Bass', type: { value: 'bass', displayValue: 'Bass' }, rarity: { displayValue: 'Rare' }, shopHistory: run('2024-05-05', 1) }],
+  legoKits: [],
+};
+const demoShop = { date: '2026-11-18T00:00:00Z', entries: [{ brItems: [{ id: 'd-o3' }, { id: 'd-o4' }, { id: 'd-g1' }] }, { tracks: [{ id: 'd-t2' }] }] };
+DEMO.rarest = computeRarity(demoCosmetics, demoShop, { now: new Date('2026-11-18T01:00:00Z') }); // 500-day rule, like the wiki

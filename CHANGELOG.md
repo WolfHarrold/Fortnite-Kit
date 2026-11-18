@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0 — 18 Nov 2026
+- SHOP > RARE: rarest Item Shop cosmetics, Fortnite Wiki rules (500+ days away; Top 12 skips Back Blings bundled with listed Outfits). Views: BACK TODAY (today's rare returns) and RAREST (Top 12 + one list per category).
+- `src/rarity.js` engine; `scripts/build-rarest.mjs` + daily GitHub Action (`.github/workflows/rarest.yml`, 00:20 UTC) writes `data/rarest.json`; Worker serves `/api/rarest`.
+- Square item pictures capped at 11rem on phones.
+
 ## 0.4.0 — 18 Nov 2026
 - LOOT > GUIDE: field guide from research (game plan, chest routes, quiet routes, Sprites, Treasure Hours, modes, myths, sources). Each line is tagged EPIC, REPORTED, TIP, MYTH or RUMOUR.
 - Treasure Hours schedule in the viewer's local time, with LIVE / NEXT countdown (`treasureHourSessions()` in `src/treasure.js`).

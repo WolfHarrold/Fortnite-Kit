@@ -21,6 +21,7 @@ import { DEMO } from './demo-data.js';
 
 // ---------------------------------------------------------------- storage
 const LS = 'lt.';
+const RAREST_URL = 'https://raw.githubusercontent.com/WolfHarrold/Fortnite-Kit/main/data/rarest.json';
 const ls = (k, d = null) => { try { const v = localStorage.getItem(LS + k); return v == null ? d : v; } catch { return d; } };
 const lsSet = (k, v) => { try { v == null ? localStorage.removeItem(LS + k) : localStorage.setItem(LS + k, String(v)); } catch { /* storage off */ } };
 const lsStore = { get: (k) => ls('c.' + k), set: (k, v) => lsSet('c.' + k, v) };
@@ -29,7 +30,7 @@ const lsStore = { get: (k) => ls('c.' + k), set: (k, v) => lsSet('c.' + k, v) };
 const TABS = [
   { id: 'stat', label: 'STAT', subs: ['SEASON', 'CAREER', 'MODES', 'INPUT'] },
   { id: 'loot', label: 'LOOT', subs: ['ODDS', 'PLANNER', 'METHOD', 'GUIDE'] },
-  { id: 'shop', label: 'SHOP', subs: ['ITEMS', 'NEWS'] },
+  { id: 'shop', label: 'SHOP', subs: ['ITEMS', 'RARE', 'NEWS'] },
   { id: 'map', label: 'MAP', subs: [] },
   { id: 'sys', label: 'SYS', subs: ['STATUS', 'SETTINGS'] },
 ];
@@ -50,7 +51,8 @@ const S = {
   window: 'season',
   chest: { method: ls('chestMethod', 'minutes'), rate: +ls('chestRate', event.chestsPerMinute ?? 2) },
   plan: { minutes: 60, matches: 0, thMinutes: 0, session: -1 },
-  data: { career: null, shop: null, news: null, map: null, status: null },
+  rare: { view: 'today', cat: 0 }, // cat 0 = TOP 12, then the categories
+  data: { career: null, shop: null, news: null, map: null, status: null, rarest: null },
   busy: {},
   err: {},
   list: null, // { key, len } for the view on screen
@@ -91,6 +93,7 @@ const demoApi = {
   news: async () => normalizeNews(DEMO.news),
   map: async () => normalizeMap(DEMO.map),
   status: async () => DEMO.status,
+  rarest: async () => DEMO.rarest,
 };
 
 function directApi() {
@@ -109,6 +112,8 @@ function directApi() {
     news: async () => normalizeNews(await fapi.news('br')),
     map: async () => normalizeMap(await fapi.map()),
     status: () => createEpicStatus().fortnite(),
+    // Rarest list is built daily on GitHub; raw.githubusercontent.com allows browser reads.
+    rarest: () => getJson(RAREST_URL, { source: 'github' }),
   };
 }
 
@@ -122,6 +127,7 @@ function workerApi() {
     news: async () => normalizeNews(await j('/api/news/br')),
     map: async () => normalizeMap(await j('/api/map')),
     status: () => j('/api/status'),
+    rarest: () => j('/api/rarest'),
   };
 }
 
@@ -158,7 +164,7 @@ function scan(name) {
   return load('career', nm);
 }
 
-function resetData() { S.data = { career: null, shop: null, news: null, map: null, status: null }; S.err = {}; }
+function resetData() { S.data = { career: null, shop: null, news: null, map: null, status: null, rarest: null }; S.err = {}; }
 
 // ---------------------------------------------------------------- treasure
 function report() {
@@ -455,6 +461,53 @@ const views = {
     return out;
   },
 
+  'shop/RARE'() {
+    let out = stateLine('rarest', 'NO RARITY DATA.');
+    const r = S.data.rarest; if (!r || S.busy.rarest) return out;
+    if (!r.generatedAt) return out + '<div class="msg">NO DATA YET. THE LIST IS BUILT ONCE A DAY, AFTER THE SHOP RESETS.</div>';
+    const seg = `<div class="inline" style="margin-bottom:0.6rem"><span class="seg" role="group" aria-label="Rare view">
+      <button data-rareview="today" class="${S.rare.view === 'today' ? 'on' : ''}">BACK TODAY</button>
+      <button data-rareview="rarest" class="${S.rare.view === 'rarest' ? 'on' : ''}">RAREST</button></span></div>`;
+    out += `<div class="h"><span>RARE SHOP ITEMS</span><span class="s">UPDATED ${dmy(r.generatedAt)}${S.resolved === 'demo' ? ' · SAMPLE' : ''}</span></div>` + seg;
+    if (S.rare.view === 'today') {
+      const list = r.today ?? [];
+      if (!list.length) return out + '<div class="msg">NO RARE RETURNS IN TODAY\'S SHOP.</div>';
+      out += `<p class="p">Items in the shop on ${dmy(r.shopDate)}, longest away first. A square marks a rare return (away ${n(r.minDaysAway ?? 500)}+ days).</p>`;
+      out += listView('rareToday', list.map((it) => ({ l: it.name, s: it.type ?? '', r: it.isNew ? 'NEW' : `${n(it.daysAway)} D`, act: it.rare })), (i) => {
+        const it = list[i];
+        return `${img(it.image, it.type ?? 'ITEM')}<div class="h" style="margin-top:0.6rem"><span>${esc(it.name)}</span></div>
+          <div class="cards">
+            <div class="card hi"><span class="k">AWAY FOR</span><span>${it.isNew ? 'FIRST TIME IN SHOP' : `${n(it.daysAway)} DAYS${it.rare ? ' · RARE RETURN' : ''}`}</span></div>
+            ${it.lastSeenBefore ? `<div class="card"><span class="k">LAST SEEN BEFORE</span><span>${dmy(it.lastSeenBefore)}</span></div>` : ''}
+            <div class="card"><span class="k">TYPE</span><span>${esc(it.type ?? it.category)}</span></div>
+            ${it.rarity ? `<div class="card"><span class="k">RARITY</span><span>${esc(it.rarity)}</span></div>` : ''}
+            <div class="card"><span class="k">TIMES IN SHOP</span><span>${n(it.stints)}</span></div>
+          </div>`;
+      });
+      return out;
+    }
+    const cats = [{ label: 'Top 12', items: r.top12, total: r.top12.length, top: true }, ...r.categories];
+    const ci = Math.max(0, Math.min(S.rare.cat, cats.length - 1)); const cat = cats[ci];
+    out += `<div class="inline" style="margin-bottom:0.5rem"><button class="btn" data-rarecat="-1" aria-label="Previous category" ${ci === 0 ? 'disabled' : ''}>◀</button>
+      <span class="h" style="margin:0;border:0;flex:1;justify-content:center">${esc(cat.label.toUpperCase())} <span class="s">${cat.top ? '' : `${n(cat.total)} RARE · `}${ci + 1}/${cats.length}</span></span>
+      <button class="btn" data-rarecat="1" aria-label="Next category" ${ci === cats.length - 1 ? 'disabled' : ''}>▶</button></div>`;
+    out += listView(`rare-${ci}`, cat.items.map((it) => ({ l: it.name, s: ci === 0 ? it.category : '', r: `${n(it.daysAway)} D` })), (i) => {
+      const it = cat.items[i]; if (!it) return '';
+      return `${img(it.image, it.type ?? 'ITEM')}<div class="h" style="margin-top:0.6rem"><span>${esc(it.name)}</span></div>
+        <div class="cards">
+          <div class="card hi"><span class="k">AWAY FOR</span><span>${n(it.daysAway)} DAYS</span></div>
+          <div class="card"><span class="k">LAST SEEN</span><span>${dmy(it.lastSeen)}</span></div>
+          <div class="card"><span class="k">FIRST SEEN</span><span>${dmy(it.firstSeen)}</span></div>
+          <div class="card"><span class="k">TIMES IN SHOP</span><span>${n(it.stints)}</span></div>
+          <div class="card"><span class="k">DAYS IN SHOP</span><span>${n(it.daysInShop)}</span></div>
+          <div class="card"><span class="k">TYPE</span><span>${esc(it.type ?? it.category)}</span></div>
+          ${it.rarity ? `<div class="card"><span class="k">RARITY</span><span>${esc(it.rarity)}</span></div>` : ''}
+        </div>`;
+    });
+    out += `<p class="p">Rare = not in the Item Shop for ${n(r.minDaysAway ?? 500)}+ days (Fortnite Wiki rule). Top 12 leaves out Back Blings that came with an Outfit in the list. ${cat.total > cat.items.length ? `Showing ${cat.items.length} of ${n(cat.total)}.` : ''}</p>`;
+    return out;
+  },
+
   'shop/NEWS'() {
     let out = stateLine('news', 'NO NEWS.');
     const list = S.data.news; if (!list || S.busy.news) return out;
@@ -662,6 +715,7 @@ function ensureData() {
   const t = tabId();
   if (t === 'shop' && subName() === 'ITEMS' && !S.data.shop && !S.busy.shop && !S.err.shop) load('shop');
   if (t === 'shop' && subName() === 'NEWS' && !S.data.news && !S.busy.news && !S.err.news) load('news');
+  if (t === 'shop' && subName() === 'RARE' && !S.data.rarest && !S.busy.rarest && !S.err.rarest) load('rarest');
   if (t === 'map' && !S.data.map && !S.busy.map && !S.err.map) load('map');
   if (t === 'sys' && subName() === 'STATUS' && !S.data.status && !S.busy.status && !S.err.status) load('status');
 }
@@ -684,6 +738,8 @@ document.addEventListener('click', (e) => {
   if (d.window) { S.window = d.window; return render(); }
   if (d.session != null) { S.plan.session = +d.session; return render(); }
   if (d.method) { S.chest.method = d.method; lsSet('chestMethod', d.method); return render(); }
+  if (d.rareview) { S.rare.view = d.rareview; click(); return render(); }
+  if (d.rarecat) { S.rare.cat = Math.max(0, S.rare.cat + +d.rarecat); click(); return render(); }
   if (d.set) {
     const v = d.val;
     if (d.set === 'mode') { S.mode = v; lsSet('mode', v); resetData(); resolveMode().then(() => { render(); if (S.player || S.resolved === 'demo') scan(S.player); }); return; }

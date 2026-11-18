@@ -17,6 +17,7 @@
 //        ?chestsPerMinute=<n>   or   ?chestsPerMatch=funaglet|<n> (per-match method)
 //   /api/plan/:name?reward=<id>&matches=5&minutes=0&thMatches=0&thMinutes=0&th=0
 //   /api/shop   /api/news[/br|stw|creative]   /api/cosmetics/new   /api/map   /api/status
+//   /api/rarest               rarest Item Shop cosmetics (data/rarest.json, rebuilt daily)
 //   /api/islands?size=&after=   /api/islands/:code   /api/islands/:code/metrics/:interval?from=&to=
 
 import { createFortniteKit } from '../src/kit.js';
@@ -25,6 +26,7 @@ import { validName, corsHeaders, fetchSiteAllowed, createRateLimiter } from './g
 import treasureEvent from '../data/treasure-hunters-2026.json' with { type: 'json' };
 import page from './page.generated.js'; // Loot Terminal page, made by ui/build.mjs
 import pkg from '../package.json' with { type: 'json' };
+import rarest from '../data/rarest.json' with { type: 'json' }; // rebuilt daily by .github/workflows/rarest.yml
 
 const memoryStore = new Map(); // lives as long as the Worker isolate
 const PLAYER_ROUTES = new Set(['stats', 'career', 'treasure', 'plan']); // these can call fortnite-api.com
@@ -136,6 +138,7 @@ export async function handle(request, env = {}, { fetch: f, rateLimiter } = {}) 
         return json({ player: t.player, ...plan }, 200, cors);
       }
       case 'shop': return json(await kit.shop(), 200, cors, { maxAge: 600 });
+      case 'rarest': return json(rarest, 200, cors, { maxAge: 3600 });
       case 'news': return json(await kit.news(['br', 'stw', 'creative'].includes(a) ? a : 'br'), 200, cors, { maxAge: 600 });
       case 'cosmetics': return json(await kit.newCosmetics(), 200, cors, { maxAge: 600 });
       case 'map': return json(await kit.map(), 200, cors, { maxAge: 3600 });

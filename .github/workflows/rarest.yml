@@ -1,0 +1,40 @@
+# Daily: rebuild data/rarest.json (rarest Item Shop cosmetics) from fortnite-api.com.
+# The commit triggers the Cloudflare Workers Build, so /api/rarest updates by itself.
+name: Rarest shop items
+
+on:
+  schedule:
+    - cron: '20 0 * * *'   # 00:20 UTC, after the 00:00 UTC shop reset (11:20 AM Sydney in summer)
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/build-rarest.mjs'
+      - 'src/rarity.js'
+      - '.github/workflows/rarest.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: rarest
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/build-rarest.mjs
+      - name: Commit if changed
+        run: |
+          git config user.name "fortnite-kit bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/rarest.json
+          if git diff --cached --quiet; then echo "No change"; exit 0; fi
+          git commit -m "Update rarest shop items"
+          git pull --rebase
+          git push
