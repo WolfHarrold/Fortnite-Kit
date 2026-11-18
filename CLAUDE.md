@@ -12,3 +12,10 @@ Davi's Fortnite data engine and the Loot Terminal page. Read `README.md`, `docs/
 6. The sandbox cannot reach the Fortnite APIs. Test with fixtures and mock fetch. Davi does the live check on the Worker.
 7. The page uses Davi's Phosphor design system (one hue, four tiers, fixed zones). Keep new views in that style.
 8. Write replies to Davi in short, plain ASD-STE100 style.
+
+## Lessons
+
+- **Footer bug, v0.2.4 (18 Nov 2026).** The footer was cut off on Davi's phone (Chrome). The cause: the footer used the CSS class `bar`, which was also the progress-bar class (height 0.55rem). The footer box was 8 px tall and its cells spilled off-screen. It was hard to find because headless tests measured the footer box, not the cells inside it, and three fixes guessed at viewport causes (100dvh, position fixed, safe-area insets). The SCREEN readout in SYS > SETTINGS (INNER, VISUAL, SAFE, FOOTER, DPR) showed the real cause.
+  1. Give each layout zone a unique class name. Search for the name before you use it.
+  2. In layout tests, measure the visible child elements, not only the container.
+  3. For a device-only bug, ask Davi for the SCREEN line before you change code.
