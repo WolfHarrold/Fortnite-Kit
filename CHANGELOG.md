@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.2.2 — 18 Nov 2026
+- viewport-fit=cover + safe-area padding: footer sits above the phone's button bar (Android edge-to-edge).
+
 ## 0.2.1 — 18 Nov 2026
 - Screen pinned to the visible area (position: fixed), so the footer shows on phones.
 - Placement tiles show the two placements that have data. TOP 25 = 0 no longer shows for squad players.

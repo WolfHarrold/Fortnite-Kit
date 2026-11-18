@@ -2,7 +2,7 @@
 <html lang="en-AU" data-ph="green">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Loot Terminal</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,7 +36,8 @@ button, input, select { font: inherit; color: inherit; background: none; border:
 
 /* ---------- zones ---------- */
 /* fixed + inset 0 follows the visible area on phones, so the footer never hides under browser bars */
-.screen { position: fixed; inset: 0; display: grid; grid-template-rows: auto auto auto minmax(0, 1fr) auto; max-width: 1100px; margin: 0 auto; padding: 0 max(16px, env(safe-area-inset-left)); }
+.screen { position: fixed; inset: 0; display: grid; grid-template-rows: auto auto auto minmax(0, 1fr) auto; max-width: 1100px; margin: 0 auto;
+  padding: env(safe-area-inset-top) max(16px, env(safe-area-inset-right)) env(safe-area-inset-bottom) max(16px, env(safe-area-inset-left)); }
 .brand { display: flex; justify-content: space-between; align-items: baseline; font-family: var(--f-mono); font-size: 0.72rem; color: var(--t2); padding: 0.4rem 0 0.1rem; text-transform: uppercase; letter-spacing: 0.04em; }
 .brand b { color: var(--t1); font-weight: 400; }
 
@@ -55,7 +56,7 @@ nav.tabs::before { left: 0; } nav.tabs::after { right: 0; }
 
 main { overflow-y: auto; overflow-x: hidden; padding: 0.5rem 0 0.75rem; scrollbar-color: var(--t3) transparent; scrollbar-width: thin; }
 
-footer.bar { display: grid; gap: var(--gap); grid-auto-flow: column; grid-auto-columns: 1fr; margin: 0.35rem 0 max(0.5rem, env(safe-area-inset-bottom)); }
+footer.bar { display: grid; gap: var(--gap); grid-auto-flow: column; grid-auto-columns: 1fr; margin: 0.35rem 0 0.5rem; }
 .cell { background: var(--t4); color: var(--t1); font-family: var(--f-tab); font-size: 0.82rem; text-transform: uppercase; padding: 0.2rem 0.5rem; display: flex; gap: 0.5rem; align-items: center; justify-content: space-between; min-height: 1.5rem; white-space: nowrap; overflow: hidden; }
 .cell .xp { flex: 1; height: 0.45rem; border: 1px solid var(--t1); max-width: 6rem; }
 .cell .xp i { display: block; height: 100%; background: var(--t1); }
