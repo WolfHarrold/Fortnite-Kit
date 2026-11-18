@@ -7,10 +7,14 @@
 // Stats status codes (verify on first live run):
 //   400 bad params, 403 stats are private, 404 account not found / no stats.
 // Note from the docs: the `trio` field in stats can come back null.
+// responseFlags (query value, bit flags): 1 = paths, 2 = gameplay tags, 4 = shop history.
+// Shop history (`shopHistory` dates) is NOT sent unless you pass responseFlags 4.
 
 import { buildUrl, getJson } from '../http.js';
 
 const BASE = 'https://fortnite-api.com';
+
+export const RESPONSE_FLAGS = { PATHS: 1, GAMEPLAY_TAGS: 2, SHOP_HISTORY: 4 };
 
 export function createFortniteApiCom({ apiKey = '', language = 'en', fetch, timeoutMs } = {}) {
   const headers = apiKey ? { Authorization: apiKey } : {};
@@ -31,10 +35,10 @@ export function createFortniteApiCom({ apiKey = '', language = 'en', fetch, time
     // ---- Game content (no key) ----
     shop: () => get('/v2/shop', { language }),
     news: (mode) => get(mode ? `/v2/news/${mode}` : '/v2/news', { language }), // mode: br | stw | creative
-    cosmeticsAll: () => get('/v2/cosmetics', { language }),
-    cosmeticsBr: () => get('/v2/cosmetics/br', { language }),
+    cosmeticsAll: ({ responseFlags } = {}) => get('/v2/cosmetics', { language, responseFlags }),
+    cosmeticsBr: ({ responseFlags } = {}) => get('/v2/cosmetics/br', { language, responseFlags }),
     cosmeticsNew: () => get('/v2/cosmetics/new', { language }),
-    cosmeticById: (id) => get(`/v2/cosmetics/br/${encodeURIComponent(id)}`, { language }),
+    cosmeticById: (id, { responseFlags } = {}) => get(`/v2/cosmetics/br/${encodeURIComponent(id)}`, { language, responseFlags }),
     cosmeticSearch: (params) => get('/v2/cosmetics/br/search', { language, ...params }),
     cosmeticSearchAll: (params) => get('/v2/cosmetics/br/search/all', { language, ...params }),
     cosmeticsByIds: (ids) => get('/v2/cosmetics/br/search/ids', { language, id: ids.join(',') }),

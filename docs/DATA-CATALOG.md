@@ -40,6 +40,7 @@ Rule: put every key in the Worker. Never put a key in a public page.
   `/v2/cosmetics/br`, `/v2/cosmetics/new`, `/v2/cosmetics/br/{id}`, `/v2/cosmetics/br/search[/all|/ids]`,
   `/v2/cosmetics/cars|instruments|tracks|lego|lego/kits|beans`, `/v1/map`, `/v1/playlists[/{id}]`,
   `/v1/banners`, `/v1/banners/colors`, `/v2/creatorcode?name=`, `/v2/aes`.
+- Shop history: add `responseFlags=4` to cosmetics calls (`/v2/cosmetics?responseFlags=4`). Without it, `shopHistory` is missing. Flags: 1 paths, 2 gameplay tags, 4 shop history.
 - Endpoint list taken from the official JS wrapper `fnapicom` v2.2.0.
 
 ## 2. fortniteapi.io (community, free tier + paid)

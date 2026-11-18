@@ -23,6 +23,14 @@ test('fortnite-api.com client sends key + correct URL', async () => {
   assert.equal(f.calls[0].headers.Authorization, 'KEY-123');
 });
 
+test('cosmetics: responseFlags=4 asks for shop history', async () => {
+  const f = mockFetch([[/cosmetics/, 200, { status: 200, data: { br: [] } }]]);
+  await createFortniteApiCom({ fetch: f }).cosmeticsAll({ responseFlags: 4 });
+  assert.equal(new URL(f.calls[0].url).searchParams.get('responseFlags'), '4');
+  await createFortniteApiCom({ fetch: f }).cosmeticsAll();
+  assert.equal(new URL(f.calls[1].url).searchParams.get('responseFlags'), null);
+});
+
 test('private stats (403) become a FortniteKitError with status', async () => {
   const f = mockFetch([[/stats/, 403, { status: 403, error: 'the requested account\'s stats are not public' }]]);
   const c = createFortniteApiCom({ apiKey: 'k', fetch: f });
