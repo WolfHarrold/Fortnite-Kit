@@ -104,7 +104,7 @@ export function computeRarity(all, shop, { now = new Date(), perCategory = 25, t
     const before = it._days.filter((d) => d < today);
     const prev = before[before.length - 1] ?? null;
     todayItems.push({
-      id, name: it.name, type: it.type, category: it.category, rarity: it.rarity, image: it.image,
+      id, name: it.name, type: it.type, category: it.category, rarity: it.rarity, series: it.series, image: it.image,
       isNew: !prev, lastSeenBefore: prev, daysAway: prev ? Math.floor((todayMs - dayMs(prev)) / DAY) : null,
       stints: it.stints,
     });

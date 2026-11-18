@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.1 — 18 Nov 2026
+- Rarest job fixed: shop history needs `responseFlags=4`. First live run: 16,850 cosmetics, 26 categories.
+- RARE details show the cosmetic SERIES (collab series such as Marvel or Icon).
+- GUIDE: Power Hours pattern line and wiki sources.
+- Checked against the Fortnite Wiki (18 Nov 2026 copy): days-away match (Fresh 2,919, Reflex 2,816). Most category counts match within a few items. Our Top 12 and Outfits include items the wiki puts in Limited Time Cosmetics or bundles (for example Mako, Codename E.L.F., Rogue Agent).
+
 ## 0.5.0 — 18 Nov 2026
 - SHOP > RARE: rarest Item Shop cosmetics, Fortnite Wiki rules (500+ days away; Top 12 skips Back Blings bundled with listed Outfits). Views: BACK TODAY (today's rare returns) and RAREST (Top 12 + one list per category).
 - `src/rarity.js` engine; `scripts/build-rarest.mjs` + daily GitHub Action (`.github/workflows/rarest.yml`, 00:20 UTC) writes `data/rarest.json`; Worker serves `/api/rarest`.

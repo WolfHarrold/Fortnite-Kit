@@ -481,6 +481,7 @@ const views = {
             ${it.lastSeenBefore ? `<div class="card"><span class="k">LAST SEEN BEFORE</span><span>${dmy(it.lastSeenBefore)}</span></div>` : ''}
             <div class="card"><span class="k">TYPE</span><span>${esc(it.type ?? it.category)}</span></div>
             ${it.rarity ? `<div class="card"><span class="k">RARITY</span><span>${esc(it.rarity)}</span></div>` : ''}
+            ${it.series ? `<div class="card"><span class="k">SERIES</span><span>${esc(seriesName(it.series))}</span></div>` : ''}
             <div class="card"><span class="k">TIMES IN SHOP</span><span>${n(it.stints)}</span></div>
           </div>`;
       });
@@ -502,6 +503,7 @@ const views = {
           <div class="card"><span class="k">DAYS IN SHOP</span><span>${n(it.daysInShop)}</span></div>
           <div class="card"><span class="k">TYPE</span><span>${esc(it.type ?? it.category)}</span></div>
           ${it.rarity ? `<div class="card"><span class="k">RARITY</span><span>${esc(it.rarity)}</span></div>` : ''}
+          ${it.series ? `<div class="card"><span class="k">SERIES</span><span>${esc(seriesName(it.series))}</span></div>` : ''}
         </div>`;
     });
     out += `<p class="p">Rare = not in the Item Shop for ${n(r.minDaysAway ?? 500)}+ days (Fortnite Wiki rule). Top 12 leaves out Back Blings that came with an Outfit in the list. ${cat.total > cat.items.length ? `Showing ${cat.items.length} of ${n(cat.total)}.` : ''}</p>`;
@@ -592,6 +594,9 @@ function scheduleHtml() {
   }).join('');
   return `<ul class="gsec">${rows}</ul><p class="p">EXPECTED = Saturday pattern, not yet confirmed by Epic.${pastCount ? ` ${pastCount} past sessions hidden.` : ''}</p>`;
 }
+
+// fortnite-api series values look like "MarvelSeries" or "CreatorCollabSeries": make them readable.
+const seriesName = (s) => String(s).replace(/([a-z])([A-Z])/g, '$1 $2').replace(/\bSeries\b/i, 'Series').trim();
 
 // Placement tiles: show the two most useful placements that have data.
 // Epic only counts some placements in some modes (top25 = Solo only, top6 = Trios/Squads), so 0 often means "not tracked".
