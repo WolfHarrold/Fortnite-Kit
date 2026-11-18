@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.1 — 18 Nov 2026
+- Screen pinned to the visible area (position: fixed), so the footer shows on phones.
+- Placement tiles show the two placements that have data. TOP 25 = 0 no longer shows for squad players.
+- First live scan from a phone worked (yagerstrike67).
+
 ## 0.2.0 — 18 Nov 2026
 - Loot Terminal page (Phosphor design): STAT, LOOT, SHOP, MAP, SYS. Served by the Worker at `/`.
 - Chest estimate = alive minutes × 2 (default). FUNAGLET 50-per-match kept as a preset.

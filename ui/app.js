@@ -308,8 +308,7 @@ const views = {
       ${fig('KILLS', n(o.kills), `${n(o.killsPerMatch, 2)} PER MATCH`)}
       ${fig('K/D', n(o.kd, 2))}
       ${fig('TIME ALIVE', hm(o.minutesPlayed), `${n(o.minutesPlayed ? o.minutesPlayed / Math.max(o.matches, 1) : 0, 1)} MIN PER MATCH`)}
-      ${fig('TOP 10', n(o.top10 || o.top12 || 0))}
-      ${fig('TOP 25', n(o.top25 || 0))}
+      ${placementFigs(o)}
       ${fig('BATTLE PASS', bp ? `LVL ${bp.level}` : '—', bp ? `${bp.progress}% TO NEXT` : '')}
     </div>`;
     out += `<div class="h"><span>WIN RATE</span><span class="s">${n(o.wins)}/${n(o.matches)}</span></div><div class="barrow">${bar(o.winRate / 100)}<span>${n(o.winRate, 2)}%</span></div>`;
@@ -492,6 +491,17 @@ const views = {
       <div class="field"><label>LOCAL DATA</label><div class="inline"><button class="btn" data-action="wipe">CLEAR SAVED SETTINGS AND CACHE</button></div></div>`;
   },
 };
+
+// Placement tiles: show the two most useful placements that have data.
+// Epic only counts some placements in some modes (top25 = Solo only, top6 = Trios/Squads), so 0 often means "not tracked".
+function placementFigs(o) {
+  const order = ['top10', 'top25', 'top5', 'top3', 'top6', 'top12'];
+  const picks = order.filter((k) => (o[k] ?? 0) > 0).slice(0, 2);
+  const tiles = picks.map((k) => fig(k.replace('top', 'TOP '), n(o[k]), `${n((o[k] / Math.max(o.matches, 1)) * 100, 1)}% OF MATCHES`));
+  if (tiles.length < 2) tiles.push(fig('DEATHS', n(o.deaths)));
+  if (tiles.length < 2) tiles.push(fig('SCORE', n(o.score)));
+  return tiles.join('');
+}
 
 function fig(k, v, note = '') { return `<div class="fig"><div class="k">${k}</div><div class="v">${v}</div>${note ? `<div class="n">${note}</div>` : ''}</div>`; }
 
