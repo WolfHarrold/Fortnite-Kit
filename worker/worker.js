@@ -21,6 +21,7 @@ import { createFortniteKit } from '../src/kit.js';
 import { FortniteKitError } from '../src/http.js';
 import treasureEvent from '../data/treasure-hunters-2026.json' with { type: 'json' };
 import page from './page.generated.js'; // Loot Terminal page, made by ui/build.mjs
+import pkg from '../package.json' with { type: 'json' };
 
 const memoryStore = new Map(); // lives as long as the Worker isolate
 
@@ -83,7 +84,7 @@ export async function handle(request, env = {}, { fetch: f } = {}) {
   try {
     switch (route) {
       case 'health':
-        return json({ ok: true, event: treasureEvent.id, hasStatsKey: Boolean(env.FORTNITE_API_COM_KEY) }, 200, origin);
+        return json({ ok: true, version: pkg.version, event: treasureEvent.id, hasStatsKey: Boolean(env.FORTNITE_API_COM_KEY) }, 200, origin);
       case 'stats':
         return json(await kit.stats(a, { timeWindow: q.get('window') ?? 'season', accountType: q.get('accountType') ?? 'epic' }), 200, origin);
       case 'career':
