@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.0 — 18 Nov 2026
+- API guard (`worker/guard.js`): no CORS by default; cross-site browser calls refused; bad player names refused before any upstream call; 30 player lookups per IP per 5 minutes.
+- Private / not-found lookups cached for 10 minutes (no repeat calls on the key).
+- Query values checked (account type, window, news mode, island interval, page size).
+
 ## 0.2.4 — 18 Nov 2026
 - Real footer fix: the footer used the class `bar`, which is also the progress-bar style (height 0.55rem). Renamed to `foot`.
 

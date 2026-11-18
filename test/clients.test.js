@@ -96,7 +96,7 @@ test('worker routes: /api/treasure, /api/career, errors, CORS', async () => {
   ]);
   const env = { FORTNITE_API_COM_KEY: 'k', ALLOWED_ORIGIN: 'https://wolfharrold.github.io' };
 
-  let res = await handle(new Request('https://w.dev/api/treasure/LilAvlis?chestsPerMatch=funaglet'), env, { fetch: f });
+  let res = await handle(new Request('https://w.dev/api/treasure/LilAvlis?chestsPerMatch=funaglet', { headers: { Origin: 'https://wolfharrold.github.io', 'Sec-Fetch-Site': 'cross-site' } }), env, { fetch: f });
   assert.equal(res.status, 200);
   assert.equal(res.headers.get('Access-Control-Allow-Origin'), 'https://wolfharrold.github.io');
   const body = await res.json();
@@ -129,4 +129,52 @@ test('worker routes: /api/treasure, /api/career, errors, CORS', async () => {
 
   res = await handle(new Request('https://w.dev/api/stats/x', { method: 'OPTIONS' }), env, { fetch: f });
   assert.equal(res.status, 204);
+});
+
+test('guard: same-origin page allowed, other sites refused, no CORS by default', async () => {
+  const f = mockFetch([[/stats\/br\/v2/, 200, statsFx]]);
+  const env = { FORTNITE_API_COM_KEY: 'k' };
+  const req = (path, headers = {}) => new Request(`https://w.dev${path}`, { headers });
+  let res = await handle(req('/api/stats/LilAvlis', { 'Sec-Fetch-Site': 'same-origin' }), env, { fetch: f });
+  assert.equal(res.status, 200);
+  assert.equal(res.headers.get('Access-Control-Allow-Origin'), null);
+  res = await handle(req('/api/stats/LilAvlis', { 'Sec-Fetch-Site': 'cross-site', Origin: 'https://evil.example' }), env, { fetch: f });
+  assert.equal(res.status, 403);
+  res = await handle(req('/api/shop', { 'Sec-Fetch-Site': 'same-site', Origin: 'https://other.workers.dev' }), env, { fetch: f });
+  assert.equal(res.status, 403);
+  res = await handle(req('/api/health', { 'Sec-Fetch-Site': 'none' }), env, { fetch: f }); // typed in the address bar
+  assert.equal(res.status, 200);
+});
+
+test('guard: bad names refused before any upstream call', async () => {
+  const f = mockFetch([[/stats\/br\/v2/, 200, statsFx]]);
+  for (const bad of ['a', 'x'.repeat(40), '<script>', 'a/b', '%00zz']) {
+    const res = await handle(new Request(`https://w.dev/api/career/${encodeURIComponent(bad)}`), { FORTNITE_API_COM_KEY: 'k' }, { fetch: f });
+    assert.equal(res.status, 400, bad);
+  }
+  assert.equal(f.calls.length, 0);
+  const ok = await handle(new Request('https://w.dev/api/stats/Lil%20Avlis.99'), { FORTNITE_API_COM_KEY: 'k' }, { fetch: f });
+  assert.equal(ok.status, 200);
+});
+
+test('guard: rate limit per IP on player routes only', async () => {
+  const f = mockFetch([[/stats\/br\/v2/, 200, statsFx], [/shop/, 200, { data: { entries: [] } }]]);
+  const { createRateLimiter } = await import('../worker/guard.js');
+  const rateLimiter = createRateLimiter({ limit: 3, windowMs: 60000 });
+  const env = { FORTNITE_API_COM_KEY: 'k' };
+  const hit = (path, ip) => handle(new Request(`https://w.dev${path}`, { headers: { 'CF-Connecting-IP': ip } }), env, { fetch: f, rateLimiter });
+  for (let i = 0; i < 3; i++) assert.equal((await hit('/api/stats/LilAvlis', '1.1.1.1')).status, 200);
+  const blocked = await hit('/api/stats/LilAvlis', '1.1.1.1');
+  assert.equal(blocked.status, 429);
+  assert.ok(+blocked.headers.get('Retry-After') > 0);
+  assert.equal((await hit('/api/stats/LilAvlis', '2.2.2.2')).status, 200); // other device fine
+  assert.equal((await hit('/api/shop', '1.1.1.1')).status, 200); // content not limited
+});
+
+test('kit: private / not-found lookups are cached for 10 minutes', async () => {
+  const f = mockFetch([[/name=Ghost/, 404, { error: 'not found' }]]);
+  const kit = createFortniteKit({ fortniteApiComKey: 'k', fetch: f, cacheStore: new Map() });
+  await assert.rejects(kit.stats('Ghost'), (e) => e.status === 404);
+  await assert.rejects(kit.stats('Ghost'), (e) => e.status === 404);
+  assert.equal(f.calls.length, 1, 'second lookup must not hit the API');
 });

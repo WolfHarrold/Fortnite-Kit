@@ -14,6 +14,7 @@ import { createEpicStatus } from './sources/epicStatus.js';
 import { fromFortniteApiCom } from './normalize.js';
 import { createCache } from './cache.js';
 import { treasureReport, planTreasure } from './treasure.js';
+import { FortniteKitError } from './http.js';
 
 export function createFortniteKit({
   fortniteApiComKey = '',
@@ -32,10 +33,32 @@ export function createFortniteKit({
   const contentCache = createCache({ ttlMs: contentTtlMs, store: cacheStore });
   const key = (...parts) => parts.join(':').toLowerCase();
 
+  // Failed lookups (private stats, not found) are remembered for 10 minutes, so the same bad
+  // name cannot spend the API key again and again.
+  const negStore = cacheStore ?? new Map();
+  const NEG_TTL = 10 * 6e4;
+  const negGet = async (k) => {
+    const raw = await negStore.get(`neg:${k}`);
+    if (raw == null) return null;
+    const e = typeof raw === 'string' ? JSON.parse(raw) : raw;
+    return Date.now() - e.savedAt < NEG_TTL ? e : null;
+  };
+  const negSet = (k, e) => negStore.set(`neg:${k}`, negStore instanceof Map ? e : JSON.stringify(e));
+
   async function stats(name, { timeWindow = 'season', accountType = 'epic' } = {}) {
-    const r = await statsCache.getOrLoad(key('stats', accountType, timeWindow, name), async () =>
-      fromFortniteApiCom(await fapi.statsByName(name, { timeWindow, accountType }), { timeWindow }));
-    return { ...r.value, cache: { cached: r.cached, savedAt: r.savedAt, refreshAvailableAt: r.refreshAvailableAt } };
+    const k = key('stats', accountType, timeWindow, name);
+    const neg = await negGet(k);
+    if (neg) throw new FortniteKitError(neg.message, { status: neg.status, source: 'fortnite-api.com (cached error)' });
+    try {
+      const r = await statsCache.getOrLoad(k, async () =>
+        fromFortniteApiCom(await fapi.statsByName(name, { timeWindow, accountType }), { timeWindow }));
+      return { ...r.value, cache: { cached: r.cached, savedAt: r.savedAt, refreshAvailableAt: r.refreshAvailableAt } };
+    } catch (err) {
+      if (err instanceof FortniteKitError && (err.status === 403 || err.status === 404)) {
+        await negSet(k, { status: err.status, message: err.message, savedAt: Date.now() });
+      }
+      throw err;
+    }
   }
 
   return {

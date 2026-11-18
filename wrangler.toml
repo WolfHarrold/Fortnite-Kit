@@ -2,8 +2,11 @@ name = "fortnite-kit"
 main = "worker/worker.js"
 compatibility_date = "2026-11-01"
 
-[vars]
-ALLOWED_ORIGIN = "*"   # set to your site, e.g. "https://wolfharrold.github.io"
+# No CORS by default: the Loot Terminal page is served by this Worker (same origin).
+# To let a second site call the API, uncomment:
+# [vars]
+# ALLOWED_ORIGIN = "https://wolfharrold.github.io"
+# RATE_LIMIT = "30"   # player lookups per IP per 5 minutes
 
 # Optional: keep the 20-minute cache across Worker restarts
 # [[kv_namespaces]]

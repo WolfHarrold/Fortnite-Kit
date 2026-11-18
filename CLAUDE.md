@@ -12,6 +12,7 @@ Davi's Fortnite data engine and the Loot Terminal page. Read `README.md`, `docs/
 6. The sandbox cannot reach the Fortnite APIs. Test with fixtures and mock fetch. Davi does the live check on the Worker.
 7. The page uses Davi's Phosphor design system (one hue, four tiers, fixed zones). Keep new views in that style.
 8. Write replies to Davi in short, plain ASD-STE100 style.
+9. Every new `/api` route that can call fortnite-api.com goes in `PLAYER_ROUTES` (name check + rate limit). Check every query value against a fixed list.
 
 ## Lessons
 

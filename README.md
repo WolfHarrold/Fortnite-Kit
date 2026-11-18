@@ -78,6 +78,23 @@ Worker > Settings > Builds > Connect. Repo `WolfHarrold/Fortnite-Kit`, branch `m
 Root directory: empty (repo root). Build command: `npm ci && npm run build`. Deploy command: `npx wrangler deploy`.
 Every push to `main` then builds and deploys. The secret key stays in Cloudflare.
 
+## Security
+
+The `workers.dev` address is public. The Worker guards the API so others cannot easily spend your key:
+
+1. No CORS. Other websites cannot read the API in a browser.
+2. Browser calls from other sites (`Sec-Fetch-Site: cross-site`) are refused.
+3. Bad player names are refused before any call to fortnite-api.com.
+4. Each IP gets 30 player lookups per 5 minutes (`RATE_LIMIT` var to change it).
+5. Private and not-found players are remembered for 10 minutes.
+6. Stats are cached 20 minutes per player.
+
+A script can fake browser headers, so this guard slows abuse but does not stop it. For a full lock, turn on
+**Cloudflare Access** for the Worker (Worker > Settings > Domains & Routes > workers.dev, enable Access).
+Then only emails you allow can open the page and the API. Access is free for up to 50 users.
+
+To let a second site (for example GitHub Pages) use the API, set the var `ALLOWED_ORIGIN` to that site's address.
+
 ## Worker routes
 
 | Route | Returns |

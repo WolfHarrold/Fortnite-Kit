@@ -439,9 +439,28 @@ function createFortniteKit({
   const statsCache = createCache({ ttlMs: statsTtlMs, store: cacheStore });
   const contentCache = createCache({ ttlMs: contentTtlMs, store: cacheStore });
   const key = (...parts) => parts.join(":").toLowerCase();
+  const negStore = cacheStore ?? /* @__PURE__ */ new Map();
+  const NEG_TTL = 10 * 6e4;
+  const negGet = async (k) => {
+    const raw = await negStore.get(`neg:${k}`);
+    if (raw == null) return null;
+    const e = typeof raw === "string" ? JSON.parse(raw) : raw;
+    return Date.now() - e.savedAt < NEG_TTL ? e : null;
+  };
+  const negSet = (k, e) => negStore.set(`neg:${k}`, negStore instanceof Map ? e : JSON.stringify(e));
   async function stats(name, { timeWindow = "season", accountType = "epic" } = {}) {
-    const r = await statsCache.getOrLoad(key("stats", accountType, timeWindow, name), async () => fromFortniteApiCom(await fapi.statsByName(name, { timeWindow, accountType }), { timeWindow }));
-    return { ...r.value, cache: { cached: r.cached, savedAt: r.savedAt, refreshAvailableAt: r.refreshAvailableAt } };
+    const k = key("stats", accountType, timeWindow, name);
+    const neg = await negGet(k);
+    if (neg) throw new FortniteKitError(neg.message, { status: neg.status, source: "fortnite-api.com (cached error)" });
+    try {
+      const r = await statsCache.getOrLoad(k, async () => fromFortniteApiCom(await fapi.statsByName(name, { timeWindow, accountType }), { timeWindow }));
+      return { ...r.value, cache: { cached: r.cached, savedAt: r.savedAt, refreshAvailableAt: r.refreshAvailableAt } };
+    } catch (err) {
+      if (err instanceof FortniteKitError && (err.status === 403 || err.status === 404)) {
+        await negSet(k, { status: err.status, message: err.message, savedAt: Date.now() });
+      }
+      throw err;
+    }
   }
   return {
     sources: { fortniteApiCom: fapi, fortniteApiIo: fio, epicEcosystem: eco, epicStatus: status },
@@ -483,6 +502,46 @@ function createFortniteKit({
     islands: (opts) => eco.listIslands(opts),
     island: (code) => eco.island(code),
     islandMetrics: async (code, opts) => metricsToRows(await eco.metrics(code, opts))
+  };
+}
+
+// worker/guard.js
+var NAME_RE = /^[\p{L}\p{N} _.\-#]{2,32}$/u;
+function validName(name) {
+  return typeof name === "string" && NAME_RE.test(name.trim());
+}
+function corsHeaders(request, env) {
+  const allowed = env.ALLOWED_ORIGIN;
+  const origin = request.headers.get("Origin");
+  if (allowed && allowed !== "*" && origin === allowed) {
+    return { "Access-Control-Allow-Origin": allowed, "Access-Control-Allow-Methods": "GET, OPTIONS", Vary: "Origin" };
+  }
+  if (allowed === "*") return { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "GET, OPTIONS" };
+  return {};
+}
+function fetchSiteAllowed(request, env) {
+  const site = request.headers.get("Sec-Fetch-Site");
+  if (!site || site === "same-origin" || site === "none") return true;
+  const origin = request.headers.get("Origin");
+  return Boolean(env.ALLOWED_ORIGIN && env.ALLOWED_ORIGIN !== "*" && origin === env.ALLOWED_ORIGIN);
+}
+function createRateLimiter({ limit = 30, windowMs = 5 * 6e4, now = () => Date.now() } = {}) {
+  const hits = /* @__PURE__ */ new Map();
+  return {
+    hit(key) {
+      const t = now();
+      const e = hits.get(key);
+      if (!e || t - e.start >= windowMs) {
+        hits.set(key, { start: t, count: 1 });
+        if (hits.size > 5e3) {
+          for (const [k, v] of hits) if (t - v.start >= windowMs) hits.delete(k);
+        }
+        return { ok: true, remaining: limit - 1 };
+      }
+      e.count += 1;
+      if (e.count > limit) return { ok: false, retryAfter: Math.ceil((e.start + windowMs - t) / 1e3) };
+      return { ok: true, remaining: limit - e.count };
+    }
   };
 }
 
@@ -588,7 +647,7 @@ var page_generated_default = '<!DOCTYPE html>\n<html lang="en-AU" data-ph="green
 // package.json
 var package_default = {
   name: "fortnite-kit",
-  version: "0.2.4",
+  version: "0.3.0",
   description: "Reusable Fortnite data toolkit: API clients, stats normaliser, treasure odds engine and a caching proxy. Zero dependencies. Runs in the browser, Node 18+ and Cloudflare Workers.",
   type: "module",
   main: "src/index.js",
@@ -613,21 +672,25 @@ var package_default = {
 
 // worker/worker.js
 var memoryStore = /* @__PURE__ */ new Map();
+var PLAYER_ROUTES = /* @__PURE__ */ new Set(["stats", "career", "treasure", "plan"]);
+var DEFAULT_LIMIT = 30;
+var limiter = null;
 function kvStore(kv) {
   return { get: (k) => kv.get(k), set: (k, v) => kv.put(k, v, { expirationTtl: 3600 }) };
 }
-function json(data, status, origin, maxAge = 0) {
+function json(data, status, cors, { maxAge = 0, extra = {} } = {}) {
   return new Response(status === 204 ? null : JSON.stringify(data), {
     status,
     headers: {
       "Content-Type": "application/json; charset=utf-8",
-      "Access-Control-Allow-Origin": origin,
-      "Access-Control-Allow-Methods": "GET, OPTIONS",
-      "Cache-Control": maxAge ? `public, max-age=${maxAge}` : "no-store"
+      "Cache-Control": maxAge ? `public, max-age=${maxAge}` : "no-store",
+      "X-Content-Type-Options": "nosniff",
+      ...cors,
+      ...extra
     }
   });
 }
-function errorResponse(err, origin) {
+function errorResponse(err, cors) {
   if (err instanceof FortniteKitError) {
     const friendly = {
       400: "Bad request. Check the player name and options.",
@@ -635,22 +698,46 @@ function errorResponse(err, origin) {
       404: "Player not found, or no stats for this time window.",
       429: "Too many requests. Wait and try again."
     }[err.status];
-    return json({ error: friendly ?? err.message, status: err.status, source: err.source }, err.status || 502, origin);
+    return json({ error: friendly ?? err.message, status: err.status, source: err.source }, err.status || 502, cors);
   }
-  return json({ error: err.message ?? "Server error" }, 500, origin);
+  return json({ error: err.message ?? "Server error" }, 500, cors);
 }
-async function handle(request, env = {}, { fetch: f } = {}) {
-  const origin = env.ALLOWED_ORIGIN || "*";
-  if (request.method === "OPTIONS") return json({}, 204, origin);
-  if (request.method !== "GET") return json({ error: "GET only" }, 405, origin);
+async function handle(request, env = {}, { fetch: f, rateLimiter } = {}) {
+  const cors = corsHeaders(request, env);
+  if (request.method === "OPTIONS") return json({}, 204, cors);
+  if (request.method !== "GET") return json({ error: "GET only" }, 405, cors);
   const url = new URL(request.url);
   const q = url.searchParams;
   if (url.pathname === "/" || url.pathname === "/index.html") {
-    return new Response(page_generated_default, { headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" } });
+    return new Response(page_generated_default, {
+      headers: {
+        "Content-Type": "text/html; charset=utf-8",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff",
+        "Referrer-Policy": "no-referrer"
+      }
+    });
   }
-  const parts = url.pathname.replace(/^\/+|\/+$/g, "").split("/").map(decodeURIComponent);
-  if (parts[0] !== "api") return json({ error: "Not found" }, 404, origin);
+  let parts;
+  try {
+    parts = url.pathname.replace(/^\/+|\/+$/g, "").split("/").map(decodeURIComponent);
+  } catch {
+    return json({ error: "Bad path" }, 400, cors);
+  }
+  if (parts[0] !== "api") return json({ error: "Not found" }, 404, cors);
   const [, route, a, b, c] = parts;
+  if (!fetchSiteAllowed(request, env)) {
+    return json({ error: "This API only serves the Loot Terminal page." }, 403, cors);
+  }
+  if (PLAYER_ROUTES.has(route)) {
+    if (!validName(a ?? "")) return json({ error: "Bad player name.", status: 400 }, 400, cors);
+    limiter = rateLimiter ?? limiter ?? createRateLimiter({ limit: +env.RATE_LIMIT || DEFAULT_LIMIT, windowMs: 5 * 6e4 });
+    const ip = request.headers.get("CF-Connecting-IP") ?? "local";
+    const r = limiter.hit(ip);
+    if (!r.ok) {
+      return json({ error: `Too many lookups. Wait ${r.retryAfter} s.`, status: 429 }, 429, cors, { extra: { "Retry-After": String(r.retryAfter) } });
+    }
+  }
   const kit = createFortniteKit({
     fortniteApiComKey: env.FORTNITE_API_COM_KEY,
     fortniteApiIoKey: env.FORTNITE_API_IO_KEY,
@@ -661,16 +748,17 @@ async function handle(request, env = {}, { fetch: f } = {}) {
   const cpm = (v) => v == null ? void 0 : Number.isFinite(+v) ? +v : v;
   const num = (v) => v == null ? void 0 : +v;
   const chestOpts = () => ({ chestsPerMatch: cpm(q.get("chestsPerMatch")), chestsPerMinute: num(q.get("chestsPerMinute")) });
+  const acct = ["epic", "psn", "xbl"].includes(q.get("accountType")) ? q.get("accountType") : "epic";
   try {
     switch (route) {
       case "health":
-        return json({ ok: true, version: package_default.version, event: treasure_hunters_2026_default.id, hasStatsKey: Boolean(env.FORTNITE_API_COM_KEY) }, 200, origin);
+        return json({ ok: true, version: package_default.version, event: treasure_hunters_2026_default.id, hasStatsKey: Boolean(env.FORTNITE_API_COM_KEY) }, 200, cors);
       case "stats":
-        return json(await kit.stats(a, { timeWindow: q.get("window") ?? "season", accountType: q.get("accountType") ?? "epic" }), 200, origin);
+        return json(await kit.stats(a, { timeWindow: q.get("window") === "lifetime" ? "lifetime" : "season", accountType: acct }), 200, cors);
       case "career":
-        return json(await kit.career(a, { accountType: q.get("accountType") ?? "epic", withMatches: q.get("matches") === "1" }), 200, origin);
+        return json(await kit.career(a, { accountType: acct, withMatches: q.get("matches") === "1" }), 200, cors);
       case "treasure":
-        return json(await kit.treasure(a, chestOpts()), 200, origin);
+        return json(await kit.treasure(a, chestOpts()), 200, cors);
       case "plan": {
         const t = await kit.treasure(a, chestOpts());
         const plan = kit.plan({
@@ -682,27 +770,27 @@ async function handle(request, env = {}, { fetch: f } = {}) {
           treasureHourMinutes: +(q.get("thMinutes") ?? 0),
           treasureHour: q.has("th") ? +q.get("th") : null
         });
-        return json({ player: t.player, ...plan }, 200, origin);
+        return json({ player: t.player, ...plan }, 200, cors);
       }
       case "shop":
-        return json(await kit.shop(), 200, origin, 600);
+        return json(await kit.shop(), 200, cors, { maxAge: 600 });
       case "news":
-        return json(await kit.news(a ?? "br"), 200, origin, 600);
+        return json(await kit.news(["br", "stw", "creative"].includes(a) ? a : "br"), 200, cors, { maxAge: 600 });
       case "cosmetics":
-        return json(await kit.newCosmetics(), 200, origin, 600);
+        return json(await kit.newCosmetics(), 200, cors, { maxAge: 600 });
       case "map":
-        return json(await kit.map(), 200, origin, 3600);
+        return json(await kit.map(), 200, cors, { maxAge: 3600 });
       case "status":
-        return json(await kit.serverStatus(), 200, origin, 60);
+        return json(await kit.serverStatus(), 200, cors, { maxAge: 60 });
       case "islands":
-        if (!a) return json(await kit.islands({ size: +(q.get("size") ?? 100), after: q.get("after") ?? void 0 }), 200, origin, 600);
-        if (b === "metrics") return json(await kit.islandMetrics(a, { interval: c ?? "day", from: q.get("from") ?? void 0, to: q.get("to") ?? void 0 }), 200, origin, 600);
-        return json(await kit.island(a), 200, origin, 600);
+        if (!a) return json(await kit.islands({ size: Math.min(1e3, +(q.get("size") ?? 100) || 100), after: q.get("after") ?? void 0 }), 200, cors, { maxAge: 600 });
+        if (b === "metrics") return json(await kit.islandMetrics(a, { interval: ["minute", "hour", "day"].includes(c) ? c : "day", from: q.get("from") ?? void 0, to: q.get("to") ?? void 0 }), 200, cors, { maxAge: 600 });
+        return json(await kit.island(a), 200, cors, { maxAge: 600 });
       default:
-        return json({ error: "Unknown route" }, 404, origin);
+        return json({ error: "Unknown route" }, 404, cors);
     }
   } catch (err) {
-    return errorResponse(err, origin);
+    return errorResponse(err, cors);
   }
 }
 var worker_default = { fetch: (request, env) => handle(request, env) };
