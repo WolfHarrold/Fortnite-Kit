@@ -488,7 +488,9 @@ const views = {
       <div class="field"><label>EFFECTS</label>${seg('fx', [['on', 'ON'], ['off', 'OFF']], S.fx ? 'on' : 'off')}</div>
       <div class="field"><label>SOUND</label>${seg('sound', [['on', 'ON'], ['off', 'OFF']], S.sound ? 'on' : 'off')}</div>
       <div class="field"><label>BOOT SEQUENCE</label>${seg('boot', [['on', 'ON'], ['off', 'OFF']], S.boot ? 'on' : 'off')}</div>
-      <div class="field"><label>LOCAL DATA</label><div class="inline"><button class="btn" data-action="wipe">CLEAR SAVED SETTINGS AND CACHE</button></div></div>`;
+      <div class="field"><label>LOCAL DATA</label><div class="inline"><button class="btn" data-action="wipe">CLEAR SAVED SETTINGS AND CACHE</button></div></div>
+      <div class="field"><label>SCREEN</label><span class="hint" id="screenInfo">${screenInfo()}</span>
+        <span class="hint">Send this line if the footer is cut off. FOOTER must be no more than VISUAL.</span></div>`;
   },
 };
 
@@ -708,6 +710,26 @@ function bootSequence() {
     }, 30);
   });
 }
+
+// ---------------------------------------------------------------- viewport
+// Size the screen to what the browser really shows (fixes footers hidden under phone bars).
+function fitViewport() {
+  const vv = window.visualViewport;
+  const h = vv ? vv.height : window.innerHeight;
+  const top = vv ? vv.offsetTop : 0;
+  document.documentElement.style.setProperty('--vvh', `${Math.round(h)}px`);
+  document.documentElement.style.setProperty('--vvt', `${Math.round(top)}px`);
+}
+function screenInfo() {
+  const vv = window.visualViewport; const f = $('footer')?.getBoundingClientRect();
+  const safe = parseFloat(getComputedStyle($('safeProbe')).paddingBottom) || 0;
+  return `INNER ${window.innerHeight} · VISUAL ${vv ? Math.round(vv.height) : '—'} · SAFE ${Math.round(safe)} · FOOTER ${f ? Math.round(f.bottom) : '—'} · DPR ${window.devicePixelRatio}`;
+}
+fitViewport();
+window.visualViewport?.addEventListener('resize', fitViewport);
+window.visualViewport?.addEventListener('scroll', fitViewport);
+window.addEventListener('resize', fitViewport);
+window.addEventListener('orientationchange', () => setTimeout(fitViewport, 300));
 
 // ---------------------------------------------------------------- start
 (async function start() {

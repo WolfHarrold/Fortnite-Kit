@@ -35,8 +35,8 @@ button, input, select { font: inherit; color: inherit; background: none; border:
 .glow { text-shadow: 0 0 0.4rem; }
 
 /* ---------- zones ---------- */
-/* fixed + inset 0 follows the visible area on phones, so the footer never hides under browser bars */
-.screen { position: fixed; inset: 0; display: grid; grid-template-rows: auto auto auto minmax(0, 1fr) auto; max-width: 1100px; margin: 0 auto;
+/* Height comes from window.visualViewport (set in JS as --vvh): the area the browser really shows. */
+.screen { position: fixed; top: var(--vvt, 0px); left: 0; right: 0; height: var(--vvh, 100dvh); display: grid; grid-template-rows: auto auto auto minmax(0, 1fr) auto; max-width: 1100px; margin: 0 auto;
   padding: env(safe-area-inset-top) max(16px, env(safe-area-inset-right)) env(safe-area-inset-bottom) max(16px, env(safe-area-inset-left)); }
 .brand { display: flex; justify-content: space-between; align-items: baseline; font-family: var(--f-mono); font-size: 0.72rem; color: var(--t2); padding: 0.4rem 0 0.1rem; text-transform: uppercase; letter-spacing: 0.04em; }
 .brand b { color: var(--t1); font-weight: 400; }
@@ -158,6 +158,7 @@ body.nofx .glow { text-shadow: none; }
   <main id="content" tabindex="-1" aria-live="polite"></main>
   <footer class="bar" id="footer"></footer>
 </div>
+<div id="safeProbe" aria-hidden="true" style="position:fixed;left:0;top:0;width:0;height:0;padding-bottom:env(safe-area-inset-bottom);visibility:hidden"></div>
 <div class="fx band" aria-hidden="true"></div>
 <div class="fx scan" aria-hidden="true"></div>
 <div class="fx vig" aria-hidden="true"></div>
@@ -1241,7 +1242,9 @@ body.nofx .glow { text-shadow: none; }
       <div class="field"><label>EFFECTS</label>${seg("fx", [["on", "ON"], ["off", "OFF"]], S.fx ? "on" : "off")}</div>
       <div class="field"><label>SOUND</label>${seg("sound", [["on", "ON"], ["off", "OFF"]], S.sound ? "on" : "off")}</div>
       <div class="field"><label>BOOT SEQUENCE</label>${seg("boot", [["on", "ON"], ["off", "OFF"]], S.boot ? "on" : "off")}</div>
-      <div class="field"><label>LOCAL DATA</label><div class="inline"><button class="btn" data-action="wipe">CLEAR SAVED SETTINGS AND CACHE</button></div></div>`;
+      <div class="field"><label>LOCAL DATA</label><div class="inline"><button class="btn" data-action="wipe">CLEAR SAVED SETTINGS AND CACHE</button></div></div>
+      <div class="field"><label>SCREEN</label><span class="hint" id="screenInfo">${screenInfo()}</span>
+        <span class="hint">Send this line if the footer is cut off. FOOTER must be no more than VISUAL.</span></div>`;
     }
   };
   function placementFigs(o) {
@@ -1630,6 +1633,24 @@ LOOT TERMINAL
       }, 30);
     });
   }
+  function fitViewport() {
+    const vv = window.visualViewport;
+    const h = vv ? vv.height : window.innerHeight;
+    const top = vv ? vv.offsetTop : 0;
+    document.documentElement.style.setProperty("--vvh", `${Math.round(h)}px`);
+    document.documentElement.style.setProperty("--vvt", `${Math.round(top)}px`);
+  }
+  function screenInfo() {
+    const vv = window.visualViewport;
+    const f = $("footer")?.getBoundingClientRect();
+    const safe = parseFloat(getComputedStyle($("safeProbe")).paddingBottom) || 0;
+    return `INNER ${window.innerHeight} \xB7 VISUAL ${vv ? Math.round(vv.height) : "\u2014"} \xB7 SAFE ${Math.round(safe)} \xB7 FOOTER ${f ? Math.round(f.bottom) : "\u2014"} \xB7 DPR ${window.devicePixelRatio}`;
+  }
+  fitViewport();
+  window.visualViewport?.addEventListener("resize", fitViewport);
+  window.visualViewport?.addEventListener("scroll", fitViewport);
+  window.addEventListener("resize", fitViewport);
+  window.addEventListener("orientationchange", () => setTimeout(fitViewport, 300));
   (async function start() {
     render();
     await resolveMode();

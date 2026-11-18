@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.3 — 18 Nov 2026
+- Screen height from window.visualViewport (the area Chrome really shows).
+- SYS > SETTINGS shows a SCREEN line (viewport, safe area, footer position) for layout checks.
+
 ## 0.2.2 — 18 Nov 2026
 - viewport-fit=cover + safe-area padding: footer sits above the phone's button bar (Android edge-to-edge).
 
