@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en-AU" data-ph="green">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Loot Terminal Overlay</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+/* Loot Terminal stream overlay — Phosphor (one hue, four tiers). Transparent background for OBS.
+   Layout idea: one name row, then a row of fixed stat cells, like the Phosphor footer. */
+:root {
+  --t1: #00ff00; --t2: #00be00; --t3: #007f00; --t4: #003f00; --alert: #c72d04;
+  --f-tab: "Roboto Condensed", "Arial Narrow", sans-serif;
+  --f-mono: "Share Tech Mono", ui-monospace, monospace;
+  --scale: 1;
+}
+html[data-ph="amber"] { --t1:#ffbf00; --t2:#be8e00; --t3:#7f5f00; --t4:#3f2f00; }
+html[data-ph="blue"]  { --t1:#007fff; --t2:#007fff; --t3:#003f7f; --t4:#001f3f; }
+html[data-ph="white"] { --t1:#ffffff; --t2:#bebebe; --t3:#7f7f7f; --t4:#3f3f3f; }
+html, body { margin: 0; background: transparent; color: var(--t1); }
+body.ovl-solid { background: #000; }
+.ovl { display: inline-block; font-family: var(--f-tab); text-transform: uppercase; text-shadow: 0 0 0.4rem; font-size: calc(18px * var(--scale)); padding: 0.4em; }
+.ovl-head { display: flex; justify-content: space-between; gap: 1.5em; border-bottom: 1px solid var(--t1); padding: 0 0.2em 0.15em; }
+.ovl-name { font-size: 1.15em; }
+.ovl-tag { color: var(--t2); font-size: 0.75em; align-self: flex-end; font-family: var(--f-mono); }
+.ovl-cells { display: flex; gap: 2px; margin-top: 0.35em; }
+.ovl-cell { background: var(--t4); padding: 0.2em 0.6em; display: flex; flex-direction: column; min-width: 4.5em; }
+.ovl-k { font-size: 0.65em; color: var(--t2); }
+.ovl-v { font-size: 1.35em; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.ovl-msg { font-family: var(--f-mono); font-size: 0.8em; padding: 0.3em 0.2em; }
+.ovl-alert { animation: ovlblink 1s steps(1) infinite; }
+@keyframes ovlblink { 50% { color: var(--alert); } }
+@media (prefers-reduced-motion: reduce) { .ovl-alert { animation: none; } }
+</style>
+</head>
+<body>
+<div class="ovl" id="ovl" aria-live="polite"></div>
+<script>
+/*APP*/
+</script>
+</body>
+</html>

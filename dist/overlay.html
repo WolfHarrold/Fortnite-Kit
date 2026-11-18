@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en-AU" data-ph="green">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Loot Terminal Overlay</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+/* Loot Terminal stream overlay — Phosphor (one hue, four tiers). Transparent background for OBS.
+   Layout idea: one name row, then a row of fixed stat cells, like the Phosphor footer. */
+:root {
+  --t1: #00ff00; --t2: #00be00; --t3: #007f00; --t4: #003f00; --alert: #c72d04;
+  --f-tab: "Roboto Condensed", "Arial Narrow", sans-serif;
+  --f-mono: "Share Tech Mono", ui-monospace, monospace;
+  --scale: 1;
+}
+html[data-ph="amber"] { --t1:#ffbf00; --t2:#be8e00; --t3:#7f5f00; --t4:#3f2f00; }
+html[data-ph="blue"]  { --t1:#007fff; --t2:#007fff; --t3:#003f7f; --t4:#001f3f; }
+html[data-ph="white"] { --t1:#ffffff; --t2:#bebebe; --t3:#7f7f7f; --t4:#3f3f3f; }
+html, body { margin: 0; background: transparent; color: var(--t1); }
+body.ovl-solid { background: #000; }
+.ovl { display: inline-block; font-family: var(--f-tab); text-transform: uppercase; text-shadow: 0 0 0.4rem; font-size: calc(18px * var(--scale)); padding: 0.4em; }
+.ovl-head { display: flex; justify-content: space-between; gap: 1.5em; border-bottom: 1px solid var(--t1); padding: 0 0.2em 0.15em; }
+.ovl-name { font-size: 1.15em; }
+.ovl-tag { color: var(--t2); font-size: 0.75em; align-self: flex-end; font-family: var(--f-mono); }
+.ovl-cells { display: flex; gap: 2px; margin-top: 0.35em; }
+.ovl-cell { background: var(--t4); padding: 0.2em 0.6em; display: flex; flex-direction: column; min-width: 4.5em; }
+.ovl-k { font-size: 0.65em; color: var(--t2); }
+.ovl-v { font-size: 1.35em; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.ovl-msg { font-family: var(--f-mono); font-size: 0.8em; padding: 0.3em 0.2em; }
+.ovl-alert { animation: ovlblink 1s steps(1) infinite; }
+@keyframes ovlblink { 50% { color: var(--alert); } }
+@media (prefers-reduced-motion: reduce) { .ovl-alert { animation: none; } }
+</style>
+</head>
+<body>
+<div class="ovl" id="ovl" aria-live="polite"></div>
+<script>
+(() => {
+  // src/http.js
+  var FortniteKitError = class extends Error {
+    constructor(message, { status = 0, source = "", url = "", body = null } = {}) {
+      super(message);
+      this.name = "FortniteKitError";
+      this.status = status;
+      this.source = source;
+      this.url = url;
+      this.body = body;
+    }
+  };
+  async function getJson(url, { headers = {}, timeoutMs = 15e3, fetch: f = globalThis.fetch, source = "" } = {}) {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), timeoutMs);
+    let res;
+    try {
+      res = await f(url, { headers: { Accept: "application/json", ...headers }, signal: ctrl.signal });
+    } catch (err) {
+      throw new FortniteKitError(`Network error: ${err.message}`, { source, url });
+    } finally {
+      clearTimeout(timer);
+    }
+    if (res.status === 204) return null;
+    const text = await res.text();
+    let body = null;
+    try {
+      body = text ? JSON.parse(text) : null;
+    } catch {
+      body = text;
+    }
+    if (!res.ok) {
+      const msg = body && (body.error || body.message) || res.statusText || "Request failed";
+      throw new FortniteKitError(`${source} ${res.status}: ${msg}`, { status: res.status, source, url, body });
+    }
+    return body;
+  }
+
+  // src/odds.js
+  var clamp01 = (x) => Math.min(1, Math.max(0, x));
+  var perTry = (odds, multiplier = 1) => clamp01(multiplier / odds);
+  function chanceAtLeastOne(odds, tries, multiplier = 1) {
+    const p = perTry(odds, multiplier);
+    if (tries <= 0 || p === 0) return 0;
+    if (p === 1) return 1;
+    return 1 - Math.exp(tries * Math.log1p(-p));
+  }
+  function triesForChance(odds, target, multiplier = 1) {
+    const p = perTry(odds, multiplier);
+    if (target <= 0) return 0;
+    if (target >= 1 || p === 0) return Infinity;
+    return Math.ceil(Math.log1p(-target) / Math.log1p(-p));
+  }
+  var expectedDrops = (odds, tries, multiplier = 1) => tries * perTry(odds, multiplier);
+  var pct = (x, dp = 2) => `${(x * 100).toFixed(dp)}%`;
+
+  // src/treasure.js
+  var DAY = 864e5;
+  function eventWeek(event, now = /* @__PURE__ */ new Date()) {
+    const [hh, mm] = (event.weekResetUtc ?? "00:00").split(":").map(Number);
+    const start = Date.parse(`${event.start}T00:00:00Z`) + (hh * 60 + mm) * 6e4;
+    const end = Date.parse(`${event.end}T23:59:59Z`);
+    const len = (event.weekLengthDays ?? 7) * DAY;
+    const t = Math.min(Math.max(+now, start), end);
+    const weekNumber = Math.floor((t - start) / len) + 1;
+    return {
+      weekNumber,
+      weeksElapsed: weekNumber,
+      weekStart: new Date(start + (weekNumber - 1) * len).toISOString(),
+      weekEnd: new Date(Math.min(start + weekNumber * len, end)).toISOString(),
+      started: +now >= start,
+      ended: +now > end
+    };
+  }
+  function resolveChestModel(event, { chestsPerMatch, chestsPerMinute } = {}) {
+    if (chestsPerMatch != null) {
+      const rate = typeof chestsPerMatch === "number" ? chestsPerMatch : event.chestsPerMatch?.[chestsPerMatch];
+      if (typeof rate !== "number") throw new Error(`Unknown chests-per-match preset: ${chestsPerMatch}`);
+      return { method: "matches", rate };
+    }
+    return { method: "minutes", rate: chestsPerMinute ?? event.chestsPerMinute ?? 2 };
+  }
+  function treasureReport({ event, matches = 0, minutesPlayed = 0, chestsPerMatch, chestsPerMinute, now = /* @__PURE__ */ new Date(), splitWeekly = "even" }) {
+    const model = resolveChestModel(event, { chestsPerMatch, chestsPerMinute });
+    if (model.method === "minutes" && !minutesPlayed && matches) {
+      throw new Error("No minutesPlayed in the stats. Pass chestsPerMatch to use the per-match method.");
+    }
+    const wk = eventWeek(event, now);
+    const seasonChests = Math.round(model.method === "minutes" ? minutesPlayed * model.rate : matches * model.rate);
+    const weekChests = splitWeekly === "even" ? Math.floor(seasonChests / Math.max(wk.weeksElapsed, 1)) : seasonChests;
+    const avgMinutesPerMatch = matches ? minutesPlayed / matches : 0;
+    const rewards = event.rewards.map((r) => {
+      const chests = r.scope === "week" ? weekChests : seasonChests;
+      const chance = chanceAtLeastOne(r.odds, chests);
+      return {
+        id: r.id,
+        name: r.name,
+        odds: r.odds,
+        scope: r.scope,
+        chests,
+        chance,
+        noChance: 1 - chance,
+        expected: r.repeatable ? expectedDrops(r.odds, chests) : void 0,
+        chestsFor50: triesForChance(r.odds, 0.5),
+        chestsFor90: triesForChance(r.odds, 0.9)
+      };
+    });
+    return {
+      event: event.id,
+      week: wk,
+      matches,
+      minutesPlayed,
+      method: model.method,
+      chestsPerMinute: model.method === "minutes" ? model.rate : null,
+      chestsPerMatch: model.method === "matches" ? model.rate : avgMinutesPerMatch * model.rate,
+      // effective
+      avgMinutesPerMatch,
+      seasonChests,
+      weekChests,
+      rewards
+    };
+  }
+
+  // data/treasure-hunters-2026.json
+  var treasure_hunters_2026_default = {
+    id: "treasure-hunters-2026",
+    name: "Fortnite Treasure Hunters",
+    notes: "Chapter 7 mini-season. Odds are per eligible chest. Chest estimate = alive minutes played x chestsPerMinute (Davi's observed rate: one chest every 30 s). Week boundary time is an assumption (00:00 UTC on the start date); change weekResetUtc if Epic's weekly rotation uses another hour.",
+    start: "2026-11-01",
+    end: "2026-12-05",
+    weekResetUtc: "00:00",
+    weekLengthDays: 7,
+    chestsPerMinute: 2,
+    chestsPerMatch: {
+      funaglet: 50,
+      _why: "Per-match presets. 'funaglet' copies FUNAGLET's 50 chests per Solo match. Pass chestsPerMatch to use one; otherwise the kit uses alive minutes x chestsPerMinute."
+    },
+    rewards: [
+      {
+        id: "pirate-shop-access",
+        name: "Pirate Shop Access",
+        odds: 137500,
+        scope: "season",
+        repeatable: false,
+        treasureHourMultipliers: [
+          1.5,
+          2
+        ]
+      },
+      {
+        id: "weekly-gold-outfit",
+        name: "Weekly Gold Outfit",
+        odds: 1562500,
+        scope: "week",
+        repeatable: false,
+        treasureHourMultipliers: [
+          7.5,
+          10
+        ]
+      },
+      {
+        id: "weekly-vehicle-decal",
+        name: "Weekly Vehicle & Decal",
+        odds: 7813,
+        scope: "week",
+        repeatable: false,
+        treasureHourMultipliers: [
+          10
+        ]
+      },
+      {
+        id: "weekly-pickaxe-backbling",
+        name: "Weekly Pickaxe or Back Bling",
+        odds: 568,
+        scope: "week",
+        repeatable: false,
+        treasureHourMultipliers: []
+      },
+      {
+        id: "weekly-jam-track",
+        name: "Weekly Jam Track",
+        odds: 391,
+        scope: "week",
+        repeatable: false,
+        treasureHourMultipliers: []
+      },
+      {
+        id: "weekly-loading-screen",
+        name: "Weekly Loading Screen",
+        odds: 272,
+        scope: "week",
+        repeatable: false,
+        treasureHourMultipliers: []
+      },
+      {
+        id: "gizmo",
+        name: "Gizmo (any)",
+        odds: 127,
+        scope: "season",
+        repeatable: true,
+        treasureHourMultipliers: []
+      }
+    ],
+    sources: [
+      {
+        title: "Epic \u2014 Fortnite Status post, 7 Nov 2026 (as reported by Playnews)",
+        url: "https://www.playnews.gg/en/news/fortnite-pirate-shop-access-odds-1-in-137-500-per-chest-2x-in-treasure-hours"
+      },
+      {
+        title: "Epic help: Pirate Treasure drop rates",
+        url: "https://www.epicgames.com/help/c-34254770/c-33726977/a14361627"
+      },
+      {
+        title: "Prima Games: schedule (1 Nov - 5 Dec)",
+        url: "https://primagames.com/gaming/complete-fortnite-treasure-chest-rewards-odds-schedule"
+      }
+    ],
+    treasureHours: [
+      {
+        start: "2026-11-07T19:00:00Z",
+        end: "2026-11-07T21:00:00Z",
+        status: "official",
+        multipliers: {
+          "pirate-shop-access": 1.5,
+          "weekly-gold-outfit": 7.5,
+          "weekly-vehicle-decal": 10
+        }
+      },
+      {
+        start: "2026-11-08T02:00:00Z",
+        end: "2026-11-08T04:00:00Z",
+        status: "official",
+        multipliers: {
+          "pirate-shop-access": 2,
+          "weekly-gold-outfit": 10,
+          "weekly-vehicle-decal": 10
+        }
+      },
+      {
+        start: "2026-11-14T19:00:00Z",
+        end: "2026-11-14T21:00:00Z",
+        status: "official",
+        name: "Cursed"
+      },
+      {
+        start: "2026-11-15T02:00:00Z",
+        end: "2026-11-15T04:00:00Z",
+        status: "official",
+        name: "Cursed"
+      },
+      {
+        start: "2026-11-21T19:00:00Z",
+        end: "2026-11-21T21:00:00Z",
+        status: "expected"
+      },
+      {
+        start: "2026-11-22T02:00:00Z",
+        end: "2026-11-22T04:00:00Z",
+        status: "expected"
+      },
+      {
+        start: "2026-11-28T19:00:00Z",
+        end: "2026-11-28T21:00:00Z",
+        status: "expected"
+      },
+      {
+        start: "2026-11-29T02:00:00Z",
+        end: "2026-11-29T04:00:00Z",
+        status: "expected"
+      }
+    ],
+    treasureHoursNote: "Times in UTC. 'expected' = Saturday pattern (2-4 PM and 9-11 PM US Eastern), not yet confirmed by Epic. Change status to 'official' and add multipliers when Epic posts the notice."
+  };
+
+  // ui/overlay.js
+  var q = new URLSearchParams(location.search);
+  var pick = (v, list, d) => list.includes(v) ? v : d;
+  var name = (q.get("name") ?? "").trim();
+  var acct = pick(q.get("acct"), ["epic", "psn", "xbl"], "epic");
+  var theme = pick(q.get("theme"), ["green", "amber", "blue", "white"], "green");
+  var refreshMin = Math.min(60, Math.max(5, +q.get("refresh") || 10));
+  var scale = Math.min(3, Math.max(0.5, +q.get("scale") || 1));
+  var FIELDS = {
+    wins: { k: "WINS", v: (o) => fmt(o.wins) },
+    kd: { k: "K/D", v: (o) => fmt(o.kd, 2) },
+    winrate: { k: "WIN %", v: (o) => `${fmt(o.winRate, 1)}%` },
+    kills: { k: "KILLS", v: (o) => fmt(o.kills) },
+    matches: { k: "MATCHES", v: (o) => fmt(o.matches) },
+    time: { k: "TIME ALIVE", v: (o) => `${Math.floor(o.minutesPlayed / 60)}H` },
+    kpm: { k: "KILLS/MATCH", v: (o) => fmt(o.killsPerMatch, 2) },
+    token: { k: "TOKEN", v: (o) => tokenChance(o) }
+  };
+  var fields = (q.get("fields") ?? "wins,kd,winrate,token").split(",").map((s) => s.trim().toLowerCase()).filter((f) => FIELDS[f]).slice(0, 6);
+  document.documentElement.dataset.ph = theme;
+  document.documentElement.style.setProperty("--scale", String(scale));
+  if (q.get("bg") === "solid") document.body.classList.add("ovl-solid");
+  var el = document.getElementById("ovl");
+  var esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+  function fmt(x, dp = 0) {
+    return x == null || Number.isNaN(+x) ? "\u2014" : (+x).toLocaleString("en-AU", { maximumFractionDigits: dp, minimumFractionDigits: dp });
+  }
+  function tokenChance(o) {
+    try {
+      return pct(treasureReport({ event: treasure_hunters_2026_default, matches: o.matches, minutesPlayed: o.minutesPlayed }).rewards[0].chance);
+    } catch {
+      return "\u2014";
+    }
+  }
+  function show(html) {
+    el.innerHTML = html;
+  }
+  async function update() {
+    if (!name) {
+      show('<div class="ovl-msg">ADD ?name=YOUR_EPIC_NAME TO THE URL</div>');
+      return;
+    }
+    try {
+      const s = await getJson(`/api/stats/${encodeURIComponent(name)}?window=season&accountType=${acct}`, { source: "worker" });
+      const o = s.overall;
+      show(`<div class="ovl-head"><span class="ovl-name">${esc(s.account?.name ?? name)}</span><span class="ovl-tag">SEASON</span></div>
+      <div class="ovl-cells">${fields.map((f) => `<div class="ovl-cell"><span class="ovl-k">${FIELDS[f].k}</span><span class="ovl-v">${FIELDS[f].v(o)}</span></div>`).join("")}</div>`);
+    } catch (err) {
+      const st = err?.status;
+      const msg = st === 403 ? "PRIVATE STATS" : st === 404 ? "PLAYER NOT FOUND" : st === 429 ? "TOO MANY LOOKUPS" : "NO DATA";
+      if (!el.querySelector(".ovl-cells")) show(`<div class="ovl-msg ovl-alert">ERROR: ${msg}</div>`);
+    }
+  }
+  update();
+  setInterval(update, refreshMin * 6e4);
+})();
+
+</script>
+</body>
+</html>

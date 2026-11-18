@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.0 — 18 Nov 2026
+- STAT > SQUAD: squad leaderboard (up to 8 names, saved on the device). Rank by wins, K/D, win %, kills, time alive or matches. `src/squad.js` (`rankSquad`, `cleanSquadNames`).
+- Stream overlay at `/overlay` (OBS Browser source): transparent Phosphor panel, options name, acct, theme, fields, refresh, scale, bg. Link builder with COPY in SYS > SETTINGS.
+- Sub-tab row: safe centring and tighter spacing on narrow phones (first label no longer cut off).
+- `docs/ROADMAP.md` with the agreed next steps and ideas.
+
 ## 0.5.1 — 18 Nov 2026
 - Rarest job fixed: shop history needs `responseFlags=4`. First live run: 16,850 cosmetics, 26 categories.
 - RARE details show the cosmetic SERIES (collab series such as Marvel or Icon).

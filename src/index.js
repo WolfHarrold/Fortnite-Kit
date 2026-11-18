@@ -12,3 +12,5 @@ export { treasureReport, planTreasure, eventWeek, resolveChestModel, resolveChes
 export { createCache } from './cache.js';
 export { FortniteKitError, buildUrl, getJson } from './http.js';
 export { normalizeShop, normalizeNews, normalizeMap } from './content.js';
+export { rankSquad, cleanSquadNames, SQUAD_METRICS, SQUAD_MAX } from './squad.js';
+export { computeRarity, shopStats } from './rarity.js';

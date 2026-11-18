@@ -49,8 +49,10 @@ nav.tabs::before { left: 0; } nav.tabs::after { right: 0; }
 .tab.on::after { content: ""; position: absolute; left: -4px; right: -3px; bottom: -1px; height: 0.7rem; border-left: 1px solid var(--t1); border-right: 1px solid var(--t1);
   background: linear-gradient(var(--t1), var(--t1)) left top / 3px 1px no-repeat, linear-gradient(var(--t1), var(--t1)) right top / 3px 1px no-repeat; }
 
-.subtabs { display: flex; gap: 1rem; justify-content: center; height: 1.9rem; align-items: center; margin-top: var(--gap); overflow-x: auto; scrollbar-width: none; }
+.subtabs { display: flex; gap: 1rem; justify-content: center; justify-content: safe center; height: 1.9rem; align-items: center; margin-top: var(--gap); overflow-x: auto; scrollbar-width: none; }
 .subtabs:empty { height: 0.4rem; }
+@media (max-width: 480px) { .subtabs { gap: 0.7rem; } .sub { font-size: 0.88rem; } }
+@media (max-width: 380px) { .subtabs { gap: 0.5rem; } .sub { font-size: 0.8rem; } }
 .sub { font-family: var(--f-tab); font-size: 0.95rem; text-transform: uppercase; color: var(--t3); cursor: pointer; white-space: nowrap; transition: color calc(120ms * var(--speed, 1)) linear; }
 .sub.on { color: var(--t1); }
 
@@ -141,6 +143,11 @@ canvas.map { width: 100%; height: auto; display: block; border: 1px solid var(--
 .sched-next { outline: 1px solid var(--t1); outline-offset: -1px; }
 .sched-live { background: var(--t1); color: var(--t4); text-shadow: none; }
 .sched-live .r { color: var(--t4); }
+
+/* ---------- squad + overlay link ---------- */
+.sq-metrics { margin-bottom: 0.6rem; }
+.sq-metrics .seg { flex-wrap: wrap; }
+.ovl-link { font-family: var(--f-mono); font-size: 0.8rem; color: var(--t1); border: 1px solid var(--t3); padding: 0.3rem 0.45rem; word-break: break-all; user-select: all; max-width: 40rem; }
 
 /* ---------- effects (top layers, never hide data) ---------- */
 .fx { position: fixed; inset: 0; pointer-events: none; z-index: 10; }

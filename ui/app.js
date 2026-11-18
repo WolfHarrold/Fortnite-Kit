@@ -9,7 +9,8 @@
 
 import { createFortniteApiCom } from '../src/sources/fortniteApiCom.js';
 import { createEpicStatus } from '../src/sources/epicStatus.js';
-import { fromFortniteApiCom } from '../src/normalize.js';
+import { fromFortniteApiCom, finishBlock } from '../src/normalize.js';
+import { rankSquad, cleanSquadNames, SQUAD_METRICS, SQUAD_MAX } from '../src/squad.js';
 import { treasureReport, planTreasure, eventWeek, treasureHourSessions } from '../src/treasure.js';
 import { chanceAtLeastOneMixed, pct } from '../src/odds.js';
 import { normalizeShop, normalizeNews, normalizeMap } from '../src/content.js';
@@ -28,7 +29,7 @@ const lsStore = { get: (k) => ls('c.' + k), set: (k, v) => lsSet('c.' + k, v) };
 
 // ---------------------------------------------------------------- state
 const TABS = [
-  { id: 'stat', label: 'STAT', subs: ['SEASON', 'CAREER', 'MODES', 'INPUT'] },
+  { id: 'stat', label: 'STAT', subs: ['SEASON', 'CAREER', 'MODES', 'INPUT', 'SQUAD'] },
   { id: 'loot', label: 'LOOT', subs: ['ODDS', 'PLANNER', 'METHOD', 'GUIDE'] },
   { id: 'shop', label: 'SHOP', subs: ['ITEMS', 'RARE', 'NEWS'] },
   { id: 'map', label: 'MAP', subs: [] },
@@ -52,6 +53,7 @@ const S = {
   chest: { method: ls('chestMethod', 'minutes'), rate: +ls('chestRate', event.chestsPerMinute ?? 2) },
   plan: { minutes: 60, matches: 0, thMinutes: 0, session: -1 },
   rare: { view: 'today', cat: 0 }, // cat 0 = TOP 12, then the categories
+  squad: { names: cleanSquadNames((() => { try { return JSON.parse(ls('squad', '[]')); } catch { return []; } })()), metric: ls('squadMetric', 'wins'), data: {}, busy: false },
   data: { career: null, shop: null, news: null, map: null, status: null, rarest: null },
   busy: {},
   err: {},
@@ -89,6 +91,15 @@ const demoApi = {
   async career() {
     return { season: fromFortniteApiCom(DEMO.season, { timeWindow: 'season' }), lifetime: fromFortniteApiCom(DEMO.lifetime, { timeWindow: 'lifetime' }), demo: true };
   },
+  // Sample squad members: LilAvlis's season, scaled by a hash of the name so each one differs.
+  async seasonStats(name) {
+    const base = fromFortniteApiCom(DEMO.season, { timeWindow: 'season' });
+    if (name.toLowerCase() === 'lilavlis') return base;
+    let h = 0; for (const ch of name) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+    const f = 0.4 + (h % 120) / 100; const g = 0.5 + ((h >> 7) % 100) / 100; const k = 0.6 + ((h >> 3) % 80) / 100;
+    const o = base.overall;
+    return { ...base, account: { id: null, name }, battlePass: null, overall: finishBlock({ matches: Math.round(o.matches * f), wins: Math.round(o.wins * f * g), kills: Math.round(o.kills * f * k), minutesPlayed: Math.round(o.minutesPlayed * f) }) };
+  },
   shop: async () => normalizeShop(DEMO.shop),
   news: async () => normalizeNews(DEMO.news),
   map: async () => normalizeMap(DEMO.map),
@@ -108,6 +119,7 @@ function directApi() {
   return {
     label: 'FORTNITE-API.COM',
     career: async (name) => { const [season, lifetime] = await Promise.all([stats(name, 'season'), stats(name, 'lifetime')]); return { season, lifetime }; },
+    seasonStats: (name) => stats(name, 'season'),
     shop: async () => normalizeShop(await fapi.shop()),
     news: async () => normalizeNews(await fapi.news('br')),
     map: async () => normalizeMap(await fapi.map()),
@@ -123,6 +135,7 @@ function workerApi() {
   return {
     label: 'WORKER',
     career: (name) => j(`/api/career/${encodeURIComponent(name)}?accountType=${S.acct}`),
+    seasonStats: (name) => j(`/api/stats/${encodeURIComponent(name)}?window=season&accountType=${S.acct}`),
     shop: async () => normalizeShop(await j('/api/shop')),
     news: async () => normalizeNews(await j('/api/news/br')),
     map: async () => normalizeMap(await j('/api/map')),
@@ -164,7 +177,23 @@ function scan(name) {
   return load('career', nm);
 }
 
-function resetData() { S.data = { career: null, shop: null, news: null, map: null, status: null, rarest: null }; S.err = {}; }
+// ---------------------------------------------------------------- squad
+const DEMO_SQUAD = ['LilAvlis', 'Reef Runner', 'Tide Caller', 'Salt Dog'];
+function saveSquad() { if (S.resolved !== 'demo') lsSet('squad', JSON.stringify(S.squad.names)); }
+async function loadSquad(force = false) {
+  if (S.squad.busy) return;
+  S.squad.busy = true; render();
+  for (const name of S.squad.names) {
+    const k = name.toLowerCase();
+    if (!force && (S.squad.data[k]?.stats || S.squad.data[k]?.error)) continue;
+    try { S.squad.data[k] = { stats: await api().seasonStats(name), error: null }; }
+    catch (e) { S.squad.data[k] = { stats: null, error: friendly(e) }; }
+    if (subName() === 'SQUAD') render();
+  }
+  S.squad.busy = false; render();
+}
+
+function resetData() { S.data = { career: null, shop: null, news: null, map: null, status: null, rarest: null }; S.err = {}; S.squad.data = {}; }
 
 // ---------------------------------------------------------------- treasure
 function report() {
@@ -349,6 +378,40 @@ const views = {
 
   'stat/MODES'() { return splitStats('modes', MODE_ROWS, 'byMode'); },
   'stat/INPUT'() { return splitStats('input', INPUT_ROWS, 'byInput'); },
+
+  'stat/SQUAD'() {
+    const sq = S.squad; const full = sq.names.length >= SQUAD_MAX;
+    const metricSeg = Object.entries(SQUAD_METRICS).map(([k, m]) => `<button data-sqmetric="${k}" class="${sq.metric === k ? 'on' : ''}">${m.label}</button>`).join('');
+    let out = `<form class="prompt" id="squadForm" autocomplete="off">
+      <label for="squadName">❯ ADD</label>
+      <input type="text" id="squadName" placeholder="${full ? 'Squad full' : 'Epic name'}" spellcheck="false" autocapitalize="off" ${full ? 'disabled' : ''}>
+      <button class="btn" type="submit" ${full ? 'disabled' : ''}>ADD</button>
+      <button class="btn" type="button" data-action="squadScan" ${sq.busy || !sq.names.length ? 'disabled' : ''}>${sq.busy ? 'SCANNING' : 'SCAN ALL'}</button>
+    </form>
+    <div class="inline sq-metrics"><span class="seg" role="group" aria-label="Rank by">${metricSeg}</span></div>`;
+    if (!sq.names.length) return out + `<div class="msg">ADD UP TO ${SQUAD_MAX} EPIC NAMES. THEY ARE SAVED ON THIS DEVICE.</div>`;
+    const m = SQUAD_METRICS[sq.metric] ?? SQUAD_METRICS.wins;
+    const fmtV = (v) => (v == null ? '—' : m.time ? hm(v) : `${n(v, m.fmt)}${m.suffix ?? ''}`);
+    const ranked = rankSquad(sq.names.map((name) => ({ name, ...(sq.data[name.toLowerCase()] ?? { stats: null, error: null }) })), sq.metric);
+    const rankedCount = ranked.filter((e) => e.rank).length;
+    out += `<div class="h"><span>SQUAD · SEASON</span><span class="s">RANKED BY ${m.label}${sq.busy ? ' · SCANNING' : ''}</span></div>`;
+    out += listView('squad', ranked.map((e) => ({
+      l: `${e.rank ? `#${e.rank}` : '—'} ${e.name}`,
+      r: e.error ? 'ERROR' : e.stats ? fmtV(e.value) : sq.busy ? '…' : '—',
+      dim: !e.stats,
+      act: e.rank === 1,
+    })), (i) => {
+      const e = ranked[i];
+      let d = `<div class="h"><span>${esc(e.name)}</span><span class="s">${e.rank ? `RANK ${e.rank}/${rankedCount}` : ''}</span></div>`;
+      if (e.error) d += `<div class="msg alert" role="alert">ERROR: ${esc(e.error)}</div>`;
+      else if (!e.stats) d += `<div class="msg">${sq.busy ? 'SCANNING<span class="cursor"></span>' : 'NOT SCANNED. PRESS SCAN ALL.'}</div>`;
+      else d += blockCards(e.stats.overall);
+      d += `<div class="inline" style="margin-top:0.6rem"><button class="btn" data-sqremove="${esc(e.name)}">REMOVE ${esc(e.name.toUpperCase())}</button></div>`;
+      return d;
+    });
+    out += `<p class="p">Each name is one lookup, cached 20 minutes. ${S.resolved === 'demo' ? 'Sample squad in DEMO mode.' : 'Names are saved on this device only.'}</p>`;
+    return out;
+  },
 
   'loot/ODDS'() {
     let out = stateLine('career', 'SCAN A PLAYER ON STAT > SEASON FIRST.');
@@ -560,6 +623,7 @@ const views = {
         <button class="btn" data-action="saveWorker">SAVE</button></div>
         <span class="hint">Leave empty when this page is served by the Worker.</span></div>
       <div class="field"><label>THEME</label>${seg('theme', [['green', 'GREEN'], ['amber', 'AMBER'], ['blue', 'BLUE'], ['white', 'WHITE']], S.theme)}</div>
+      <div class="field"><label>STREAM OVERLAY (OBS)</label>${overlayField()}</div>
       <div class="field"><label>EFFECTS</label>${seg('fx', [['on', 'ON'], ['off', 'OFF']], S.fx ? 'on' : 'off')}</div>
       <div class="field"><label>SOUND</label>${seg('sound', [['on', 'ON'], ['off', 'OFF']], S.sound ? 'on' : 'off')}</div>
       <div class="field"><label>BOOT SEQUENCE</label>${seg('boot', [['on', 'ON'], ['off', 'OFF']], S.boot ? 'on' : 'off')}</div>
@@ -593,6 +657,25 @@ function scheduleHtml() {
       <span class="r">${s.status === 'official' ? 'OFFICIAL' : 'EXPECTED'}${mult ? ` · TOKEN ×${mult}` : ''}</span></li>`;
   }).join('');
   return `<ul class="gsec">${rows}</ul><p class="p">EXPECTED = Saturday pattern, not yet confirmed by Epic.${pastCount ? ` ${pastCount} past sessions hidden.` : ''}</p>`;
+}
+
+// Link for the OBS overlay, built from the scanned player and the current theme.
+function overlayUrl() {
+  const base = S.resolved === 'worker' ? (S.worker || location.origin) : S.worker;
+  if (!base || !S.player) return null;
+  const u = new URL('/overlay', base);
+  u.searchParams.set('name', S.player);
+  if (S.acct !== 'epic') u.searchParams.set('acct', S.acct);
+  u.searchParams.set('theme', S.theme);
+  u.searchParams.set('fields', 'wins,kd,winrate,token');
+  return u.toString();
+}
+function overlayField() {
+  const url = overlayUrl();
+  if (!url) return `<span class="hint">${S.player ? 'Open this page from your Worker to get the link.' : 'Scan a player first.'}</span>`;
+  return `<div class="ovl-link" id="ovlUrl">${esc(url)}</div>
+    <div class="inline"><button class="btn" data-action="copyOverlay">COPY LINK</button><span class="hint" id="ovlCopied"></span></div>
+    <span class="hint">In OBS: Sources > + > Browser. Paste the link. Width 640, height 140. Change fields= in the link to pick cells: wins, kd, winrate, kills, matches, time, kpm, token.</span>`;
 }
 
 // fortnite-api series values look like "MarvelSeries" or "CreatorCollabSeries": make them readable.
@@ -722,6 +805,12 @@ function ensureData() {
   if (t === 'shop' && subName() === 'NEWS' && !S.data.news && !S.busy.news && !S.err.news) load('news');
   if (t === 'shop' && subName() === 'RARE' && !S.data.rarest && !S.busy.rarest && !S.err.rarest) load('rarest');
   if (t === 'map' && !S.data.map && !S.busy.map && !S.err.map) load('map');
+  if (t === 'stat' && subName() === 'SQUAD') {
+    const sq = S.squad;
+    if (!sq.names.length && S.resolved === 'demo') sq.names = [...DEMO_SQUAD];
+    if (!sq.names.length && S.player && !ls('squadInit')) { sq.names = cleanSquadNames([S.player]); lsSet('squadInit', '1'); saveSquad(); }
+    if (!sq.busy && sq.names.some((nm) => !sq.data[nm.toLowerCase()])) loadSquad();
+  }
   if (t === 'sys' && subName() === 'STATUS' && !S.data.status && !S.busy.status && !S.err.status) load('status');
 }
 
@@ -744,6 +833,9 @@ document.addEventListener('click', (e) => {
   if (d.session != null) { S.plan.session = +d.session; return render(); }
   if (d.method) { S.chest.method = d.method; lsSet('chestMethod', d.method); return render(); }
   if (d.rareview) { S.rare.view = d.rareview; click(); return render(); }
+  if (d.sqmetric) { S.squad.metric = d.sqmetric; lsSet('squadMetric', d.sqmetric); click(); return render(); }
+  if (d.sqremove) { S.squad.names = S.squad.names.filter((x) => x !== d.sqremove); delete S.squad.data[d.sqremove.toLowerCase()]; S.cur.squad = 0; saveSquad(); click(); return render(); }
+  if (d.action === 'squadScan') { click(); loadSquad(true); return; }
   if (d.rarecat) { S.rare.cat = Math.max(0, S.rare.cat + +d.rarecat); click(); return render(); }
   if (d.set) {
     const v = d.val;
@@ -756,6 +848,11 @@ document.addEventListener('click', (e) => {
   }
   if (d.action === 'saveKey') { S.key = $('apiKey').value.trim(); lsSet('key', S.key || null); resetData(); return render(); }
   if (d.action === 'clearKey') { S.key = ''; lsSet('key', null); resetData(); return render(); }
+  if (d.action === 'copyOverlay') {
+    const url = overlayUrl(); const out = $('ovlCopied');
+    navigator.clipboard?.writeText(url).then(() => { out.textContent = 'COPIED'; }, () => { out.textContent = 'COPY BLOCKED. SELECT THE LINK AND COPY IT.'; });
+    return;
+  }
   if (d.action === 'saveWorker') { S.worker = $('workerUrl').value.trim(); lsSet('worker', S.worker || null); resetData(); return render(); }
   if (d.action === 'wipe') {
     try { Object.keys(localStorage).filter((k) => k.startsWith(LS)).forEach((k) => localStorage.removeItem(k)); } catch { /* */ }
@@ -765,6 +862,13 @@ document.addEventListener('click', (e) => {
 
 document.addEventListener('submit', (e) => {
   if (e.target.id === 'scanForm') { e.preventDefault(); click(); scan($('playerName').value); }
+  if (e.target.id === 'squadForm') {
+    e.preventDefault();
+    const nm = $('squadName').value.trim();
+    const next = cleanSquadNames([...S.squad.names, nm]);
+    if (next.length === S.squad.names.length) { $('squadName').value = ''; return; } // bad, duplicate or full
+    S.squad.names = next; saveSquad(); click(); loadSquad();
+  }
 });
 
 document.addEventListener('input', (e) => {

@@ -10,6 +10,7 @@
 //
 // Routes (all GET):
 //   /                         the Loot Terminal page
+//   /overlay?name=&theme=&fields=&refresh=&scale=&bg=   stream overlay for OBS (see ui/overlay.js)
 //   /api/health
 //   /api/stats/:name?window=season|lifetime&accountType=epic|psn|xbl
 //   /api/career/:name?matches=1
@@ -25,6 +26,7 @@ import { FortniteKitError } from '../src/http.js';
 import { validName, corsHeaders, fetchSiteAllowed, createRateLimiter } from './guard.js';
 import treasureEvent from '../data/treasure-hunters-2026.json' with { type: 'json' };
 import page from './page.generated.js'; // Loot Terminal page, made by ui/build.mjs
+import overlayPage from './overlay.generated.js'; // stream overlay, made by ui/build.mjs
 import pkg from '../package.json' with { type: 'json' };
 import rarest from '../data/rarest.json' with { type: 'json' }; // rebuilt daily by .github/workflows/rarest.yml
 
@@ -71,6 +73,9 @@ export async function handle(request, env = {}, { fetch: f, rateLimiter } = {}) 
   const url = new URL(request.url);
   const q = url.searchParams;
   // The Loot Terminal page lives at the Worker's own address, so it talks to /api with no CORS.
+  if (url.pathname === '/overlay') {
+    return new Response(overlayPage, { headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' } });
+  }
   if (url.pathname === '/' || url.pathname === '/index.html') {
     return new Response(page, {
       headers: {

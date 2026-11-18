@@ -34,6 +34,8 @@ Read first: `docs/HOW-FUNAGLET-WORKS.md` (the reverse engineering) and `docs/DAT
 | `ui/` | Loot Terminal page source (Phosphor design): `app.js`, `template.html`, `demo-data.js`, `build.mjs` |
 | `dist/loot-terminal.html` | The built page (one file) |
 | `dist/worker.js` | ONE paste-ready Worker file: API proxy + the page at `/` |
+| `ui/overlay.js`, `ui/overlay.template.html` | Stream overlay source; built to `dist/overlay.html`, served at `/overlay` |
+| `docs/ROADMAP.md` | What is next |
 | `cli/demo.js` | Terminal demo |
 | `test/` | 21 tests (run `npm test`; it builds first) |
 

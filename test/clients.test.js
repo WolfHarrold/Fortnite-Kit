@@ -186,3 +186,12 @@ test('kit: private / not-found lookups are cached for 10 minutes', async () => {
   await assert.rejects(kit.stats('Ghost'), (e) => e.status === 404);
   assert.equal(f.calls.length, 1, 'second lookup must not hit the API');
 });
+
+test('worker serves the stream overlay page', async () => {
+  const res = await handle(new Request('https://w.dev/overlay?name=LilAvlis&theme=amber'), {}, {});
+  assert.equal(res.status, 200);
+  assert.match(res.headers.get('Content-Type'), /text\/html/);
+  const html = await res.text();
+  assert.match(html, /Loot Terminal Overlay/);
+  assert.ok(!html.includes('/*APP*/'), 'overlay script is inlined');
+});
