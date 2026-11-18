@@ -27,7 +27,8 @@ Read first: `docs/HOW-FUNAGLET-WORKS.md` (the reverse engineering) and `docs/DAT
 | `src/treasure.js` | Treasure report, weeks, planner, Treasure Hours |
 | `src/cache.js` | TTL cache with refresh cooldown |
 | `data/treasure-hunters-2026.json` | Event odds, dates, multipliers, chest rate (2 per alive minute), presets |
-| `worker/` | Cloudflare Worker proxy + `wrangler.toml` |
+| `worker/` | Cloudflare Worker proxy |
+| `wrangler.toml` | Worker config (repo root, used by Workers Builds and `npx wrangler deploy`) |
 | `ui/` | Loot Terminal page source (Phosphor design): `app.js`, `template.html`, `demo-data.js`, `build.mjs` |
 | `dist/loot-terminal.html` | The built page (one file) |
 | `dist/worker.js` | ONE paste-ready Worker file: API proxy + the page at `/` |
@@ -45,9 +46,8 @@ Read first: `docs/HOW-FUNAGLET-WORKS.md` (the reverse engineering) and `docs/DAT
    ```
    FORTNITE_API_COM_KEY=<key> node cli/demo.js <EpicName> --live
    ```
-4. Deploy the Worker.
+4. Deploy the Worker (from the repo root).
    ```
-   cd worker
    npx wrangler secret put FORTNITE_API_COM_KEY
    npx wrangler deploy
    ```
@@ -71,6 +71,12 @@ Do this on a computer. The page and the API then live at one address.
 7. Type your Epic name. Select **SCAN**.
 
 To update later: run `npm run build`, then paste the new `dist/worker.js` again.
+
+### Auto-deploy from GitHub (Cloudflare Workers Builds)
+
+Worker > Settings > Builds > Connect. Repo `WolfHarrold/Fortnite-Kit`, branch `main`.
+Root directory: empty (repo root). Build command: `npm ci && npm run build`. Deploy command: `npx wrangler deploy`.
+Every push to `main` then builds and deploys. The secret key stays in Cloudflare.
 
 ## Worker routes
 
