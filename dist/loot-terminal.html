@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html lang="en-AU" data-ph="green">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Loot Terminal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&family=Roboto:wght@700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+/* Loot Terminal — Phosphor design system (one hue, four tiers, fixed zones).
+   Layout idea: header tabs + sub-tab row + scrolling content + fixed footer cells, on black. */
+:root {
+  --bg: #000000;
+  --t1: #00ff00; --t2: #00be00; --t3: #007f00; --t4: #003f00;
+  --alert: #c72d04;
+  --vignette: inset 0 0 2rem #00ff0040;
+  --focus: 0 0 0 1px #000000, 0 0 0 2px #00ff00;
+  --f-tab: "Roboto Condensed", "Arial Narrow", sans-serif;
+  --f-list: Roboto, Arial, sans-serif;
+  --f-mono: "Share Tech Mono", ui-monospace, monospace;
+  --rule: 1px; --gap: 2px; --grid: 0.5rem;
+  color-scheme: dark;
+  font-size: clamp(15px, 2.1vw, 19px);
+}
+html[data-ph="amber"] { --t1:#ffbf00; --t2:#be8e00; --t3:#7f5f00; --t4:#3f2f00; --vignette: inset 0 0 2rem #ffbf0040; --focus: 0 0 0 1px #000, 0 0 0 2px #ffbf00; }
+html[data-ph="blue"]  { --t1:#007fff; --t2:#007fff; --t3:#003f7f; --t4:#001f3f; --vignette: inset 0 0 2rem #007fff40; --focus: 0 0 0 1px #000, 0 0 0 2px #007fff; }
+html[data-ph="white"] { --t1:#ffffff; --t2:#bebebe; --t3:#7f7f7f; --t4:#3f3f3f; --vignette: inset 0 0 2rem #ffffff40; --focus: 0 0 0 1px #000, 0 0 0 2px #ffffff; }
+
+* { box-sizing: border-box; border-radius: 0; }
+html, body { height: 100%; margin: 0; background: var(--bg); color: var(--t1); }
+body { font-family: var(--f-list); font-weight: 700; overflow: hidden; }
+button, input, select { font: inherit; color: inherit; background: none; border: 0; }
+:focus-visible { outline: none; box-shadow: var(--focus); }
+.glow { text-shadow: 0 0 0.4rem; }
+
+/* ---------- zones ---------- */
+.screen { position: relative; height: 100%; display: grid; grid-template-rows: auto auto auto minmax(0, 1fr) auto; max-width: 1100px; margin: 0 auto; padding: 0 max(16px, env(safe-area-inset-left)); }
+.brand { display: flex; justify-content: space-between; align-items: baseline; font-family: var(--f-mono); font-size: 0.72rem; color: var(--t2); padding: 0.4rem 0 0.1rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.brand b { color: var(--t1); font-weight: 400; }
+
+nav.tabs { position: relative; display: flex; justify-content: space-between; padding: 0 1.1rem; border-bottom: var(--rule) solid var(--t1); height: 2rem; align-items: flex-end; }
+nav.tabs::before, nav.tabs::after { content: ""; position: absolute; bottom: calc(-1 * var(--gap) - 1px); width: var(--rule); height: var(--gap); background: var(--t1); }
+nav.tabs::before { left: 0; } nav.tabs::after { right: 0; }
+.tab { position: relative; font-family: var(--f-tab); font-size: 1.05rem; line-height: 1.6rem; text-transform: uppercase; cursor: pointer; padding: 0 0.15rem; color: var(--t1); }
+.tab.on::before { content: ""; position: absolute; left: -4px; right: -3px; bottom: -1px; height: 1px; background: var(--bg); }
+.tab.on::after { content: ""; position: absolute; left: -4px; right: -3px; bottom: -1px; height: 0.7rem; border-left: 1px solid var(--t1); border-right: 1px solid var(--t1);
+  background: linear-gradient(var(--t1), var(--t1)) left top / 3px 1px no-repeat, linear-gradient(var(--t1), var(--t1)) right top / 3px 1px no-repeat; }
+
+.subtabs { display: flex; gap: 1rem; justify-content: center; height: 1.9rem; align-items: center; margin-top: var(--gap); overflow-x: auto; scrollbar-width: none; }
+.subtabs:empty { height: 0.4rem; }
+.sub { font-family: var(--f-tab); font-size: 0.95rem; text-transform: uppercase; color: var(--t3); cursor: pointer; white-space: nowrap; transition: color calc(120ms * var(--speed, 1)) linear; }
+.sub.on { color: var(--t1); }
+
+main { overflow-y: auto; overflow-x: hidden; padding: 0.5rem 0 0.75rem; scrollbar-color: var(--t3) transparent; scrollbar-width: thin; }
+
+footer.bar { display: grid; gap: var(--gap); grid-auto-flow: column; grid-auto-columns: 1fr; margin: 0.35rem 0 max(0.5rem, env(safe-area-inset-bottom)); }
+.cell { background: var(--t4); color: var(--t1); font-family: var(--f-tab); font-size: 0.82rem; text-transform: uppercase; padding: 0.2rem 0.5rem; display: flex; gap: 0.5rem; align-items: center; justify-content: space-between; min-height: 1.5rem; white-space: nowrap; overflow: hidden; }
+.cell .xp { flex: 1; height: 0.45rem; border: 1px solid var(--t1); max-width: 6rem; }
+.cell .xp i { display: block; height: 100%; background: var(--t1); }
+
+/* ---------- content parts ---------- */
+.prompt { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; font-family: var(--f-mono); text-transform: uppercase; margin-bottom: 0.75rem; }
+.prompt label { color: var(--t2); }
+.prompt input[type=text] { flex: 1 1 9rem; min-width: 0; border-bottom: 1px solid var(--t1); padding: 0.2rem 0.1rem; font-family: var(--f-mono); text-transform: none; }
+.btn { font-family: var(--f-tab); text-transform: uppercase; border: 1px solid var(--t1); padding: 0.15rem 0.6rem; cursor: pointer; }
+.btn:hover, .btn.on { background: var(--t1); color: var(--t4); text-shadow: none; }
+.seg { display: inline-flex; border: 1px solid var(--t1); }
+.seg button { padding: 0.15rem 0.5rem; font-family: var(--f-tab); text-transform: uppercase; cursor: pointer; }
+.seg button.on { background: var(--t1); color: var(--t4); text-shadow: none; }
+
+.split { display: grid; grid-template-columns: 58% 1fr; gap: 1rem; align-items: start; }
+@media (max-width: 640px) { .split { grid-template-columns: 1fr; } }
+
+.list { list-style: none; margin: 0; padding: 0; }
+.row { position: relative; display: flex; justify-content: space-between; gap: 0.75rem; padding: 0.18rem 0.5rem 0.18rem 1.3rem; cursor: pointer; line-height: 1.35; }
+.row .r { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.row.cur { background: var(--t1); color: var(--t4); text-shadow: none; }
+.row.act::before { content: ""; position: absolute; left: 0.45rem; top: 50%; width: 4px; height: 4px; margin-top: -2px; background: currentColor; }
+.row.dim { color: var(--t3); cursor: default; }
+.row .s { color: var(--t2); font-size: 0.82rem; }
+.row.cur .s { color: var(--t4); }
+
+.cards { display: grid; gap: 1px; }
+.card { background: var(--t4); padding: 0.3rem 0.55rem; display: flex; justify-content: space-between; gap: 0.75rem; font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+.card.hi { outline: 1px solid var(--t1); outline-offset: -1px; }
+.card .k { color: var(--t1); text-transform: uppercase; font-family: var(--f-tab); }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr)); gap: 0.5rem; }
+.fig { border: 1px solid var(--t3); padding: 0.45rem 0.6rem; }
+.fig .k { font-family: var(--f-tab); font-size: 0.75rem; color: var(--t2); text-transform: uppercase; }
+.fig .v { font-family: var(--f-tab); font-size: 1.65rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.fig .n { font-size: 0.75rem; color: var(--t2); }
+
+.h { font-family: var(--f-tab); text-transform: uppercase; font-size: 0.95rem; margin: 0.9rem 0 0.4rem; display: flex; justify-content: space-between; gap: 1rem; border-bottom: 1px solid var(--t3); padding-bottom: 0.15rem; }
+.h:first-child { margin-top: 0; }
+.h .s { color: var(--t2); }
+.p { font-size: 0.88rem; color: var(--t2); max-width: 65ch; line-height: 1.45; margin: 0.3rem 0; font-weight: 700; }
+.p b { color: var(--t1); }
+.big { font-family: var(--f-tab); font-size: 2.6rem; line-height: 1; font-variant-numeric: tabular-nums; }
+
+.bar { height: 0.55rem; border: 1px solid currentColor; min-width: 3rem; flex: 1; }
+.bar i { display: block; height: 100%; background: currentColor; }
+.barrow { display: flex; align-items: center; gap: 0.6rem; }
+
+.tint { position: relative; background: var(--t1); overflow: hidden; aspect-ratio: 1; display: grid; place-items: center; }
+.tint img { width: 100%; height: 100%; object-fit: cover; mix-blend-mode: multiply; filter: grayscale(1) contrast(1.15); display: block; }
+.tint.wide { aspect-ratio: 16/9; }
+.ph { background: var(--t4); aspect-ratio: 1; display: grid; place-items: center; font-family: var(--f-mono); color: var(--t1); font-size: 1.4rem; border: 1px solid var(--t3); }
+.ph.wide { aspect-ratio: 16/9; font-size: 0.9rem; }
+
+.field { display: grid; gap: 0.25rem; margin: 0.6rem 0; }
+.field label { font-family: var(--f-tab); text-transform: uppercase; font-size: 0.85rem; color: var(--t2); }
+.field input[type=text], .field input[type=password], .field input[type=number], .field input[type=url] { border: 1px solid var(--t3); padding: 0.3rem 0.45rem; font-family: var(--f-mono); width: 100%; max-width: 28rem; }
+.field .hint { font-size: 0.78rem; color: var(--t2); max-width: 60ch; }
+.inline { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+
+.msg { font-family: var(--f-mono); text-transform: uppercase; padding: 0.4rem 0; }
+.alert { animation: blink calc(1s * var(--speed, 1)) steps(1) infinite; }
+@keyframes blink { 50% { color: var(--alert); } }
+.cursor::after { content: "▮"; animation: blink2 0.3s steps(1) infinite; }
+@keyframes blink2 { 50% { opacity: 0; } }
+
+svg.chart { width: 100%; height: auto; display: block; overflow: visible; }
+svg.chart text { fill: var(--t2); font-family: var(--f-tab); font-size: 10px; }
+canvas.map { width: 100%; height: auto; display: block; border: 1px solid var(--t3); }
+
+/* ---------- effects (top layers, never hide data) ---------- */
+.fx { position: fixed; inset: 0; pointer-events: none; z-index: 10; }
+.fx.scan { background: repeating-linear-gradient(to bottom, rgba(0,0,0,0.35) 0 1px, transparent 1px 2px); }
+.fx.band { background: linear-gradient(to bottom, transparent 0, color-mix(in srgb, var(--t1) 6%, transparent) 50%, transparent 100%); height: 18vh; animation: roll calc(8s * var(--speed, 1)) linear infinite; }
+@keyframes roll { from { transform: translateY(-20vh); } to { transform: translateY(110vh); } }
+.fx.vig { box-shadow: var(--vignette); }
+body.nofx .fx { display: none; }
+body.nofx .glow { text-shadow: none; }
+.jolt { animation: jolt 180ms steps(3) 1; }
+@keyframes jolt { 0% { transform: translateY(3px); filter: brightness(1.5) blur(0.6px); } 50% { transform: translateY(-2px); } 100% { transform: none; filter: none; } }
+
+.boot { position: fixed; inset: 0; z-index: 20; background: var(--bg); padding: 1.2rem; font-family: var(--f-mono); text-transform: uppercase; font-size: 0.8rem; color: var(--t1); overflow: hidden; cursor: pointer; }
+.boot .hex { color: var(--t2); font-size: 0.6rem; line-height: 1.15; white-space: pre; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fx.band { display: none; }
+  .alert, .cursor::after { animation: none; }
+  .jolt { animation: none; }
+  .sub { transition: none; }
+}
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+</style>
+</head>
+<body class="glow">
+<div class="screen" id="screen">
+  <div class="brand"><b>LOOT TERMINAL</b><span id="modeTag">DEMO</span></div>
+  <nav class="tabs" id="tabs" aria-label="Main tabs"></nav>
+  <div class="subtabs" id="subtabs" role="tablist" aria-label="Sub tabs"></div>
+  <main id="content" tabindex="-1" aria-live="polite"></main>
+  <footer class="bar" id="footer"></footer>
+</div>
+<div class="fx band" aria-hidden="true"></div>
+<div class="fx scan" aria-hidden="true"></div>
+<div class="fx vig" aria-hidden="true"></div>
+<script>
+(() => {
+  // src/http.js
+  var FortniteKitError = class extends Error {
+    constructor(message, { status = 0, source = "", url = "", body = null } = {}) {
+      super(message);
+      this.name = "FortniteKitError";
+      this.status = status;
+      this.source = source;
+      this.url = url;
+      this.body = body;
+    }
+  };
+  function buildUrl(base, path, params = {}) {
+    const url = new URL(path.replace(/^\//, ""), base.endsWith("/") ? base : base + "/");
+    for (const [k, v] of Object.entries(params)) {
+      if (v === void 0 || v === null || v === "") continue;
+      url.searchParams.set(k, String(v));
+    }
+    return url.toString();
+  }
+  async function getJson(url, { headers = {}, timeoutMs = 15e3, fetch: f = globalThis.fetch, source = "" } = {}) {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), timeoutMs);
+    let res;
+    try {
+      res = await f(url, { headers: { Accept: "application/json", ...headers }, signal: ctrl.signal });
+    } catch (err) {
+      throw new FortniteKitError(`Network error: ${err.message}`, { source, url });
+    } finally {
+      clearTimeout(timer);
+    }
+    if (res.status === 204) return null;
+    const text = await res.text();
+    let body = null;
+    try {
+      body = text ? JSON.parse(text) : null;
+    } catch {
+      body = text;
+    }
+    if (!res.ok) {
+      const msg = body && (body.error || body.message) || res.statusText || "Request failed";
+      throw new FortniteKitError(`${source} ${res.status}: ${msg}`, { status: res.status, source, url, body });
+    }
+    return body;
+  }
+
+  // src/sources/fortniteApiCom.js
+  var BASE = "https://fortnite-api.com";
+  function createFortniteApiCom({ apiKey = "", language = "en", fetch: fetch2, timeoutMs } = {}) {
+    const headers = apiKey ? { Authorization: apiKey } : {};
+    const get = (path, params = {}) => getJson(buildUrl(BASE, path, params), { headers, fetch: fetch2, timeoutMs, source: "fortnite-api.com" }).then((r) => r?.data ?? r);
+    return {
+      source: "fortnite-api.com",
+      // ---- Player stats (key required) ----
+      // timeWindow: 'season' | 'lifetime'   accountType: 'epic' | 'psn' | 'xbl'
+      // image: 'none' | 'all' | 'keyboardMouse' | 'gamepad' | 'touch' (returns a stats card image URL)
+      statsByName: (name, { timeWindow = "season", accountType = "epic", image = "none" } = {}) => get("/v2/stats/br/v2", { name, accountType, timeWindow, image }),
+      statsById: (accountId, { timeWindow = "season", image = "none" } = {}) => get(`/v2/stats/br/v2/${encodeURIComponent(accountId)}`, { timeWindow, image }),
+      // ---- Game content (no key) ----
+      shop: () => get("/v2/shop", { language }),
+      news: (mode) => get(mode ? `/v2/news/${mode}` : "/v2/news", { language }),
+      // mode: br | stw | creative
+      cosmeticsAll: () => get("/v2/cosmetics", { language }),
+      cosmeticsBr: () => get("/v2/cosmetics/br", { language }),
+      cosmeticsNew: () => get("/v2/cosmetics/new", { language }),
+      cosmeticById: (id) => get(`/v2/cosmetics/br/${encodeURIComponent(id)}`, { language }),
+      cosmeticSearch: (params) => get("/v2/cosmetics/br/search", { language, ...params }),
+      cosmeticSearchAll: (params) => get("/v2/cosmetics/br/search/all", { language, ...params }),
+      cosmeticsByIds: (ids) => get("/v2/cosmetics/br/search/ids", { language, id: ids.join(",") }),
+      cosmeticsCars: () => get("/v2/cosmetics/cars", { language }),
+      cosmeticsInstruments: () => get("/v2/cosmetics/instruments", { language }),
+      cosmeticsTracks: () => get("/v2/cosmetics/tracks", { language }),
+      // Festival jam tracks
+      cosmeticsLego: () => get("/v2/cosmetics/lego", { language }),
+      cosmeticsLegoKits: () => get("/v2/cosmetics/lego/kits", { language }),
+      cosmeticsBeans: () => get("/v2/cosmetics/beans", { language }),
+      // Fall Guys beans
+      map: () => get("/v1/map", { language }),
+      // current map image + POIs
+      playlists: () => get("/v1/playlists", { language }),
+      playlistById: (id) => get(`/v1/playlists/${encodeURIComponent(id)}`, { language }),
+      banners: () => get("/v1/banners", { language }),
+      bannerColors: () => get("/v1/banners/colors"),
+      creatorCode: (name) => get("/v2/creatorcode", { name }),
+      aes: () => get("/v2/aes")
+      // game file keys + current build/version
+    };
+  }
+
+  // src/sources/epicStatus.js
+  var BASE2 = "https://status.epicgames.com/api/v2";
+  function createEpicStatus({ fetch: fetch2, timeoutMs } = {}) {
+    const get = (p) => getJson(`${BASE2}/${p}`, { fetch: fetch2, timeoutMs, source: "epic-status" });
+    return {
+      source: "epic-status",
+      summary: () => get("summary.json"),
+      unresolvedIncidents: () => get("incidents/unresolved.json"),
+      upcomingMaintenance: () => get("scheduled-maintenances/upcoming.json"),
+      // Only the Fortnite components, as { name: status }
+      async fortnite() {
+        const s = await get("summary.json");
+        const out = { overall: s?.status?.description ?? "unknown", components: {} };
+        const all = s?.components ?? [];
+        const groupIds = new Set(all.filter((c) => c.group && /fortnite/i.test(c.name)).map((c) => c.id));
+        for (const c of all) {
+          if (c.group) continue;
+          if (groupIds.has(c.group_id) || /fortnite/i.test(c.name)) out.components[c.name] = c.status;
+        }
+        return out;
+      }
+    };
+  }
+
+  // src/normalize.js
+  var COUNT_FIELDS = ["matches", "wins", "kills", "deaths", "minutesPlayed", "score", "playersOutlived", "top3", "top5", "top6", "top10", "top12", "top25"];
+  var round = (n2, dp = 2) => Math.round(n2 * 10 ** dp) / 10 ** dp;
+  function emptyBlock() {
+    return Object.fromEntries(COUNT_FIELDS.map((f) => [f, 0]));
+  }
+  function finishBlock(b) {
+    if (!b) return null;
+    const out = { ...emptyBlock(), ...b };
+    if (!b.deaths) out.deaths = Math.max(out.matches - out.wins, 0);
+    out.winRate = out.matches ? round(out.wins / out.matches * 100) : 0;
+    out.kd = round(out.kills / Math.max(out.deaths, 1));
+    out.killsPerMatch = out.matches ? round(out.kills / out.matches) : 0;
+    out.killsPerMin = out.minutesPlayed ? round(out.kills / out.minutesPlayed, 3) : 0;
+    out.scorePerMatch = out.matches ? round(out.score / out.matches) : 0;
+    out.hoursPlayed = round(out.minutesPlayed / 60, 1);
+    return out;
+  }
+  function pickBlock(raw) {
+    if (!raw) return null;
+    const b = {};
+    for (const f of COUNT_FIELDS) b[f] = Number(raw[f] ?? 0);
+    return finishBlock(b);
+  }
+  function fromFortniteApiCom(data, { timeWindow = "season" } = {}) {
+    const s = data?.stats ?? {};
+    const modes = (group) => ({
+      solo: pickBlock(group?.solo),
+      duo: pickBlock(group?.duo),
+      trio: pickBlock(group?.trio),
+      squad: pickBlock(group?.squad),
+      ltm: pickBlock(group?.ltm)
+    });
+    return {
+      source: "fortnite-api.com",
+      timeWindow,
+      fetchedAt: (/* @__PURE__ */ new Date()).toISOString(),
+      account: { id: data?.account?.id ?? null, name: data?.account?.name ?? null },
+      battlePass: data?.battlePass ?? null,
+      image: data?.image ?? null,
+      overall: pickBlock(s.all?.overall) ?? finishBlock(emptyBlock()),
+      byMode: modes(s.all),
+      byInput: {
+        keyboardMouse: pickBlock(s.keyboardMouse?.overall),
+        gamepad: pickBlock(s.gamepad?.overall),
+        touch: pickBlock(s.touch?.overall)
+      },
+      byBuild: null,
+      ranked: null,
+      lastModified: s.all?.overall?.lastModified ?? null
+    };
+  }
+
+  // src/odds.js
+  var clamp01 = (x) => Math.min(1, Math.max(0, x));
+  var perTry = (odds, multiplier = 1) => clamp01(multiplier / odds);
+  function chanceAtLeastOne(odds, tries, multiplier = 1) {
+    const p = perTry(odds, multiplier);
+    if (tries <= 0 || p === 0) return 0;
+    if (p === 1) return 1;
+    return 1 - Math.exp(tries * Math.log1p(-p));
+  }
+  function chanceAtLeastOneMixed(odds, segments) {
+    let logNone = 0;
+    for (const { tries = 0, multiplier = 1 } of segments) {
+      const p = perTry(odds, multiplier);
+      if (p === 1 && tries > 0) return 1;
+      logNone += tries * Math.log1p(-p);
+    }
+    return 1 - Math.exp(logNone);
+  }
+  function triesForChance(odds, target, multiplier = 1) {
+    const p = perTry(odds, multiplier);
+    if (target <= 0) return 0;
+    if (target >= 1 || p === 0) return Infinity;
+    return Math.ceil(Math.log1p(-target) / Math.log1p(-p));
+  }
+  var expectedDrops = (odds, tries, multiplier = 1) => tries * perTry(odds, multiplier);
+  var pct = (x, dp = 2) => `${(x * 100).toFixed(dp)}%`;
+
+  // src/treasure.js
+  var DAY = 864e5;
+  function eventWeek(event, now = /* @__PURE__ */ new Date()) {
+    const [hh, mm] = (event.weekResetUtc ?? "00:00").split(":").map(Number);
+    const start2 = Date.parse(`${event.start}T00:00:00Z`) + (hh * 60 + mm) * 6e4;
+    const end = Date.parse(`${event.end}T23:59:59Z`);
+    const len = (event.weekLengthDays ?? 7) * DAY;
+    const t = Math.min(Math.max(+now, start2), end);
+    const weekNumber = Math.floor((t - start2) / len) + 1;
+    return {
+      weekNumber,
+      weeksElapsed: weekNumber,
+      weekStart: new Date(start2 + (weekNumber - 1) * len).toISOString(),
+      weekEnd: new Date(Math.min(start2 + weekNumber * len, end)).toISOString(),
+      started: +now >= start2,
+      ended: +now > end
+    };
+  }
+  function resolveChestModel(event, { chestsPerMatch, chestsPerMinute } = {}) {
+    if (chestsPerMatch != null) {
+      const rate = typeof chestsPerMatch === "number" ? chestsPerMatch : event.chestsPerMatch?.[chestsPerMatch];
+      if (typeof rate !== "number") throw new Error(`Unknown chests-per-match preset: ${chestsPerMatch}`);
+      return { method: "matches", rate };
+    }
+    return { method: "minutes", rate: chestsPerMinute ?? event.chestsPerMinute ?? 2 };
+  }
+  function treasureReport({ event, matches = 0, minutesPlayed = 0, chestsPerMatch, chestsPerMinute, now = /* @__PURE__ */ new Date(), splitWeekly = "even" }) {
+    const model = resolveChestModel(event, { chestsPerMatch, chestsPerMinute });
+    if (model.method === "minutes" && !minutesPlayed && matches) {
+      throw new Error("No minutesPlayed in the stats. Pass chestsPerMatch to use the per-match method.");
+    }
+    const wk = eventWeek(event, now);
+    const seasonChests = Math.round(model.method === "minutes" ? minutesPlayed * model.rate : matches * model.rate);
+    const weekChests = splitWeekly === "even" ? Math.floor(seasonChests / Math.max(wk.weeksElapsed, 1)) : seasonChests;
+    const avgMinutesPerMatch = matches ? minutesPlayed / matches : 0;
+    const rewards = event.rewards.map((r) => {
+      const chests = r.scope === "week" ? weekChests : seasonChests;
+      const chance = chanceAtLeastOne(r.odds, chests);
+      return {
+        id: r.id,
+        name: r.name,
+        odds: r.odds,
+        scope: r.scope,
+        chests,
+        chance,
+        noChance: 1 - chance,
+        expected: r.repeatable ? expectedDrops(r.odds, chests) : void 0,
+        chestsFor50: triesForChance(r.odds, 0.5),
+        chestsFor90: triesForChance(r.odds, 0.9)
+      };
+    });
+    return {
+      event: event.id,
+      week: wk,
+      matches,
+      minutesPlayed,
+      method: model.method,
+      chestsPerMinute: model.method === "minutes" ? model.rate : null,
+      chestsPerMatch: model.method === "matches" ? model.rate : avgMinutesPerMatch * model.rate,
+      // effective
+      avgMinutesPerMatch,
+      seasonChests,
+      weekChests,
+      rewards
+    };
+  }
+  function planTreasure({
+    event,
+    report: report2,
+    rewardId = event.rewards[0].id,
+    plannedMatches = 0,
+    plannedMinutes = 0,
+    treasureHourMatches = 0,
+    treasureHourMinutes = 0,
+    treasureHour = null
+  }) {
+    const reward = event.rewards.find((r) => r.id === rewardId);
+    if (!reward) throw new Error(`Unknown reward: ${rewardId}`);
+    const perMinute = report2.chestsPerMinute ?? (report2.avgMinutesPerMatch ? report2.chestsPerMatch / report2.avgMinutesPerMatch : 0);
+    const chestsFor = (m, mins) => Math.round(m * report2.chestsPerMatch + mins * perMinute);
+    const base = reward.scope === "week" ? report2.weekChests : report2.seasonChests;
+    const planned = chestsFor(plannedMatches, plannedMinutes);
+    const thChests = chestsFor(treasureHourMatches, treasureHourMinutes);
+    const mult = treasureHour == null ? 1 : reward.treasureHourMultipliers?.[treasureHour] ?? 1;
+    const projected = chanceAtLeastOneMixed(reward.odds, [
+      { tries: base + planned, multiplier: 1 },
+      { tries: thChests, multiplier: mult }
+    ]);
+    return {
+      rewardId,
+      method: report2.method,
+      currentChests: base,
+      plannedChests: planned,
+      treasureHourChests: thChests,
+      treasureHourMultiplier: mult,
+      projectedTotal: base + planned + thChests,
+      projectedChance: projected,
+      gain: projected - chanceAtLeastOne(reward.odds, base)
+    };
+  }
+
+  // src/content.js
+  function normalizeShop(data) {
+    const entries = data?.entries ?? [];
+    return entries.map((e) => {
+      const br = e.brItems ?? [];
+      const first = br[0] ?? e.tracks?.[0] ?? e.cars?.[0] ?? e.instruments?.[0] ?? e.legoKits?.[0] ?? {};
+      const kind = e.bundle ? "Bundle" : br.length ? br[0]?.type?.displayValue ?? "Item" : e.tracks?.length ? "Jam Track" : e.cars?.length ? "Car" : e.instruments?.length ? "Instrument" : e.legoKits?.length ? "LEGO Kit" : "Item";
+      const image = e.newDisplayAsset?.renderImages?.[0]?.image ?? e.bundle?.image ?? br[0]?.images?.featured ?? br[0]?.images?.icon ?? e.tracks?.[0]?.albumArt ?? e.cars?.[0]?.images?.large ?? e.instruments?.[0]?.images?.large ?? e.legoKits?.[0]?.images?.large ?? null;
+      return {
+        id: e.offerId ?? e.devName ?? first.id ?? first.name,
+        name: e.bundle?.name ?? first.name ?? first.title ?? "Unknown",
+        kind,
+        rarity: br[0]?.rarity?.displayValue ?? null,
+        price: e.finalPrice ?? null,
+        regularPrice: e.regularPrice ?? null,
+        onSale: e.finalPrice != null && e.regularPrice != null && e.finalPrice < e.regularPrice,
+        image,
+        section: e.layout?.name ?? null,
+        inDate: e.inDate ?? null,
+        outDate: e.outDate ?? null,
+        items: br.length + (e.tracks?.length ?? 0) + (e.cars?.length ?? 0) + (e.instruments?.length ?? 0) + (e.legoKits?.length ?? 0)
+      };
+    });
+  }
+  function normalizeNews(data) {
+    const list = data?.motds ?? data?.messages ?? [];
+    return list.filter((m) => !m.hidden).sort((a, b) => (b.sortingPriority ?? 0) - (a.sortingPriority ?? 0)).map((m) => ({ id: m.id ?? m.title, title: m.title ?? m.tabTitle ?? "", body: m.body ?? "", image: m.image ?? null, tileImage: m.tileImage ?? null }));
+  }
+  function normalizeMap(data) {
+    return {
+      image: data?.images?.pois ?? null,
+      imageBlank: data?.images?.blank ?? null,
+      pois: (data?.pois ?? []).map((p) => ({
+        id: p.id,
+        name: p.name,
+        x: p.location?.x ?? 0,
+        y: p.location?.y ?? 0,
+        named: /\.POI\./i.test(p.id ?? "")
+        // named POI vs landmark
+      }))
+    };
+  }
+
+  // src/cache.js
+  function createCache({ ttlMs = 20 * 6e4, store = /* @__PURE__ */ new Map(), now = () => Date.now() } = {}) {
+    const read = async (k) => {
+      const raw = await store.get(k);
+      if (raw == null) return null;
+      return typeof raw === "string" ? JSON.parse(raw) : raw;
+    };
+    const write = async (k, entry) => store.set(k, store instanceof Map ? entry : JSON.stringify(entry));
+    return {
+      // Get fresh value or run loader. Returns { value, cached, savedAt, refreshAvailableAt }.
+      // While the entry is fresh, a refresh is refused (cooldown) — same rule FUNAGLET uses.
+      async getOrLoad(key, loader) {
+        const hit = await read(key);
+        const fresh = hit && now() - hit.savedAt < ttlMs;
+        if (fresh) {
+          return { value: hit.value, cached: true, savedAt: new Date(hit.savedAt).toISOString(), refreshAvailableAt: new Date(hit.savedAt + ttlMs).toISOString() };
+        }
+        const value = await loader();
+        const savedAt = now();
+        await write(key, { value, savedAt });
+        return { value, cached: false, savedAt: new Date(savedAt).toISOString(), refreshAvailableAt: new Date(savedAt + ttlMs).toISOString() };
+      }
+    };
+  }
+
+  // data/treasure-hunters-2026.json
+  var treasure_hunters_2026_default = {
+    id: "treasure-hunters-2026",
+    name: "Fortnite Treasure Hunters",
+    notes: "Chapter 7 mini-season. Odds are per eligible chest. Chest estimate = alive minutes played x chestsPerMinute (Davi's observed rate: one chest every 30 s). Week boundary time is an assumption (00:00 UTC on the start date); change weekResetUtc if Epic's weekly rotation uses another hour.",
+    start: "2026-11-01",
+    end: "2026-12-05",
+    weekResetUtc: "00:00",
+    weekLengthDays: 7,
+    chestsPerMinute: 2,
+    chestsPerMatch: {
+      funaglet: 50,
+      _why: "Per-match presets. 'funaglet' copies FUNAGLET's 50 chests per Solo match. Pass chestsPerMatch to use one; otherwise the kit uses alive minutes x chestsPerMinute."
+    },
+    rewards: [
+      {
+        id: "pirate-shop-access",
+        name: "Pirate Shop Access",
+        odds: 137500,
+        scope: "season",
+        repeatable: false,
+        treasureHourMultipliers: [
+          1.5,
+          2
+        ]
+      },
+      {
+        id: "weekly-gold-outfit",
+        name: "Weekly Gold Outfit",
+        odds: 1562500,
+        scope: "week",
+        repeatable: false,
+        treasureHourMultipliers: [
+          7.5,
+          10
+        ]
+      },
+      {
+        id: "weekly-vehicle-decal",
+        name: "Weekly Vehicle & Decal",
+        odds: 7813,
+        scope: "week",
+        repeatable: false,
+        treasureHourMultipliers: [
+          10
+        ]
+      },
+      {
+        id: "weekly-pickaxe-backbling",
+        name: "Weekly Pickaxe or Back Bling",
+        odds: 568,
+        scope: "week",
+        repeatable: false,
+        treasureHourMultipliers: []
+      },
+      {
+        id: "weekly-jam-track",
+        name: "Weekly Jam Track",
+        odds: 391,
+        scope: "week",
+        repeatable: false,
+        treasureHourMultipliers: []
+      },
+      {
+        id: "weekly-loading-screen",
+        name: "Weekly Loading Screen",
+        odds: 272,
+        scope: "week",
+        repeatable: false,
+        treasureHourMultipliers: []
+      },
+      {
+        id: "gizmo",
+        name: "Gizmo (any)",
+        odds: 127,
+        scope: "season",
+        repeatable: true,
+        treasureHourMultipliers: []
+      }
+    ],
+    sources: [
+      {
+        title: "Epic \u2014 Fortnite Status post, 7 Nov 2026 (as reported by Playnews)",
+        url: "https://www.playnews.gg/en/news/fortnite-pirate-shop-access-odds-1-in-137-500-per-chest-2x-in-treasure-hours"
+      },
+      {
+        title: "Epic help: Pirate Treasure drop rates",
+        url: "https://www.epicgames.com/help/c-34254770/c-33726977/a14361627"
+      },
+      {
+        title: "Prima Games: schedule (1 Nov - 5 Dec)",
+        url: "https://primagames.com/gaming/complete-fortnite-treasure-chest-rewards-odds-schedule"
+      }
+    ]
+  };
+
+  // ui/demo-data.js
+  var blk = (matches, wins, kills, minutesPlayed, extra = {}) => ({
+    score: 0,
+    scorePerMin: 0,
+    scorePerMatch: 0,
+    wins,
+    kills,
+    killsPerMin: minutesPlayed ? kills / minutesPlayed : 0,
+    killsPerMatch: matches ? kills / matches : 0,
+    deaths: matches - wins,
+    kd: kills / Math.max(matches - wins, 1),
+    matches,
+    winRate: matches ? wins / matches * 100 : 0,
+    minutesPlayed,
+    playersOutlived: 0,
+    lastModified: "2026-11-18T00:40:00Z",
+    ...extra
+  });
+  var statsPayload = ({ all, solo, duo, squad, ltm, kbm, pad: pad2, touch, bp }) => ({
+    account: { id: "0123456789abcdef0123456789abcdef", name: "LilAvlis" },
+    battlePass: bp,
+    image: null,
+    stats: {
+      all: { overall: all, solo, duo, trio: null, squad, ltm },
+      keyboardMouse: kbm ? { overall: kbm } : null,
+      gamepad: pad2 ? { overall: pad2 } : null,
+      touch: touch ? { overall: touch } : null
+    }
+  });
+  var DEMO = {
+    season: statsPayload({
+      all: blk(350, 73, 940, 4055, { top10: 180, top25: 290 }),
+      solo: blk(180, 30, 520, 2050, { top10: 92, top25: 150 }),
+      duo: blk(110, 28, 280, 1300, { top5: 55, top12: 80 }),
+      squad: blk(60, 15, 140, 705, { top3: 24, top6: 38 }),
+      ltm: null,
+      kbm: blk(300, 66, 830, 3480),
+      pad: blk(50, 7, 110, 575),
+      touch: null,
+      bp: { level: 87, progress: 42 }
+    }),
+    lifetime: statsPayload({
+      all: blk(2140, 301, 5120, 24800, { top10: 910, top25: 1530 }),
+      solo: blk(1020, 120, 2700, 11900),
+      duo: blk(640, 98, 1500, 7400),
+      squad: blk(410, 70, 820, 4800),
+      ltm: blk(70, 13, 100, 700),
+      kbm: blk(1700, 250, 4300, 19800),
+      pad: blk(400, 45, 760, 4600),
+      touch: blk(40, 6, 60, 400),
+      bp: { level: 87, progress: 42 }
+    }),
+    shop: {
+      date: "2026-11-18T00:00:00Z",
+      entries: [
+        { offerId: "demo-1", finalPrice: 1500, regularPrice: 1500, layout: { name: "Treasure Hunt" }, outDate: "2026-11-20T23:59:59Z", brItems: [{ name: "Tidewalker Captain", type: { displayValue: "Outfit" }, rarity: { displayValue: "Epic" } }] },
+        { offerId: "demo-2", finalPrice: 800, regularPrice: 1e3, layout: { name: "Treasure Hunt" }, outDate: "2026-11-20T23:59:59Z", brItems: [{ name: "Brass Compass", type: { displayValue: "Back Bling" }, rarity: { displayValue: "Rare" } }] },
+        { offerId: "demo-3", finalPrice: 2200, regularPrice: 2800, layout: { name: "Featured" }, bundle: { name: "Deep Salvage Set" }, outDate: "2026-11-19T23:59:59Z", brItems: [{ name: "Salvage Diver", type: { displayValue: "Outfit" } }, { name: "Anchor Hook", type: { displayValue: "Pickaxe" } }, { name: "Kelp Wrap", type: { displayValue: "Wrap" } }] },
+        { offerId: "demo-4", finalPrice: 500, regularPrice: 500, layout: { name: "Featured" }, brItems: [{ name: "Sextant Swing", type: { displayValue: "Pickaxe" }, rarity: { displayValue: "Uncommon" } }] },
+        { offerId: "demo-5", finalPrice: 300, regularPrice: 300, layout: { name: "Emotes" }, brItems: [{ name: "Shanty Stomp", type: { displayValue: "Emote" }, rarity: { displayValue: "Rare" } }] },
+        { offerId: "demo-6", finalPrice: 500, regularPrice: 500, layout: { name: "Jam Tracks" }, tracks: [{ title: "Low Tide Signal", artist: "Sample Artist" }] },
+        { offerId: "demo-7", finalPrice: 1200, regularPrice: 1200, layout: { name: "Rides" }, cars: [{ name: "Harbour Runner" }] },
+        { offerId: "demo-8", finalPrice: 800, regularPrice: 800, layout: { name: "Featured" }, brItems: [{ name: "Gull Glider", type: { displayValue: "Glider" }, rarity: { displayValue: "Rare" } }] }
+      ]
+    },
+    news: {
+      motds: [
+        { id: "n1", title: "Treasure Hour Tonight", body: "Boosted odds for one hour. Open as many chests as you can.", sortingPriority: 100 },
+        { id: "n2", title: "Weekly Rewards Rotated", body: "A new set of weekly treasure is in chests now.", sortingPriority: 90 },
+        { id: "n3", title: "New Jam Tracks", body: "Three new tracks are in the shop this week.", sortingPriority: 80 }
+      ]
+    },
+    map: {
+      images: { pois: null, blank: null },
+      pois: [
+        { id: "Athena.Location.POI.Demo.01", name: "Signal Ridge", location: { x: 52e3, y: -38e3 } },
+        { id: "Athena.Location.POI.Demo.02", name: "Salt Flats", location: { x: 18e3, y: 41e3 } },
+        { id: "Athena.Location.POI.Demo.03", name: "Old Pier", location: { x: -61e3, y: 22e3 } },
+        { id: "Athena.Location.POI.Demo.04", name: "Cinder Mill", location: { x: -15e3, y: -52e3 } },
+        { id: "Athena.Location.POI.Demo.05", name: "Sunken Market", location: { x: 4e3, y: 3e3 } },
+        { id: "Athena.Location.POI.Demo.06", name: "Pine Hollow", location: { x: 4e4, y: 8e3 } },
+        { id: "Athena.Location.POI.Demo.07", name: "Dockside", location: { x: -42e3, y: -12e3 } },
+        { id: "Athena.Location.UnNamedPOI.Demo.08", name: "Lighthouse Rock", location: { x: 7e4, y: 5e4 } }
+      ]
+    },
+    status: {
+      overall: "Minor Service Outage",
+      components: { "Game Services": "operational", Login: "operational", Matchmaking: "operational", Parties: "operational", "Item Shop": "degraded_performance" }
+    }
+  };
+
+  // ui/app.js
+  var LS = "lt.";
+  var ls = (k, d = null) => {
+    try {
+      const v = localStorage.getItem(LS + k);
+      return v == null ? d : v;
+    } catch {
+      return d;
+    }
+  };
+  var lsSet = (k, v) => {
+    try {
+      v == null ? localStorage.removeItem(LS + k) : localStorage.setItem(LS + k, String(v));
+    } catch {
+    }
+  };
+  var lsStore = { get: (k) => ls("c." + k), set: (k, v) => lsSet("c." + k, v) };
+  var TABS = [
+    { id: "stat", label: "STAT", subs: ["SEASON", "CAREER", "MODES", "INPUT"] },
+    { id: "loot", label: "LOOT", subs: ["ODDS", "PLANNER", "METHOD"] },
+    { id: "shop", label: "SHOP", subs: ["ITEMS", "NEWS"] },
+    { id: "map", label: "MAP", subs: [] },
+    { id: "sys", label: "SYS", subs: ["STATUS", "SETTINGS"] }
+  ];
+  var S = {
+    tab: 0,
+    sub: { stat: 0, loot: 0, shop: 0, map: 0, sys: 0 },
+    cur: {},
+    mode: ls("mode", "auto"),
+    resolved: "demo",
+    key: ls("key", ""),
+    worker: ls("worker", ""),
+    theme: ls("theme", "green"),
+    fx: ls("fx", "on") === "on",
+    sound: ls("sound", "on") === "on",
+    boot: ls("boot", "on") === "on",
+    player: ls("player", ""),
+    acct: ls("acct", "epic"),
+    window: "season",
+    chest: { method: ls("chestMethod", "minutes"), rate: +ls("chestRate", treasure_hunters_2026_default.chestsPerMinute ?? 2) },
+    plan: { minutes: 60, matches: 0, thMinutes: 0, session: -1 },
+    data: { career: null, shop: null, news: null, map: null, status: null },
+    busy: {},
+    err: {},
+    list: null
+    // { key, len } for the view on screen
+  };
+  var $ = (id) => document.getElementById(id);
+  var esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+  var n = (x, dp = 0) => x == null || Number.isNaN(+x) ? "\u2014" : (+x).toLocaleString("en-AU", { maximumFractionDigits: dp, minimumFractionDigits: dp });
+  var hm = (min) => {
+    const m = Math.round(min || 0);
+    return `${Math.floor(m / 60)}H ${String(m % 60).padStart(2, "0")}M`;
+  };
+  var pad = (x) => String(x).padStart(2, "0");
+  var dmy = (d) => {
+    const x = new Date(d);
+    return Number.isNaN(+x) ? "\u2014" : `${pad(x.getDate())}.${pad(x.getMonth() + 1)}.${x.getFullYear()}`;
+  };
+  var t12 = (d) => {
+    const x = new Date(d);
+    let h = x.getHours();
+    const ap = h >= 12 ? "PM" : "AM";
+    h = h % 12 || 12;
+    return `${pad(h)}:${pad(x.getMinutes())}${ap}`;
+  };
+  var bar = (f) => `<span class="bar"><i style="width:${Math.max(0, Math.min(1, f || 0)) * 100}%"></i></span>`;
+  var reducedMotion = () => window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+  var tabId = () => TABS[S.tab].id;
+  var subName = () => TABS[S.tab].subs[S.sub[tabId()]] ?? "";
+  var curOf = (key, len) => {
+    const i = S.cur[key] ?? 0;
+    return Math.max(0, Math.min(i, Math.max(len - 1, 0)));
+  };
+  function friendly(err) {
+    const st = err?.status ?? 0;
+    if (st === 400) return "BAD REQUEST. CHECK THE NAME AND PLATFORM.";
+    if (st === 401) return "API KEY REFUSED. CHECK THE KEY IN SYS > SETTINGS.";
+    if (st === 403) return "PRIVATE STATS OR WRONG KEY. IN FORTNITE, TURN ON SHOW ON CAREER LEADERBOARD (ACCOUNT AND PRIVACY).";
+    if (st === 404) return "PLAYER NOT FOUND OR NO STATS. CHECK THE NAME AND PLATFORM.";
+    if (st === 429) return "TOO MANY REQUESTS. WAIT ONE MINUTE.";
+    if (st === 0) return "NETWORK BLOCKED OR OFFLINE. IN THE CLAUDE APP ONLY DEMO WORKS. OPEN THE PAGE FROM YOUR WORKER.";
+    return String(err?.message ?? "ERROR").toUpperCase();
+  }
+  var demoApi = {
+    label: "DEMO DATA",
+    async career() {
+      return { season: fromFortniteApiCom(DEMO.season, { timeWindow: "season" }), lifetime: fromFortniteApiCom(DEMO.lifetime, { timeWindow: "lifetime" }), demo: true };
+    },
+    shop: async () => normalizeShop(DEMO.shop),
+    news: async () => normalizeNews(DEMO.news),
+    map: async () => normalizeMap(DEMO.map),
+    status: async () => DEMO.status
+  };
+  function directApi() {
+    if (!S.key) throw Object.assign(new Error("No API key"), { status: 401 });
+    const fapi = createFortniteApiCom({ apiKey: S.key });
+    const cache = createCache({ ttlMs: 20 * 6e4, store: lsStore });
+    const stats = async (name, timeWindow) => {
+      const r = await cache.getOrLoad(`${S.acct}:${timeWindow}:${name.toLowerCase()}`, async () => fromFortniteApiCom(await fapi.statsByName(name, { timeWindow, accountType: S.acct }), { timeWindow }));
+      return { ...r.value, cache: { cached: r.cached, savedAt: r.savedAt, refreshAvailableAt: r.refreshAvailableAt } };
+    };
+    return {
+      label: "FORTNITE-API.COM",
+      career: async (name) => {
+        const [season, lifetime] = await Promise.all([stats(name, "season"), stats(name, "lifetime")]);
+        return { season, lifetime };
+      },
+      shop: async () => normalizeShop(await fapi.shop()),
+      news: async () => normalizeNews(await fapi.news("br")),
+      map: async () => normalizeMap(await fapi.map()),
+      status: () => createEpicStatus().fortnite()
+    };
+  }
+  function workerApi() {
+    const base = (S.worker || "").replace(/\/+$/, "");
+    const j = (p) => getJson(`${base}${p}`, { source: "worker" });
+    return {
+      label: "WORKER",
+      career: (name) => j(`/api/career/${encodeURIComponent(name)}?accountType=${S.acct}`),
+      shop: async () => normalizeShop(await j("/api/shop")),
+      news: async () => normalizeNews(await j("/api/news/br")),
+      map: async () => normalizeMap(await j("/api/map")),
+      status: () => j("/api/status")
+    };
+  }
+  var api = () => S.resolved === "demo" ? demoApi : S.resolved === "direct" ? directApi() : workerApi();
+  async function resolveMode() {
+    if (S.mode !== "auto") {
+      S.resolved = S.mode;
+      return;
+    }
+    S.resolved = "demo";
+    if (!/^https?:$/.test(location.protocol)) return;
+    try {
+      const ctrl = new AbortController();
+      setTimeout(() => ctrl.abort(), 2500);
+      const r = await fetch("/api/health", { signal: ctrl.signal });
+      const body = r.ok ? await r.json() : null;
+      if (body?.ok) {
+        S.resolved = "worker";
+        S.worker = "";
+      }
+    } catch {
+    }
+  }
+  async function load(what, ...args) {
+    S.busy[what] = true;
+    S.err[what] = null;
+    render();
+    try {
+      S.data[what] = await api()[what](...args);
+    } catch (e) {
+      S.err[what] = friendly(e);
+      S.data[what] = null;
+    } finally {
+      S.busy[what] = false;
+      render();
+    }
+  }
+  function scan(name) {
+    const nm = (name ?? "").trim() || (S.resolved === "demo" ? "LilAvlis" : "");
+    if (!nm) {
+      S.err.career = "TYPE AN EPIC NAME FIRST.";
+      render();
+      return;
+    }
+    S.player = nm;
+    lsSet("player", nm);
+    return load("career", nm);
+  }
+  function resetData() {
+    S.data = { career: null, shop: null, news: null, map: null, status: null };
+    S.err = {};
+  }
+  function report() {
+    const s = S.data.career?.season?.overall;
+    if (!s) return null;
+    try {
+      return treasureReport({
+        event: treasure_hunters_2026_default,
+        matches: s.matches,
+        minutesPlayed: s.minutesPlayed,
+        chestsPerMatch: S.chest.method === "funaglet" ? "funaglet" : void 0,
+        chestsPerMinute: S.chest.rate
+      });
+    } catch (e) {
+      return { error: String(e.message).toUpperCase() };
+    }
+  }
+  var methodLabel = () => S.chest.method === "funaglet" ? `FUNAGLET ${treasure_hunters_2026_default.chestsPerMatch.funaglet}/MATCH` : `${n(S.chest.rate, 1)} PER ALIVE MIN`;
+  var actx = null;
+  function click() {
+    if (!S.sound) return;
+    try {
+      actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+      const t = actx.currentTime;
+      const len = Math.floor(actx.sampleRate * 0.03);
+      const buf = actx.createBuffer(1, len, actx.sampleRate);
+      const d = buf.getChannelData(0);
+      for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / len) ** 3;
+      const src = actx.createBufferSource();
+      src.buffer = buf;
+      const g = actx.createGain();
+      g.gain.value = 0.2;
+      const f = actx.createBiquadFilter();
+      f.type = "bandpass";
+      f.frequency.value = 1800;
+      src.connect(f).connect(g).connect(actx.destination);
+      src.start(t);
+      if (Math.random() < 0.7) {
+        const b2 = actx.createBufferSource();
+        b2.buffer = buf;
+        const g2 = actx.createGain();
+        g2.gain.value = 0.06;
+        b2.playbackRate.value = 0.4;
+        b2.connect(g2).connect(actx.destination);
+        b2.start(t + 0.01);
+      }
+    } catch {
+    }
+  }
+  function jolt() {
+    if (!S.fx || reducedMotion()) return;
+    const el = $("content");
+    el.classList.remove("jolt");
+    void el.offsetWidth;
+    el.classList.add("jolt");
+  }
+  function renderTabs() {
+    $("tabs").innerHTML = TABS.map((t, i) => `<button class="tab${i === S.tab ? " on" : ""}" data-tab="${i}" aria-current="${i === S.tab ? "page" : "false"}">${t.label}</button>`).join("");
+    const subs = TABS[S.tab].subs;
+    $("subtabs").innerHTML = subs.map((s, i) => `<button class="sub${i === S.sub[tabId()] ? " on" : ""}" role="tab" aria-selected="${i === S.sub[tabId()]}" data-sub="${i}">${s}</button>`).join("");
+    $("subtabs").querySelector(".sub.on")?.scrollIntoView?.({ block: "nearest", inline: "center" });
+    const src = S.resolved === "demo" ? "DEMO DATA" : S.resolved === "direct" ? "DIRECT \xB7 YOUR KEY" : "WORKER";
+    $("modeTag").textContent = `${src}${S.mode === "auto" ? " \xB7 AUTO" : ""}`;
+  }
+  function cell(label, value, extra = "") {
+    return `<div class="cell"><span>${label}</span>${extra}<span>${value}</span></div>`;
+  }
+  function renderFooter() {
+    const c = S.data.career;
+    const s = c?.season?.overall;
+    const now = /* @__PURE__ */ new Date();
+    let html = "";
+    switch (tabId()) {
+      case "stat": {
+        const bp = c?.season?.battlePass;
+        html = cell("WINS", s ? `${n(s.wins)}/${n(s.matches)}` : "\u2014") + cell("BP", bp ? `LVL ${bp.level}` : "\u2014", bp ? `<span class="xp"><i style="width:${bp.progress}%"></i></span>` : "") + cell("K/D", s ? n(s.kd, 2) : "\u2014");
+        break;
+      }
+      case "loot": {
+        const r = report();
+        const wk = eventWeek(treasure_hunters_2026_default, now);
+        const weeks = Math.ceil((Date.parse(treasure_hunters_2026_default.end) - Date.parse(treasure_hunters_2026_default.start)) / 6048e5);
+        html = cell("CHESTS", r && !r.error ? n(r.seasonChests) : "\u2014") + cell("WEEK", `${wk.weekNumber}/${weeks}`) + cell("TOKEN", r && !r.error ? pct(r.rewards[0].chance) : "\u2014");
+        break;
+      }
+      case "shop": {
+        const items = S.data.shop;
+        const sale = items ? items.filter((i) => i.onSale).length : 0;
+        html = cell("ITEMS", items ? n(items.length) : "\u2014") + cell("ON SALE", items ? n(sale) : "\u2014");
+        break;
+      }
+      case "map":
+        html = cell("", dmy(now)) + cell("", t12(now)) + cell("POI", S.data.map ? n(S.data.map.pois.length) : "\u2014");
+        break;
+      case "sys":
+        html = cell("MODE", S.resolved.toUpperCase()) + cell("SERVERS", S.data.status ? Object.values(S.data.status.components ?? {}).every((v) => v === "operational") ? "OK" : "CHECK" : "\u2014");
+        break;
+    }
+    $("footer").innerHTML = html;
+  }
+  function stateLine(what, emptyText) {
+    if (S.busy[what]) return `<div class="msg">SCANNING<span class="cursor"></span></div>`;
+    if (S.err[what]) return `<div class="msg alert" role="alert">ERROR: ${esc(S.err[what])}</div>`;
+    if (!S.data[what] && emptyText) return `<div class="msg">${emptyText}</div>`;
+    return "";
+  }
+  function playerPrompt() {
+    const acct = ["epic", "psn", "xbl"].map((a) => `<button class="${a === S.acct ? "on" : ""}" data-acct="${a}">${a.toUpperCase()}</button>`).join("");
+    return `<form class="prompt" id="scanForm" autocomplete="off">
+    <label for="playerName">\u276F PLAYER</label>
+    <input type="text" id="playerName" value="${esc(S.player || (S.resolved === "demo" ? "LilAvlis" : ""))}" placeholder="Epic name" spellcheck="false" autocapitalize="off">
+    <span class="seg" role="group" aria-label="Platform">${acct}</span>
+    <button class="btn" type="submit">SCAN</button>
+  </form>`;
+  }
+  function cacheNote(season) {
+    const ch = season?.cache;
+    if (!ch) return S.data.career?.demo ? "SAMPLE DATA" : "";
+    const mins = Math.max(0, Math.ceil((Date.parse(ch.refreshAvailableAt) - Date.now()) / 6e4));
+    return `UPDATED ${t12(ch.savedAt)}${mins ? ` \xB7 REFRESH IN ${mins} MIN` : " \xB7 REFRESH READY"}`;
+  }
+  var MODE_ROWS = [["solo", "Solo"], ["duo", "Duos"], ["trio", "Trios"], ["squad", "Squads"], ["ltm", "Limited Modes"]];
+  var INPUT_ROWS = [["keyboardMouse", "Keyboard and Mouse"], ["gamepad", "Controller"], ["touch", "Touch"]];
+  function blockCards(b) {
+    if (!b) return '<div class="cards"><div class="card"><span>NO DATA</span></div></div>';
+    const tops = ["top3", "top5", "top6", "top10", "top12", "top25"].filter((k) => b[k]).map((k) => [k.replace("top", "TOP "), n(b[k])]);
+    const rows = [
+      ["MATCHES", n(b.matches)],
+      ["WINS", n(b.wins)],
+      ["WIN RATE", `${n(b.winRate, 2)}%`],
+      ["KILLS", n(b.kills)],
+      ["K/D", n(b.kd, 2)],
+      ["KILLS/MATCH", n(b.killsPerMatch, 2)],
+      ["TIME ALIVE", hm(b.minutesPlayed)],
+      ...tops
+    ];
+    return `<div class="cards">${rows.map(([k, v], i) => `<div class="card${i === 2 ? " hi" : ""}"><span class="k">${k}</span><span>${v}</span></div>`).join("")}</div>`;
+  }
+  function listView(key, rows, detail) {
+    const i = curOf(key, rows.length);
+    S.list = { key, len: rows.length };
+    const lis = rows.map((row, k) => `<li class="row${k === i ? " cur" : ""}${row.dim ? " dim" : ""}${row.act ? " act" : ""}" data-list="${key}" data-i="${k}" aria-selected="${k === i}">
+      <span>${esc(row.l)}${row.s ? ` <span class="s">${esc(row.s)}</span>` : ""}</span><span class="r">${row.r ?? ""}</span></li>`).join("");
+    return `<div class="split"><ul class="list" role="listbox" aria-label="${key}">${lis}</ul><div>${detail(i)}</div></div>`;
+  }
+  function windowToggle() {
+    return `<div class="inline" style="margin-bottom:0.6rem"><span class="seg" role="group" aria-label="Time window">
+    <button data-window="season" class="${S.window === "season" ? "on" : ""}">SEASON</button>
+    <button data-window="lifetime" class="${S.window === "lifetime" ? "on" : ""}">LIFETIME</button></span></div>`;
+  }
+  var views = {
+    "stat/SEASON"() {
+      const c = S.data.career;
+      const s = c?.season;
+      let out = playerPrompt() + stateLine("career", "TYPE AN EPIC NAME AND PRESS SCAN.");
+      if (!s || S.busy.career) return out;
+      const o = s.overall;
+      const bp = s.battlePass;
+      out += `<div class="h"><span>${esc(s.account.name)}</span><span class="s">${esc(cacheNote(s))}</span></div>`;
+      out += `<div class="grid">
+      ${fig("MATCHES", n(o.matches))}
+      ${fig("WINS", n(o.wins), `${n(o.winRate, 2)}% WIN RATE`)}
+      ${fig("KILLS", n(o.kills), `${n(o.killsPerMatch, 2)} PER MATCH`)}
+      ${fig("K/D", n(o.kd, 2))}
+      ${fig("TIME ALIVE", hm(o.minutesPlayed), `${n(o.minutesPlayed ? o.minutesPlayed / Math.max(o.matches, 1) : 0, 1)} MIN PER MATCH`)}
+      ${fig("TOP 10", n(o.top10 || o.top12 || 0))}
+      ${fig("TOP 25", n(o.top25 || 0))}
+      ${fig("BATTLE PASS", bp ? `LVL ${bp.level}` : "\u2014", bp ? `${bp.progress}% TO NEXT` : "")}
+    </div>`;
+      out += `<div class="h"><span>WIN RATE</span><span class="s">${n(o.wins)}/${n(o.matches)}</span></div><div class="barrow">${bar(o.winRate / 100)}<span>${n(o.winRate, 2)}%</span></div>`;
+      const r = report();
+      if (r && !r.error) {
+        out += `<div class="h"><span>TREASURE</span><span class="s">${methodLabel()}</span></div>
+        <div class="barrow"><span>PIRATE SHOP ACCESS</span>${bar(r.rewards[0].chance)}<span>${pct(r.rewards[0].chance)}</span></div>
+        <p class="p">Estimated from ${n(r.seasonChests)} chests. Open LOOT for every reward.</p>`;
+      }
+      return out;
+    },
+    "stat/CAREER"() {
+      const c = S.data.career;
+      let out = stateLine("career", "SCAN A PLAYER ON STAT > SEASON FIRST.");
+      if (!c || S.busy.career) return out;
+      const s = c.season.overall;
+      const l = c.lifetime.overall;
+      const rows = [
+        ["MATCHES", s.matches, l.matches, 0],
+        ["WINS", s.wins, l.wins, 0],
+        ["KILLS", s.kills, l.kills, 0],
+        ["TIME ALIVE (H)", s.minutesPlayed / 60, l.minutesPlayed / 60, 1],
+        ["WIN RATE %", s.winRate, l.winRate, 2],
+        ["K/D", s.kd, l.kd, 2],
+        ["KILLS/MATCH", s.killsPerMatch, l.killsPerMatch, 2]
+      ];
+      out += `<div class="h"><span>${esc(c.season.account.name)} \xB7 CAREER</span><span class="s">SEASON / LIFETIME</span></div>`;
+      out += `<div class="cards">${rows.map(([k, a, b, dp], i) => {
+        const share = i < 4 && b ? a / b : null;
+        const trend = i >= 4 ? a > b ? "ABOVE CAREER" : a < b ? "BELOW CAREER" : "SAME" : `${n((share ?? 0) * 100, 1)}% THIS SEASON`;
+        return `<div class="card"><span class="k">${k}</span><span>${n(a, dp)} / ${n(b, dp)} <span class="s" style="color:var(--t2)">${trend}</span></span></div>`;
+      }).join("")}</div>`;
+      out += `<div class="h"><span>SEASON SHARE OF CAREER MATCHES</span><span class="s">${n(s.matches)}/${n(l.matches)}</span></div><div class="barrow">${bar(l.matches ? s.matches / l.matches : 0)}<span>${n(l.matches ? s.matches / l.matches * 100 : 0, 1)}%</span></div>`;
+      return out;
+    },
+    "stat/MODES"() {
+      return splitStats("modes", MODE_ROWS, "byMode");
+    },
+    "stat/INPUT"() {
+      return splitStats("input", INPUT_ROWS, "byInput");
+    },
+    "loot/ODDS"() {
+      let out = stateLine("career", "SCAN A PLAYER ON STAT > SEASON FIRST.");
+      const r = report();
+      if (!r || S.busy.career) return out;
+      if (r.error) return out + `<div class="msg alert">ERROR: ${esc(r.error)}</div>`;
+      const wk = r.week;
+      out += `<div class="h"><span>${esc(treasure_hunters_2026_default.name)} \xB7 WEEK ${wk.weekNumber}${wk.ended ? " \xB7 ENDED" : ""}</span><span class="s">ENDS ${dmy(treasure_hunters_2026_default.end)}</span></div>`;
+      out += `<p class="p">Chests: <b>${n(r.seasonChests)}</b> this season, <b>${n(r.weekChests)}</b> this week. Method: ${methodLabel()}.</p>`;
+      const rows = r.rewards.map((w) => ({ l: w.name, r: pct(w.chance), s: w.scope === "week" ? "WEEK" : "" }));
+      out += listView("odds", rows, (i) => {
+        const w = r.rewards[i];
+        const perMin = S.chest.method === "funaglet" ? r.avgMinutesPerMatch ? r.chestsPerMatch / r.avgMinutesPerMatch : 0 : S.chest.rate;
+        const t50 = perMin ? w.chestsFor50 / perMin : null;
+        return `<div class="big">${pct(w.chance)}</div><p class="p">Chance you got at least one so far.</p>
+        <div class="barrow" style="margin:0.4rem 0 0.7rem">${bar(w.chance)}</div>
+        <div class="cards">
+          <div class="card"><span class="k">ODDS</span><span>1 IN ${n(w.odds)}</span></div>
+          <div class="card"><span class="k">COUNTS</span><span>${w.scope === "week" ? "THIS WEEK" : "WHOLE SEASON"}</span></div>
+          <div class="card"><span class="k">CHESTS</span><span>${n(w.chests)}</span></div>
+          <div class="card hi"><span class="k">NO DROP</span><span>${pct(w.noChance)}</span></div>
+          <div class="card"><span class="k">50% NEEDS</span><span>${n(w.chestsFor50)} CHESTS</span></div>
+          <div class="card"><span class="k">90% NEEDS</span><span>${n(w.chestsFor90)} CHESTS</span></div>
+          ${t50 != null ? `<div class="card"><span class="k">50% TIME ALIVE</span><span>${hm(t50)}</span></div>` : ""}
+          ${w.expected != null ? `<div class="card"><span class="k">EXPECTED</span><span>${n(w.expected, 1)} DROPS</span></div>` : ""}
+        </div>`;
+      });
+      return out;
+    },
+    "loot/PLANNER"() {
+      let out = stateLine("career", "SCAN A PLAYER ON STAT > SEASON FIRST.");
+      const r = report();
+      if (!r || S.busy.career) return out;
+      if (r.error) return out + `<div class="msg alert">ERROR: ${esc(r.error)}</div>`;
+      const rows = r.rewards.map((w) => ({ l: w.name, r: pct(w.chance) }));
+      out += `<p class="p">Pick a reward. Enter how much more you will play. The result updates as you type.</p>`;
+      out += listView("plan", rows, () => `
+      <div class="field"><label for="pMin">EXTRA TIME ALIVE (MIN)</label><input type="number" id="pMin" min="0" step="10" value="${S.plan.minutes}"></div>
+      <div class="field"><label for="pMatch">EXTRA MATCHES</label><input type="number" id="pMatch" min="0" step="1" value="${S.plan.matches}">
+        <span class="hint">One match = ${n(r.chestsPerMatch, 1)} chests at your average.</span></div>
+      <div class="field"><label for="pTh">TREASURE HOUR TIME ALIVE (MIN)</label><input type="number" id="pTh" min="0" step="10" value="${S.plan.thMinutes}"></div>
+      <div class="field"><label>TREASURE HOUR SESSION</label><span class="seg" role="group" aria-label="Treasure Hour session">
+        ${[-1, 0, 1].map((v) => `<button data-session="${v}" class="${S.plan.session === v ? "on" : ""}">${v < 0 ? "OFF" : `S${v + 1}`}</button>`).join("")}</span></div>
+      <div id="planOut">${planOut(r)}</div>`);
+      return out;
+    },
+    "loot/METHOD"() {
+      const r = report();
+      const s = S.data.career?.season?.overall;
+      const minutesOn = S.chest.method === "minutes";
+      let out = `<div class="h"><span>CHEST ESTIMATE</span><span class="s">${methodLabel()}</span></div>
+      <span class="seg" role="group" aria-label="Chest method">
+        <button data-method="minutes" class="${minutesOn ? "on" : ""}">ALIVE MINUTES</button>
+        <button data-method="funaglet" class="${!minutesOn ? "on" : ""}">FUNAGLET 50/MATCH</button></span>
+      <div class="field"><label for="rate">CHESTS PER ALIVE MINUTE</label>
+        <input type="number" id="rate" min="0.1" max="10" step="0.1" value="${S.chest.rate}" ${minutesOn ? "" : "disabled"}>
+        <span class="hint">2 = one chest every 30 seconds. Epic counts alive minutes only, so an early death adds few chests.</span></div>`;
+      if (s) {
+        const calc = (opts) => {
+          try {
+            return treasureReport({ event: treasure_hunters_2026_default, matches: s.matches, minutesPlayed: s.minutesPlayed, ...opts });
+          } catch {
+            return null;
+          }
+        };
+        const a = calc({ chestsPerMinute: S.chest.rate });
+        const b = calc({ chestsPerMatch: "funaglet" });
+        out += `<div class="h"><span>COMPARE FOR ${esc(S.data.career.season.account.name)}</span><span class="s">${n(s.matches)} MATCHES \xB7 ${hm(s.minutesPlayed)}</span></div>
+        <div class="cards">
+          <div class="card${minutesOn ? " hi" : ""}"><span class="k">ALIVE \xD7 ${n(S.chest.rate, 1)}</span><span>${a ? `${n(a.seasonChests)} CHESTS \xB7 ${pct(a.rewards[0].chance)}` : "\u2014"}</span></div>
+          <div class="card${!minutesOn ? " hi" : ""}"><span class="k">FUNAGLET</span><span>${b ? `${n(b.seasonChests)} CHESTS \xB7 ${pct(b.rewards[0].chance)}` : "\u2014"}</span></div>
+        </div><p class="p">Percent = Pirate Shop Access, 1 in ${n(treasure_hunters_2026_default.rewards[0].odds)} per chest.</p>`;
+      }
+      out += `<div class="h"><span>THE MATHS</span></div>
+      <p class="p">Chance of at least one drop = 1 \u2212 (1 \u2212 1/odds)<sup>chests</sup>. Weekly rewards use this season's chests divided by the weeks so far. Treasure Hour chests use boosted odds.</p>`;
+      if (r?.error) out += `<div class="msg alert">ERROR: ${esc(r.error)}</div>`;
+      return out;
+    },
+    "shop/ITEMS"() {
+      let out = stateLine("shop", "NO SHOP DATA.");
+      const items = S.data.shop;
+      if (!items || S.busy.shop) return out;
+      const rows = items.map((it) => ({ l: it.name, s: it.kind, r: `${n(it.price)}${it.onSale ? " \u25BC" : ""}` }));
+      out += `<div class="h"><span>ITEM SHOP</span><span class="s">${n(items.length)} OFFERS \xB7 V-BUCKS</span></div>`;
+      out += listView("shop", rows, (i) => {
+        const it = items[i];
+        return `${img(it.image, it.kind)}
+        <div class="h" style="margin-top:0.6rem"><span>${esc(it.name)}</span></div>
+        <div class="cards">
+          <div class="card"><span class="k">TYPE</span><span>${esc(it.kind)}${it.items > 1 ? ` (${it.items})` : ""}</span></div>
+          ${it.rarity ? `<div class="card"><span class="k">RARITY</span><span>${esc(it.rarity)}</span></div>` : ""}
+          <div class="card hi"><span class="k">PRICE</span><span>${n(it.price)} V-BUCKS${it.onSale ? ` (WAS ${n(it.regularPrice)})` : ""}</span></div>
+          ${it.section ? `<div class="card"><span class="k">SECTION</span><span>${esc(it.section)}</span></div>` : ""}
+          ${it.outDate ? `<div class="card"><span class="k">LEAVES</span><span>${dmy(it.outDate)}</span></div>` : ""}
+        </div>`;
+      });
+      return out;
+    },
+    "shop/NEWS"() {
+      let out = stateLine("news", "NO NEWS.");
+      const list = S.data.news;
+      if (!list || S.busy.news) return out;
+      out += listView("news", list.map((m) => ({ l: m.title })), (i) => {
+        const m = list[i];
+        return `${img(m.image, "NEWS", true)}<div class="h" style="margin-top:0.6rem"><span>${esc(m.title)}</span></div><p class="p">${esc(m.body)}</p>`;
+      });
+      return out;
+    },
+    "map/"() {
+      let out = stateLine("map", "NO MAP DATA.");
+      const m = S.data.map;
+      if (!m || S.busy.map) return out;
+      const pois = [...m.pois].sort((a, b) => b.named - a.named || a.name.localeCompare(b.name));
+      const visual = m.image ? img(m.image, "MAP", false, "map") : `<canvas class="map" id="mapCanvas" width="640" height="640" aria-label="Schematic map with ${pois.length} places"></canvas>`;
+      out += listView("map", pois.map((p) => ({ l: p.name, s: p.named ? "" : "LANDMARK", act: true })), () => visual);
+      out += m.image ? '<p class="p">Live map image. Place names are on the image.</p>' : '<p class="p">Schematic of sample places. The cursor place is marked.</p>';
+      return out;
+    },
+    "sys/STATUS"() {
+      let out = stateLine("status", "NO STATUS DATA.");
+      const st = S.data.status;
+      if (!st || S.busy.status) return out;
+      const comps = Object.entries(st.components ?? {});
+      out += `<div class="h"><span>EPIC SERVER STATUS</span><span class="s">${t12(/* @__PURE__ */ new Date())}</span></div><div class="big" style="font-size:1.6rem">${esc(String(st.overall).toUpperCase())}</div>`;
+      out += `<ul class="list" style="margin-top:0.6rem">${comps.map(([k, v]) => {
+        const ok = v === "operational";
+        return `<li class="row"><span>${esc(k)}</span><span class="r${ok ? "" : " alert"}">${ok ? "ONLINE" : `WARNING: ${esc(v.replace(/_/g, " ").toUpperCase())}`}</span></li>`;
+      }).join("") || '<li class="row dim"><span>NO FORTNITE COMPONENTS LISTED</span></li>'}</ul>`;
+      out += `<div class="h"><span>DATA LINK</span></div><div class="cards">
+      <div class="card"><span class="k">MODE</span><span>${S.resolved.toUpperCase()}${S.mode === "auto" ? " (AUTO)" : ""}</span></div>
+      <div class="card"><span class="k">STATS</span><span>${S.resolved === "demo" ? "SAMPLE DATA" : "FORTNITE-API.COM"}</span></div>
+      <div class="card"><span class="k">CACHE</span><span>20 MIN PER PLAYER</span></div></div>`;
+      return out;
+    },
+    "sys/SETTINGS"() {
+      const seg = (name, opts, cur) => `<span class="seg" role="group" aria-label="${name}">${opts.map(([v, l]) => `<button data-set="${name}" data-val="${v}" class="${String(cur) === String(v) ? "on" : ""}">${l}</button>`).join("")}</span>`;
+      return `
+      <div class="field"><label>DATA MODE</label>${seg("mode", [["auto", "AUTO"], ["demo", "DEMO"], ["direct", "DIRECT"], ["worker", "WORKER"]], S.mode)}
+        <span class="hint">Now: ${S.resolved.toUpperCase()}. AUTO uses the Worker when this page comes from your Worker, else DEMO.</span></div>
+      <div class="field"><label for="apiKey">FORTNITE-API.COM KEY (DIRECT MODE)</label>
+        <div class="inline"><input type="password" id="apiKey" value="${esc(S.key)}" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" autocomplete="off" spellcheck="false">
+        <button class="btn" data-action="saveKey">SAVE</button><button class="btn" data-action="clearKey">CLEAR</button></div>
+        <span class="hint">Stays in this browser only. Never put the key in the page code. With the Worker you do not need it here.</span></div>
+      <div class="field"><label for="workerUrl">WORKER URL (WORKER MODE)</label>
+        <div class="inline"><input type="url" id="workerUrl" value="${esc(S.worker)}" placeholder="https://fortnite-kit.you.workers.dev">
+        <button class="btn" data-action="saveWorker">SAVE</button></div>
+        <span class="hint">Leave empty when this page is served by the Worker.</span></div>
+      <div class="field"><label>THEME</label>${seg("theme", [["green", "GREEN"], ["amber", "AMBER"], ["blue", "BLUE"], ["white", "WHITE"]], S.theme)}</div>
+      <div class="field"><label>EFFECTS</label>${seg("fx", [["on", "ON"], ["off", "OFF"]], S.fx ? "on" : "off")}</div>
+      <div class="field"><label>SOUND</label>${seg("sound", [["on", "ON"], ["off", "OFF"]], S.sound ? "on" : "off")}</div>
+      <div class="field"><label>BOOT SEQUENCE</label>${seg("boot", [["on", "ON"], ["off", "OFF"]], S.boot ? "on" : "off")}</div>
+      <div class="field"><label>LOCAL DATA</label><div class="inline"><button class="btn" data-action="wipe">CLEAR SAVED SETTINGS AND CACHE</button></div></div>`;
+    }
+  };
+  function fig(k, v, note = "") {
+    return `<div class="fig"><div class="k">${k}</div><div class="v">${v}</div>${note ? `<div class="n">${note}</div>` : ""}</div>`;
+  }
+  function img(url, label, wide = false, extra = "") {
+    const initials = esc(String(label).split(/\s+/).map((w) => w[0]).join("").slice(0, 3).toUpperCase());
+    if (!url || S.resolved === "demo") return `<div class="ph${wide ? " wide" : ""}" aria-hidden="true">${initials}</div>`;
+    return `<div class="tint${wide ? " wide" : ""} ${extra}" data-ph="${initials}"><img src="${esc(url)}" alt="" loading="lazy" referrerpolicy="no-referrer"></div>`;
+  }
+  function splitStats(key, defs, field) {
+    let out = stateLine("career", "SCAN A PLAYER ON STAT > SEASON FIRST.");
+    const c = S.data.career;
+    if (!c || S.busy.career) return out;
+    const ps = S.window === "season" ? c.season : c.lifetime;
+    const blocks = defs.map(([id]) => ps[field]?.[id] ?? null);
+    const max = Math.max(1, ...blocks.map((b) => b?.matches ?? 0));
+    out += windowToggle();
+    const rows = defs.map(([, label], k) => ({ l: label, r: blocks[k] ? n(blocks[k].matches) : "\u2014", dim: !blocks[k]?.matches }));
+    out += listView(key, rows, (i) => `<div class="h"><span>${defs[i][1]}</span><span class="s">${S.window.toUpperCase()}</span></div>
+    <div class="barrow" style="margin-bottom:0.5rem"><span class="s" style="color:var(--t2)">SHARE</span>${bar((blocks[i]?.matches ?? 0) / max)}</div>${blockCards(blocks[i])}`);
+    return out;
+  }
+  function planOut(r) {
+    const rows = r.rewards;
+    const i = curOf("plan", rows.length);
+    const reward = treasure_hunters_2026_default.rewards[i];
+    const p = planTreasure({
+      event: treasure_hunters_2026_default,
+      report: r,
+      rewardId: reward.id,
+      plannedMinutes: S.plan.minutes,
+      plannedMatches: S.plan.matches,
+      treasureHourMinutes: S.plan.thMinutes,
+      treasureHour: S.plan.session < 0 ? null : S.plan.session
+    });
+    const before = rows[i].chance;
+    return `<div class="h"><span>${esc(reward.name)}</span><span class="s">${p.treasureHourMultiplier > 1 ? `TREASURE HOUR \xD7${p.treasureHourMultiplier}` : "NORMAL ODDS"}</span></div>
+    <div class="big">${pct(p.projectedChance)}</div>
+    <p class="p">Now ${pct(before)}. Gain <b>+${pct(p.gain)}</b> from ${n(p.plannedChests + p.treasureHourChests)} more chests (${n(p.projectedTotal)} total).</p>
+    ${chanceChart(r, reward, p.currentChests, p.plannedChests + p.treasureHourChests)}`;
+  }
+  function chanceChart(r, reward, base, planned) {
+    const perMin = S.chest.method === "funaglet" ? r.avgMinutesPerMatch ? r.chestsPerMatch / r.avgMinutesPerMatch : 0 : S.chest.rate;
+    if (!perMin) return "";
+    const perHour = perMin * 60;
+    const need50 = Math.max(0, Math.log1p(-0.5) / Math.log1p(-1 / reward.odds) - base) / perHour;
+    const H = Math.min(500, Math.max(10, Math.ceil(need50 * 2 / 10) * 10));
+    const W = 320;
+    const Ht = 120;
+    const L = 34;
+    const B = 18;
+    const T = 8;
+    const f = (h) => chanceAtLeastOneMixed(reward.odds, [{ tries: base + h * perHour, multiplier: 1 }]);
+    const pts = Array.from({ length: 41 }, (_, k) => {
+      const h = H * k / 40;
+      return [h, f(h)];
+    });
+    const yMax = Math.min(1, Math.max(0.05, Math.ceil(pts[pts.length - 1][1] * 10) / 10));
+    const X = (h) => L + h / H * (W - L - 6);
+    const Y = (v) => T + (1 - v / yMax) * (Ht - T - B);
+    const line = pts.map(([h, v]) => `${X(h).toFixed(1)},${Y(v).toFixed(1)}`).join(" ");
+    const area = `${X(0)},${Y(0)} ${line} ${X(H)},${Y(0)}`;
+    const planH = Math.min(H, planned / perHour);
+    const ticks = Array.from({ length: 21 }, (_, k) => {
+      const x = L + k / 20 * (W - L - 6);
+      const len = k % 4 === 0 ? 5 : 3;
+      return `<line x1="${x}" y1="${Ht - B}" x2="${x}" y2="${Ht - B + len}" stroke="var(--t1)" stroke-width="1"/>`;
+    }).join("");
+    return `<svg class="chart" viewBox="0 0 ${W} ${Ht + 8}" role="img" aria-label="Chance rises from ${pct(f(0))} now to ${pct(f(H))} after ${H} more hours alive">
+    <line x1="${L}" y1="${T}" x2="${L}" y2="${Ht - B}" stroke="var(--t1)"/><line x1="${L}" y1="${Ht - B}" x2="${W - 6}" y2="${Ht - B}" stroke="var(--t1)"/>
+    <line x1="${L}" y1="${Y(yMax / 2)}" x2="${W - 6}" y2="${Y(yMax / 2)}" stroke="var(--t4)"/>
+    ${ticks}
+    <polygon points="${area}" fill="var(--t4)"/>
+    <polyline points="${line}" fill="none" stroke="var(--t1)" stroke-width="1.5"/>
+    ${planned ? `<line x1="${X(planH)}" y1="${T}" x2="${X(planH)}" y2="${Ht - B}" stroke="var(--t2)" stroke-dasharray="2 2"/><rect x="${X(planH) - 2}" y="${Y(f(planH)) - 2}" width="4" height="4" fill="var(--t1)"/>` : ""}
+    <rect x="${X(H) - 2}" y="${Y(f(H)) - 2}" width="4" height="4" fill="var(--t1)"/>
+    <text x="${L - 4}" y="${T + 4}" text-anchor="end">${Math.round(yMax * 100)}%</text>
+    <text x="${L - 4}" y="${Ht - B}" text-anchor="end">0%</text>
+    <text x="${L}" y="${Ht + 5}" text-anchor="start">+0H</text>
+    <text x="${X(H / 2)}" y="${Ht + 5}" text-anchor="middle">+${H / 2}H</text>
+    <text x="${X(H)}" y="${Ht + 5}" text-anchor="end">+${H}H</text>
+  </svg><p class="p">Chance after more hours alive at ${n(perMin, 1)} chests per minute.</p>`;
+  }
+  function drawMap() {
+    const cv = $("mapCanvas");
+    const m = S.data.map;
+    if (!cv || !m) return;
+    const ctx = cv.getContext("2d");
+    const W = cv.width;
+    const H = cv.height;
+    const css = getComputedStyle(document.documentElement);
+    const t1 = css.getPropertyValue("--t1").trim();
+    const t3 = css.getPropertyValue("--t3").trim();
+    const t4 = css.getPropertyValue("--t4").trim();
+    ctx.fillStyle = "#000";
+    ctx.fillRect(0, 0, W, H);
+    ctx.strokeStyle = t4;
+    ctx.lineWidth = 1;
+    for (let k = 0; k <= 8; k++) {
+      const p = k / 8 * W;
+      ctx.beginPath();
+      ctx.moveTo(p, 0);
+      ctx.lineTo(p, H);
+      ctx.moveTo(0, p);
+      ctx.lineTo(W, p);
+      ctx.stroke();
+    }
+    ctx.beginPath();
+    for (let a = 0; a <= 64; a++) {
+      const th = a / 64 * Math.PI * 2;
+      const r = W * (0.36 + 0.05 * Math.sin(th * 3) + 0.03 * Math.cos(th * 7));
+      const x = W / 2 + Math.cos(th) * r;
+      const y = H / 2 + Math.sin(th) * r;
+      a ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+    }
+    ctx.closePath();
+    ctx.fillStyle = t4;
+    ctx.fill();
+    ctx.strokeStyle = t1;
+    ctx.stroke();
+    const pois = [...m.pois].sort((a, b) => b.named - a.named || a.name.localeCompare(b.name));
+    const ext = Math.max(...pois.map((p) => Math.max(Math.abs(p.x), Math.abs(p.y))), 1) * 1.25;
+    const cur = curOf("map", pois.length);
+    ctx.font = '700 15px "Roboto Condensed", sans-serif';
+    ctx.textAlign = "center";
+    pois.forEach((p, k) => {
+      const x = W / 2 + p.y / ext * (W / 2);
+      const y = H / 2 - p.x / ext * (H / 2);
+      const on = k === cur;
+      const s = on ? 10 : p.named ? 6 : 4;
+      ctx.fillStyle = on ? t1 : t3;
+      ctx.fillRect(x - s / 2, y - s / 2, s, s);
+      if (on) {
+        ctx.strokeStyle = t1;
+        ctx.strokeRect(x - 9, y - 9, 18, 18);
+      }
+      ctx.fillStyle = on ? t1 : t3;
+      ctx.fillText(p.name.toUpperCase(), x, y - 12);
+    });
+  }
+  function render() {
+    document.documentElement.dataset.ph = S.theme;
+    document.body.classList.toggle("nofx", !S.fx);
+    S.list = null;
+    renderTabs();
+    const key = `${tabId()}/${subName()}`;
+    $("content").innerHTML = (views[key] ?? (() => ""))();
+    renderFooter();
+    if (key === "map/") drawMap();
+  }
+  function ensureData() {
+    const t = tabId();
+    if (t === "shop" && subName() === "ITEMS" && !S.data.shop && !S.busy.shop && !S.err.shop) load("shop");
+    if (t === "shop" && subName() === "NEWS" && !S.data.news && !S.busy.news && !S.err.news) load("news");
+    if (t === "map" && !S.data.map && !S.busy.map && !S.err.map) load("map");
+    if (t === "sys" && subName() === "STATUS" && !S.data.status && !S.busy.status && !S.err.status) load("status");
+  }
+  function goTab(i) {
+    S.tab = (i + TABS.length) % TABS.length;
+    click();
+    jolt();
+    render();
+    ensureData();
+    $("content").scrollTop = 0;
+  }
+  function goSub(i) {
+    const subs = TABS[S.tab].subs;
+    if (!subs.length) return;
+    const v = Math.max(0, Math.min(subs.length - 1, i));
+    if (v === S.sub[tabId()]) return;
+    S.sub[tabId()] = v;
+    click();
+    render();
+    ensureData();
+    $("content").scrollTop = 0;
+  }
+  function moveCursor(d) {
+    if (!S.list) return;
+    const { key, len } = S.list;
+    const v = Math.max(0, Math.min(len - 1, curOf(key, len) + d));
+    S.cur[key] = v;
+    render();
+    document.querySelector(".row.cur")?.scrollIntoView({ block: "nearest" });
+  }
+  document.addEventListener("click", (e) => {
+    const el = e.target.closest("button, .row");
+    if (!el) return;
+    const d = el.dataset;
+    if (d.tab != null) return goTab(+d.tab);
+    if (d.sub != null) return goSub(+d.sub);
+    if (d.list != null) {
+      S.cur[d.list] = +d.i;
+      click();
+      return render();
+    }
+    if (d.acct) {
+      e.preventDefault();
+      S.acct = d.acct;
+      lsSet("acct", d.acct);
+      return render();
+    }
+    if (d.window) {
+      S.window = d.window;
+      return render();
+    }
+    if (d.session != null) {
+      S.plan.session = +d.session;
+      return render();
+    }
+    if (d.method) {
+      S.chest.method = d.method;
+      lsSet("chestMethod", d.method);
+      return render();
+    }
+    if (d.set) {
+      const v = d.val;
+      if (d.set === "mode") {
+        S.mode = v;
+        lsSet("mode", v);
+        resetData();
+        resolveMode().then(() => {
+          render();
+          if (S.player || S.resolved === "demo") scan(S.player);
+        });
+        return;
+      }
+      if (d.set === "theme") {
+        S.theme = v;
+        lsSet("theme", v);
+      }
+      if (d.set === "fx") {
+        S.fx = v === "on";
+        lsSet("fx", v);
+      }
+      if (d.set === "sound") {
+        S.sound = v === "on";
+        lsSet("sound", v);
+      }
+      if (d.set === "boot") {
+        S.boot = v === "on";
+        lsSet("boot", v);
+      }
+      click();
+      return render();
+    }
+    if (d.action === "saveKey") {
+      S.key = $("apiKey").value.trim();
+      lsSet("key", S.key || null);
+      resetData();
+      return render();
+    }
+    if (d.action === "clearKey") {
+      S.key = "";
+      lsSet("key", null);
+      resetData();
+      return render();
+    }
+    if (d.action === "saveWorker") {
+      S.worker = $("workerUrl").value.trim();
+      lsSet("worker", S.worker || null);
+      resetData();
+      return render();
+    }
+    if (d.action === "wipe") {
+      try {
+        Object.keys(localStorage).filter((k) => k.startsWith(LS)).forEach((k) => localStorage.removeItem(k));
+      } catch {
+      }
+      location.reload();
+    }
+  });
+  document.addEventListener("submit", (e) => {
+    if (e.target.id === "scanForm") {
+      e.preventDefault();
+      click();
+      scan($("playerName").value);
+    }
+  });
+  document.addEventListener("input", (e) => {
+    const id = e.target.id;
+    if (id === "rate") {
+      const v = +e.target.value;
+      if (v > 0) {
+        S.chest.rate = v;
+        lsSet("chestRate", v);
+        renderFooter();
+      }
+      return;
+    }
+    if (["pMin", "pMatch", "pTh"].includes(id)) {
+      const v = Math.max(0, +e.target.value || 0);
+      if (id === "pMin") S.plan.minutes = v;
+      if (id === "pMatch") S.plan.matches = v;
+      if (id === "pTh") S.plan.thMinutes = v;
+      const r = report();
+      if (r && !r.error) $("planOut").innerHTML = planOut(r);
+    }
+  });
+  document.addEventListener("change", (e) => {
+    if (e.target.id === "rate") render();
+  });
+  document.addEventListener("error", (e) => {
+    if (e.target.tagName === "IMG") {
+      const box = e.target.closest(".tint");
+      if (box) box.outerHTML = `<div class="ph${box.classList.contains("wide") ? " wide" : ""}">${box.dataset.ph ?? ""}</div>`;
+    }
+  }, true);
+  document.addEventListener("keydown", (e) => {
+    const tag = e.target.tagName;
+    if (tag === "INPUT" || tag === "SELECT" || tag === "TEXTAREA") {
+      if (e.key === "Escape") e.target.blur();
+      return;
+    }
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    const k = e.key.toLowerCase();
+    if (k === "arrowleft") {
+      e.preventDefault();
+      goTab(S.tab - 1);
+    } else if (k === "arrowright") {
+      e.preventDefault();
+      goTab(S.tab + 1);
+    } else if (k === "a" || k === "q") goSub(S.sub[tabId()] - 1);
+    else if (k === "d" || k === "e") goSub(S.sub[tabId()] + 1);
+    else if (k === "arrowup") {
+      e.preventDefault();
+      moveCursor(-1);
+    } else if (k === "arrowdown") {
+      e.preventDefault();
+      moveCursor(1);
+    }
+  });
+  function bootSequence() {
+    return new Promise((done) => {
+      let seen = false;
+      try {
+        seen = sessionStorage.getItem("lt.booted") === "1";
+        sessionStorage.setItem("lt.booted", "1");
+      } catch {
+      }
+      if (!S.boot || seen || reducedMotion()) return done();
+      const el = document.createElement("div");
+      el.className = "boot";
+      el.setAttribute("aria-hidden", "true");
+      el.innerHTML = '<div class="hex"></div><div class="typed"></div>';
+      document.body.appendChild(el);
+      const hex = el.querySelector(".hex");
+      const typed = el.querySelector(".typed");
+      let finished = false;
+      const finish = () => {
+        if (finished) return;
+        finished = true;
+        el.remove();
+        done();
+      };
+      el.addEventListener("click", finish);
+      let line = 0;
+      const hexTimer = setInterval(() => {
+        const addr = (164 + line * 16).toString(16).toUpperCase().padStart(6, "0");
+        hex.textContent += `0X${addr} ${Array.from({ length: 4 }, () => Math.floor(Math.random() * 65535).toString(16).toUpperCase().padStart(4, "0")).join(" ")}
+`;
+        if (++line >= 14) {
+          clearInterval(hexTimer);
+          const text = `
+LOOT TERMINAL
+\u276F DATA LINK ........ ${S.resolved.toUpperCase()}
+\u276F EVENT ............ ${treasure_hunters_2026_default.name.toUpperCase()}
+\u276F READY`;
+          let c = 0;
+          const typeTimer = setInterval(() => {
+            typed.textContent = text.slice(0, ++c);
+            if (c >= text.length) {
+              clearInterval(typeTimer);
+              setTimeout(finish, 350);
+            }
+          }, 17);
+        }
+      }, 30);
+    });
+  }
+  (async function start() {
+    render();
+    await resolveMode();
+    await bootSequence();
+    render();
+    if (S.resolved === "demo") {
+      await scan("LilAvlis");
+    } else if (S.player) {
+      scan(S.player);
+    }
+  })();
+})();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+{
+  "status": 200,
+  "data": {
+    "account": {
+      "id": "0123456789abcdef0123456789abcdef",
+      "name": "LilAvlis"
+    },
+    "battlePass": {
+      "level": 87,
+      "progress": 42
+    },
+    "image": null,
+    "stats": {
+      "all": {
+        "overall": {
+          "score": 0,
+          "scorePerMin": 0.0,
+          "scorePerMatch": 0.0,
+          "wins": 73,
+          "kills": 940,
+          "killsPerMin": 0.232,
+          "killsPerMatch": 2.686,
+          "deaths": 277,
+          "kd": 3.394,
+          "matches": 350,
+          "winRate": 20.857,
+          "minutesPlayed": 4055,
+          "playersOutlived": 0,
+          "lastModified": "2026-11-18T00:40:00Z",
+          "top3": 0,
+          "top5": 0,
+          "top6": 0,
+          "top10": 180,
+          "top12": 0,
+          "top25": 290
+        },
+        "solo": {
+          "score": 0,
+          "scorePerMin": 0.0,
+          "scorePerMatch": 0.0,
+          "wins": 73,
+          "kills": 940,
+          "killsPerMin": 0.232,
+          "killsPerMatch": 2.686,
+          "deaths": 277,
+          "kd": 3.394,
+          "matches": 350,
+          "winRate": 20.857,
+          "minutesPlayed": 4055,
+          "playersOutlived": 0,
+          "lastModified": "2026-11-18T00:40:00Z",
+          "top10": 180,
+          "top25": 290
+        },
+        "duo": null,
+        "trio": null,
+        "squad": null,
+        "ltm": null
+      },
+      "keyboardMouse": {
+        "overall": {
+          "score": 0,
+          "scorePerMin": 0.0,
+          "scorePerMatch": 0.0,
+          "wins": 73,
+          "kills": 940,
+          "killsPerMin": 0.232,
+          "killsPerMatch": 2.686,
+          "deaths": 277,
+          "kd": 3.394,
+          "matches": 350,
+          "winRate": 20.857,
+          "minutesPlayed": 4055,
+          "playersOutlived": 0,
+          "lastModified": "2026-11-18T00:40:00Z"
+        },
+        "solo": {
+          "score": 0,
+          "scorePerMin": 0.0,
+          "scorePerMatch": 0.0,
+          "wins": 73,
+          "kills": 940,
+          "killsPerMin": 0.232,
+          "killsPerMatch": 2.686,
+          "deaths": 277,
+          "kd": 3.394,
+          "matches": 350,
+          "winRate": 20.857,
+          "minutesPlayed": 4055,
+          "playersOutlived": 0,
+          "lastModified": "2026-11-18T00:40:00Z",
+          "top10": 180,
+          "top25": 290
+        },
+        "duo": null,
+        "trio": null,
+        "squad": null,
+        "ltm": null
+      },
+      "gamepad": null,
+      "touch": null
+    }
+  }
+}

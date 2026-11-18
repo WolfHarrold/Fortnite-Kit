@@ -1,0 +1,94 @@
+{
+  "id": "treasure-hunters-2026",
+  "name": "Fortnite Treasure Hunters",
+  "notes": "Chapter 7 mini-season. Odds are per eligible chest. Chest estimate = alive minutes played x chestsPerMinute (Davi's observed rate: one chest every 30 s). Week boundary time is an assumption (00:00 UTC on the start date); change weekResetUtc if Epic's weekly rotation uses another hour.",
+  "start": "2026-11-01",
+  "end": "2026-12-05",
+  "weekResetUtc": "00:00",
+  "weekLengthDays": 7,
+  "chestsPerMinute": 2,
+  "chestsPerMatch": {
+    "funaglet": 50,
+    "_why": "Per-match presets. 'funaglet' copies FUNAGLET's 50 chests per Solo match. Pass chestsPerMatch to use one; otherwise the kit uses alive minutes x chestsPerMinute."
+  },
+  "rewards": [
+    {
+      "id": "pirate-shop-access",
+      "name": "Pirate Shop Access",
+      "odds": 137500,
+      "scope": "season",
+      "repeatable": false,
+      "treasureHourMultipliers": [
+        1.5,
+        2.0
+      ]
+    },
+    {
+      "id": "weekly-gold-outfit",
+      "name": "Weekly Gold Outfit",
+      "odds": 1562500,
+      "scope": "week",
+      "repeatable": false,
+      "treasureHourMultipliers": [
+        7.5,
+        10
+      ]
+    },
+    {
+      "id": "weekly-vehicle-decal",
+      "name": "Weekly Vehicle & Decal",
+      "odds": 7813,
+      "scope": "week",
+      "repeatable": false,
+      "treasureHourMultipliers": [
+        10
+      ]
+    },
+    {
+      "id": "weekly-pickaxe-backbling",
+      "name": "Weekly Pickaxe or Back Bling",
+      "odds": 568,
+      "scope": "week",
+      "repeatable": false,
+      "treasureHourMultipliers": []
+    },
+    {
+      "id": "weekly-jam-track",
+      "name": "Weekly Jam Track",
+      "odds": 391,
+      "scope": "week",
+      "repeatable": false,
+      "treasureHourMultipliers": []
+    },
+    {
+      "id": "weekly-loading-screen",
+      "name": "Weekly Loading Screen",
+      "odds": 272,
+      "scope": "week",
+      "repeatable": false,
+      "treasureHourMultipliers": []
+    },
+    {
+      "id": "gizmo",
+      "name": "Gizmo (any)",
+      "odds": 127,
+      "scope": "season",
+      "repeatable": true,
+      "treasureHourMultipliers": []
+    }
+  ],
+  "sources": [
+    {
+      "title": "Epic \u2014 Fortnite Status post, 7 Nov 2026 (as reported by Playnews)",
+      "url": "https://www.playnews.gg/en/news/fortnite-pirate-shop-access-odds-1-in-137-500-per-chest-2x-in-treasure-hours"
+    },
+    {
+      "title": "Epic help: Pirate Treasure drop rates",
+      "url": "https://www.epicgames.com/help/c-34254770/c-33726977/a14361627"
+    },
+    {
+      "title": "Prima Games: schedule (1 Nov - 5 Dec)",
+      "url": "https://primagames.com/gaming/complete-fortnite-treasure-chest-rewards-odds-schedule"
+    }
+  ]
+}

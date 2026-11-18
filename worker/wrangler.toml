@@ -1,0 +1,15 @@
+name = "fortnite-kit"
+main = "worker.js"
+compatibility_date = "2026-11-01"
+
+[vars]
+ALLOWED_ORIGIN = "*"   # set to your site, e.g. "https://wolfharrold.github.io"
+
+# Optional: keep the 20-minute cache across Worker restarts
+# [[kv_namespaces]]
+# binding = "FN_CACHE"
+# id = "<your KV namespace id>"
+
+# Secrets (do not put them in this file):
+#   npx wrangler secret put FORTNITE_API_COM_KEY
+#   npx wrangler secret put FORTNITE_API_IO_KEY

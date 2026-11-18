@@ -1,0 +1,20 @@
+{
+  "accountId": "0123456789abcdef0123456789abcdef",
+  "startTime": 1793491200,
+  "endTime": 9223372036854775807,
+  "stats": {
+    "br_matchesplayed_keyboardmouse_m0_playlist_nobuildbr_solo": 350,
+    "br_placetop1_keyboardmouse_m0_playlist_nobuildbr_solo": 73,
+    "br_kills_keyboardmouse_m0_playlist_nobuildbr_solo": 940,
+    "br_minutesplayed_keyboardmouse_m0_playlist_nobuildbr_solo": 4055,
+    "br_placetop10_keyboardmouse_m0_playlist_nobuildbr_solo": 180,
+    "br_lastmodified_keyboardmouse_m0_playlist_nobuildbr_solo": 1794962400,
+    "br_matchesplayed_gamepad_m0_playlist_habanerosolo": 12,
+    "br_placetop1_gamepad_m0_playlist_habanerosolo": 1,
+    "br_kills_gamepad_m0_playlist_habanerosolo": 20,
+    "br_minutesplayed_gamepad_m0_playlist_habanerosolo": 150,
+    "br_score_keyboardmouse_m0_playlist_melt_duos": 472,
+    "br_matchesplayed_keyboardmouse_m0_playlist_melt_duos": 3,
+    "not_a_br_key": 5
+  }
+}
