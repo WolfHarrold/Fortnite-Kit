@@ -1,6 +1,6 @@
 {
- "generatedAt": "2026-11-19T07:38:32.091Z",
- "shopDate": "2026-11-19",
+ "generatedAt": "2026-11-20T07:29:02.358Z",
+ "shopDate": "2026-11-20",
  "source": "fortnite-api.com /v2/cosmetics shopHistory",
  "minDaysAway": 500,
  "top12": [
@@ -17,7 +17,7 @@
    "lastSeen": "2018-01-02",
    "daysInShop": 1,
    "stints": 1,
-   "daysAway": 3243
+   "daysAway": 3244
   },
   {
    "id": "CID_051_Athena_Commando_M_HolidayElf",
@@ -32,7 +32,7 @@
    "lastSeen": "2018-01-31",
    "daysInShop": 11,
    "stints": 2,
-   "daysAway": 3214
+   "daysAway": 3215
   },
   {
    "id": "BID_027_Scavenger",
@@ -47,7 +47,7 @@
    "lastSeen": "2018-04-19",
    "daysInShop": 7,
    "stints": 1,
-   "daysAway": 3136
+   "daysAway": 3137
   },
   {
    "id": "CID_090_Athena_Commando_M_Tactical",
@@ -62,7 +62,7 @@
    "lastSeen": "2018-09-15",
    "daysInShop": 1,
    "stints": 1,
-   "daysAway": 2987
+   "daysAway": 2988
   },
   {
    "id": "EID_Fresh",
@@ -77,7 +77,7 @@
    "lastSeen": "2018-11-21",
    "daysInShop": 30,
    "stints": 28,
-   "daysAway": 2920
+   "daysAway": 2921
   },
   {
    "id": "EID_WIR",
@@ -92,7 +92,7 @@
    "lastSeen": "2018-11-25",
    "daysInShop": 2,
    "stints": 1,
-   "daysAway": 2916
+   "daysAway": 2917
   },
   {
    "id": "TOY_012_AmericanFootball",
@@ -107,7 +107,7 @@
    "lastSeen": "2019-02-03",
    "daysInShop": 1,
    "stints": 1,
-   "daysAway": 2846
+   "daysAway": 2847
   },
   {
    "id": "Glider_ID_122_Valentines",
@@ -122,7 +122,7 @@
    "lastSeen": "2019-02-16",
    "daysInShop": 3,
    "stints": 1,
-   "daysAway": 2833
+   "daysAway": 2834
   },
   {
    "id": "CID_259_Athena_Commando_M_StreetOps",
@@ -137,7 +137,7 @@
    "lastSeen": "2019-03-04",
    "daysInShop": 2,
    "stints": 1,
-   "daysAway": 2817
+   "daysAway": 2818
   },
   {
    "id": "BannerToken_002_Doggus",
@@ -152,7 +152,7 @@
    "lastSeen": "2019-07-20",
    "daysInShop": 3,
    "stints": 1,
-   "daysAway": 2679
+   "daysAway": 2680
   },
   {
    "id": "BannerToken_001_Cattus",
@@ -167,7 +167,7 @@
    "lastSeen": "2019-07-20",
    "daysInShop": 3,
    "stints": 1,
-   "daysAway": 2679
+   "daysAway": 2680
   },
   {
    "id": "EID_TrophyCelebration",
@@ -182,13 +182,13 @@
    "lastSeen": "2019-07-28",
    "daysInShop": 2,
    "stints": 1,
-   "daysAway": 2671
+   "daysAway": 2672
   }
  ],
  "categories": [
   {
    "label": "Outfits",
-   "total": 261,
+   "total": 259,
    "items": [
     {
      "id": "CID_051_Athena_Commando_M_HolidayElf",
@@ -203,7 +203,7 @@
      "lastSeen": "2018-01-31",
      "daysInShop": 11,
      "stints": 2,
-     "daysAway": 3214
+     "daysAway": 3215
     },
     {
      "id": "CID_090_Athena_Commando_M_Tactical",
@@ -218,7 +218,7 @@
      "lastSeen": "2018-09-15",
      "daysInShop": 1,
      "stints": 1,
-     "daysAway": 2987
+     "daysAway": 2988
     },
     {
      "id": "CID_259_Athena_Commando_M_StreetOps",
@@ -233,7 +233,7 @@
      "lastSeen": "2019-03-04",
      "daysInShop": 2,
      "stints": 1,
-     "daysAway": 2817
+     "daysAway": 2818
     },
     {
      "id": "CID_478_Athena_Commando_F_WorldCup",
@@ -248,7 +248,7 @@
      "lastSeen": "2019-07-28",
      "daysInShop": 3,
      "stints": 1,
-     "daysAway": 2671
+     "daysAway": 2672
     },
     {
      "id": "CID_376_Athena_Commando_M_DarkShaman",
@@ -263,7 +263,7 @@
      "lastSeen": "2019-12-02",
      "daysInShop": 4,
      "stints": 3,
-     "daysAway": 2544
+     "daysAway": 2545
     },
     {
      "id": "CID_210_Athena_Commando_F_FootballGirlA",
@@ -278,7 +278,7 @@
      "lastSeen": "2020-02-03",
      "daysInShop": 13,
      "stints": 4,
-     "daysAway": 2481
+     "daysAway": 2482
     },
     {
      "id": "CID_207_Athena_Commando_M_FootballDudeA",
@@ -293,7 +293,7 @@
      "lastSeen": "2020-02-03",
      "daysInShop": 13,
      "stints": 4,
-     "daysAway": 2481
+     "daysAway": 2482
     },
     {
      "id": "CID_208_Athena_Commando_M_FootballDudeB",
@@ -308,7 +308,7 @@
      "lastSeen": "2020-02-03",
      "daysInShop": 13,
      "stints": 4,
-     "daysAway": 2481
+     "daysAway": 2482
     },
     {
      "id": "CID_212_Athena_Commando_F_FootballGirlC",
@@ -323,7 +323,7 @@
      "lastSeen": "2020-02-03",
      "daysInShop": 13,
      "stints": 4,
-     "daysAway": 2481
+     "daysAway": 2482
     },
     {
      "id": "CID_238_Athena_Commando_F_FootballGirlD",
@@ -338,7 +338,7 @@
      "lastSeen": "2020-02-03",
      "daysInShop": 13,
      "stints": 4,
-     "daysAway": 2481
+     "daysAway": 2482
     },
     {
      "id": "CID_211_Athena_Commando_F_FootballGirlB",
@@ -353,7 +353,7 @@
      "lastSeen": "2020-02-03",
      "daysInShop": 13,
      "stints": 4,
-     "daysAway": 2481
+     "daysAway": 2482
     },
     {
      "id": "CID_209_Athena_Commando_M_FootballDudeC",
@@ -368,7 +368,7 @@
      "lastSeen": "2020-02-03",
      "daysInShop": 13,
      "stints": 4,
-     "daysAway": 2481
+     "daysAway": 2482
     },
     {
      "id": "CID_239_Athena_Commando_M_FootballDudeD",
@@ -383,7 +383,7 @@
      "lastSeen": "2020-02-03",
      "daysInShop": 13,
      "stints": 4,
-     "daysAway": 2481
+     "daysAway": 2482
     },
     {
      "id": "CID_709_Athena_Commando_F_BandolierSlurp",
@@ -398,7 +398,7 @@
      "lastSeen": "2020-03-29",
      "daysInShop": 10,
      "stints": 1,
-     "daysAway": 2426
+     "daysAway": 2427
     },
     {
      "id": "CID_708_Athena_Commando_M_SoldierSlurp",
@@ -413,7 +413,7 @@
      "lastSeen": "2020-03-29",
      "daysInShop": 10,
      "stints": 1,
-     "daysAway": 2426
+     "daysAway": 2427
     },
     {
      "id": "CID_710_Athena_Commando_M_FishheadSlurp",
@@ -428,7 +428,7 @@
      "lastSeen": "2020-03-29",
      "daysInShop": 10,
      "stints": 1,
-     "daysAway": 2426
+     "daysAway": 2427
     },
     {
      "id": "CID_722_Athena_Commando_M_TeriyakiFishAssassin",
@@ -443,7 +443,7 @@
      "lastSeen": "2020-04-03",
      "daysInShop": 18,
      "stints": 1,
-     "daysAway": 2421
+     "daysAway": 2422
     },
     {
      "id": "CID_761_Athena_Commando_M_CycloneSpace",
@@ -458,7 +458,7 @@
      "lastSeen": "2020-04-27",
      "daysInShop": 6,
      "stints": 1,
-     "daysAway": 2397
+     "daysAway": 2398
     },
     {
      "id": "CID_703_Athena_Commando_M_Cyclone",
@@ -473,7 +473,7 @@
      "lastSeen": "2020-04-27",
      "daysInShop": 6,
      "stints": 1,
-     "daysAway": 2397
+     "daysAway": 2398
     },
     {
      "id": "CID_753_Athena_Commando_F_Hostile",
@@ -488,7 +488,7 @@
      "lastSeen": "2020-05-27",
      "daysInShop": 2,
      "stints": 2,
-     "daysAway": 2367
+     "daysAway": 2368
     },
     {
      "id": "CID_964_Athena_Commando_M_Historian_869BC",
@@ -503,7 +503,7 @@
      "lastSeen": "2021-03-19",
      "daysInShop": 33,
      "stints": 3,
-     "daysAway": 2071
+     "daysAway": 2072
     },
     {
      "id": "CID_415_Athena_Commando_F_AssassinSuit",
@@ -518,7 +518,7 @@
      "lastSeen": "2021-03-25",
      "daysInShop": 13,
      "stints": 4,
-     "daysAway": 2065
+     "daysAway": 2066
     },
     {
      "id": "CID_A_106_Athena_Commando_F_FuturePinkGoal",
@@ -533,7 +533,7 @@
      "lastSeen": "2021-05-31",
      "daysInShop": 5,
      "stints": 1,
-     "daysAway": 1998
+     "daysAway": 1999
     },
     {
      "id": "CID_A_006_Athena_Commando_M_ConvoyTarantula_641PZ",
@@ -548,7 +548,7 @@
      "lastSeen": "2021-08-11",
      "daysInShop": 50,
      "stints": 3,
-     "daysAway": 1926
+     "daysAway": 1927
     },
     {
      "id": "CID_A_196_Athena_Commando_F_FNCSGreen",
@@ -563,13 +563,13 @@
      "lastSeen": "2021-09-06",
      "daysInShop": 5,
      "stints": 1,
-     "daysAway": 1900
+     "daysAway": 1901
     }
    ]
   },
   {
    "label": "Back Blings",
-   "total": 193,
+   "total": 192,
    "items": [
     {
      "id": "BID_027_Scavenger",
@@ -584,7 +584,7 @@
      "lastSeen": "2018-04-19",
      "daysInShop": 7,
      "stints": 1,
-     "daysAway": 3136
+     "daysAway": 3137
     },
     {
      "id": "PetCarrier_011_Dog_Raptor",
@@ -599,7 +599,7 @@
      "lastSeen": "2019-08-14",
      "daysInShop": 1,
      "stints": 1,
-     "daysAway": 2654
+     "daysAway": 2655
     },
     {
      "id": "BID_496_TeriyakiFishAssassin",
@@ -614,7 +614,7 @@
      "lastSeen": "2020-04-03",
      "daysInShop": 18,
      "stints": 1,
-     "daysAway": 2421
+     "daysAway": 2422
     },
     {
      "id": "BID_515_Hostile",
@@ -629,7 +629,7 @@
      "lastSeen": "2020-05-27",
      "daysInShop": 1,
      "stints": 1,
-     "daysAway": 2367
+     "daysAway": 2368
     },
     {
      "id": "BID_713_FNCS21",
@@ -644,7 +644,7 @@
      "lastSeen": "2021-03-15",
      "daysInShop": 4,
      "stints": 1,
-     "daysAway": 2075
+     "daysAway": 2076
     },
     {
      "id": "BID_658_Historian_4RCG3",
@@ -659,7 +659,7 @@
      "lastSeen": "2021-03-19",
      "daysInShop": 33,
      "stints": 3,
-     "daysAway": 2071
+     "daysAway": 2072
     },
     {
      "id": "BID_272_AssassinSuitFemale",
@@ -674,7 +674,7 @@
      "lastSeen": "2021-03-25",
      "daysInShop": 9,
      "stints": 2,
-     "daysAway": 2065
+     "daysAway": 2066
     },
     {
      "id": "BID_692_ConvoyTarantula_34ZM0",
@@ -689,7 +689,7 @@
      "lastSeen": "2021-08-11",
      "daysInShop": 50,
      "stints": 3,
-     "daysAway": 1926
+     "daysAway": 1927
     },
     {
      "id": "BID_840_FNCSGreen",
@@ -704,7 +704,7 @@
      "lastSeen": "2021-09-06",
      "daysInShop": 5,
      "stints": 1,
-     "daysAway": 1900
+     "daysAway": 1901
     },
     {
      "id": "BID_832_Lavish_TV630",
@@ -719,7 +719,7 @@
      "lastSeen": "2021-09-29",
      "daysInShop": 10,
      "stints": 2,
-     "daysAway": 1877
+     "daysAway": 1878
     },
     {
      "id": "BID_765_DownpourMale_YLV93",
@@ -734,7 +734,7 @@
      "lastSeen": "2021-11-07",
      "daysInShop": 11,
      "stints": 6,
-     "daysAway": 1838
+     "daysAway": 1839
     },
     {
      "id": "BID_910_FNCS_Purple",
@@ -749,7 +749,7 @@
      "lastSeen": "2021-11-22",
      "daysInShop": 5,
      "stints": 1,
-     "daysAway": 1823
+     "daysAway": 1824
     },
     {
      "id": "BID_634_York_Female",
@@ -764,7 +764,7 @@
      "lastSeen": "2021-12-01",
      "daysInShop": 21,
      "stints": 2,
-     "daysAway": 1814
+     "daysAway": 1815
     },
     {
      "id": "BID_635_York_Male",
@@ -779,7 +779,7 @@
      "lastSeen": "2021-12-01",
      "daysInShop": 21,
      "stints": 2,
-     "daysAway": 1814
+     "daysAway": 1815
     },
     {
      "id": "BID_929_TwentyTwo",
@@ -794,7 +794,7 @@
      "lastSeen": "2022-01-01",
      "daysInShop": 2,
      "stints": 1,
-     "daysAway": 1783
+     "daysAway": 1784
     },
     {
      "id": "BID_955_Trey_18FU6",
@@ -809,7 +809,7 @@
      "lastSeen": "2022-02-23",
      "daysInShop": 8,
      "stints": 1,
-     "daysAway": 1730
+     "daysAway": 1731
     },
     {
      "id": "BID_967_FNCSBlue",
@@ -824,7 +824,7 @@
      "lastSeen": "2022-03-07",
      "daysInShop": 5,
      "stints": 1,
-     "daysAway": 1718
+     "daysAway": 1719
     },
     {
      "id": "BID_909_HasteMale_EPX5A",
@@ -839,7 +839,7 @@
      "lastSeen": "2022-03-26",
      "daysInShop": 13,
      "stints": 2,
-     "daysAway": 1699
+     "daysAway": 1700
     },
     {
      "id": "BID_982_Scrawl_VFI6L",
@@ -854,7 +854,7 @@
      "lastSeen": "2022-04-14",
      "daysInShop": 4,
      "stints": 1,
-     "daysAway": 1680
+     "daysAway": 1681
     },
     {
      "id": "BID_983_ScrawlDino_AD541",
@@ -869,7 +869,7 @@
      "lastSeen": "2022-04-14",
      "daysInShop": 4,
      "stints": 1,
-     "daysAway": 1680
+     "daysAway": 1681
     },
     {
      "id": "BID_997_FNCS20Female",
@@ -884,7 +884,7 @@
      "lastSeen": "2022-05-30",
      "daysInShop": 5,
      "stints": 1,
-     "daysAway": 1634
+     "daysAway": 1635
     },
     {
      "id": "BID_A_010_JumbotronS20Male",
@@ -899,7 +899,7 @@
      "lastSeen": "2022-05-30",
      "daysInShop": 5,
      "stints": 1,
-     "daysAway": 1634
+     "daysAway": 1635
     },
     {
      "id": "BID_A_041_FNCS21Female",
@@ -914,7 +914,7 @@
      "lastSeen": "2022-08-12",
      "daysInShop": 2,
      "stints": 1,
-     "daysAway": 1560
+     "daysAway": 1561
     },
     {
      "id": "BID_A_053_JumbotronS21Male",
@@ -929,7 +929,7 @@
      "lastSeen": "2022-08-17",
      "daysInShop": 7,
      "stints": 1,
-     "daysAway": 1555
+     "daysAway": 1556
     },
     {
      "id": "BID_862_BigBucksBattleship_1JA5G",
@@ -944,13 +944,13 @@
      "lastSeen": "2022-08-22",
      "daysInShop": 5,
      "stints": 4,
-     "daysAway": 1550
+     "daysAway": 1551
     }
    ]
   },
   {
    "label": "Pickaxes",
-   "total": 244,
+   "total": 243,
    "items": [
     {
      "id": "Pickaxe_ID_359_CycloneMale",
@@ -965,7 +965,7 @@
      "lastSeen": "2020-04-27",
      "daysInShop": 6,
      "stints": 1,
-     "daysAway": 2397
+     "daysAway": 2398
     },
     {
      "id": "Pickaxe_ID_508_HistorianMale_6BQSW",
@@ -980,7 +980,7 @@
      "lastSeen": "2021-03-19",
      "daysInShop": 33,
      "stints": 3,
-     "daysAway": 2071
+     "daysAway": 2072
     },
     {
      "id": "Pickaxe_ID_535_ConvoyTarantulaMale_GQ82N",
@@ -995,7 +995,7 @@
      "lastSeen": "2021-08-11",
      "daysInShop": 50,
      "stints": 3,
-     "daysAway": 1926
+     "daysAway": 1927
     },
     {
      "id": "Pickaxe_ID_653_LavishMale1H_SWKJB",
@@ -1010,7 +1010,7 @@
      "lastSeen": "2021-09-29",
      "daysInShop": 10,
      "stints": 2,
-     "daysAway": 1877
+     "daysAway": 1878
     },
     {
      "id": "Pickaxe_ID_478_FlowerSkeletonMale1H",
@@ -1025,7 +1025,7 @@
      "lastSeen": "2021-11-01",
      "daysInShop": 13,
      "stints": 4,
-     "daysAway": 1844
+     "daysAway": 1845
     },
     {
      "id": "Pickaxe_ID_481_SpookyNeonFemale1H",
@@ -1040,7 +1040,7 @@
      "lastSeen": "2021-11-01",
      "daysInShop": 13,
      "stints": 4,
-     "daysAway": 1844
+     "daysAway": 1845
     },
     {
      "id": "Pickaxe_ID_604_DownpourMale_Z48CM",
@@ -1055,7 +1055,7 @@
      "lastSeen": "2021-11-07",
      "daysInShop": 11,
      "stints": 6,
-     "daysAway": 1838
+     "daysAway": 1839
     },
     {
      "id": "Pickaxe_ID_491_YorkMale",
@@ -1070,7 +1070,7 @@
      "lastSeen": "2021-12-01",
      "daysInShop": 21,
      "stints": 2,
-     "daysAway": 1814
+     "daysAway": 1815
     },
     {
      "id": "Pickaxe_ID_107_HalloweenTomato",
@@ -1085,7 +1085,7 @@
      "lastSeen": "2022-06-05",
      "daysInShop": 22,
      "stints": 22,
-     "daysAway": 1628
+     "daysAway": 1629
     },
     {
      "id": "Pickaxe_ID_734_SlitherMale_762K0",
@@ -1100,7 +1100,7 @@
      "lastSeen": "2022-09-10",
      "daysInShop": 19,
      "stints": 4,
-     "daysAway": 1531
+     "daysAway": 1532
     },
     {
      "id": "Pickaxe_ID_733_SlitherFemale_M1YCL",
@@ -1115,7 +1115,7 @@
      "lastSeen": "2022-09-10",
      "daysInShop": 19,
      "stints": 4,
-     "daysAway": 1531
+     "daysAway": 1532
     },
     {
      "id": "Pickaxe_SaharaMale",
@@ -1130,7 +1130,7 @@
      "lastSeen": "2022-11-03",
      "daysInShop": 14,
      "stints": 1,
-     "daysAway": 1477
+     "daysAway": 1478
     },
     {
      "id": "Pickaxe_SpyMale_FNCS_22",
@@ -1145,7 +1145,7 @@
      "lastSeen": "2022-11-16",
      "daysInShop": 7,
      "stints": 1,
-     "daysAway": 1464
+     "daysAway": 1465
     },
     {
      "id": "Pickaxe_ID_636_DojoMale1H",
@@ -1160,7 +1160,7 @@
      "lastSeen": "2022-11-17",
      "daysInShop": 20,
      "stints": 15,
-     "daysAway": 1463
+     "daysAway": 1464
     },
     {
      "id": "Pickaxe_ID_719_RustyBoltFemale_0VJ7J",
@@ -1175,7 +1175,7 @@
      "lastSeen": "2022-12-12",
      "daysInShop": 49,
      "stints": 3,
-     "daysAway": 1438
+     "daysAway": 1439
     },
     {
      "id": "Pickaxe_ID_721_RustyBoltSliceMale_V3A4N",
@@ -1190,7 +1190,7 @@
      "lastSeen": "2022-12-12",
      "daysInShop": 49,
      "stints": 3,
-     "daysAway": 1438
+     "daysAway": 1439
     },
     {
      "id": "Pickaxe_ID_720_RustyBoltMale_UZ5E5",
@@ -1205,7 +1205,7 @@
      "lastSeen": "2022-12-12",
      "daysInShop": 49,
      "stints": 3,
-     "daysAway": 1438
+     "daysAway": 1439
     },
     {
      "id": "Pickaxe_ID_702_GrandeurMale_6UV6L",
@@ -1220,7 +1220,7 @@
      "lastSeen": "2023-01-07",
      "daysInShop": 20,
      "stints": 4,
-     "daysAway": 1412
+     "daysAway": 1413
     },
     {
      "id": "Pickaxe_ID_304_NoshHunter1H",
@@ -1235,7 +1235,7 @@
      "lastSeen": "2023-01-12",
      "daysInShop": 13,
      "stints": 11,
-     "daysAway": 1407
+     "daysAway": 1408
     },
     {
      "id": "Pickaxe_ID_769_JourneyMentorFemale",
@@ -1250,7 +1250,7 @@
      "lastSeen": "2023-02-12",
      "daysInShop": 10,
      "stints": 3,
-     "daysAway": 1376
+     "daysAway": 1377
     },
     {
      "id": "Pickaxe_ID_096_FootballReferee",
@@ -1265,7 +1265,7 @@
      "lastSeen": "2023-02-13",
      "daysInShop": 40,
      "stints": 11,
-     "daysAway": 1375
+     "daysAway": 1376
     },
     {
      "id": "Pickaxe_ID_095_FootballTrophy",
@@ -1280,7 +1280,7 @@
      "lastSeen": "2023-02-13",
      "daysInShop": 40,
      "stints": 11,
-     "daysAway": 1375
+     "daysAway": 1376
     },
     {
      "id": "Pickaxe_ID_147_TechOps",
@@ -1295,7 +1295,7 @@
      "lastSeen": "2023-02-16",
      "daysInShop": 5,
      "stints": 4,
-     "daysAway": 1372
+     "daysAway": 1373
     },
     {
      "id": "Pickaxe_ID_751_RoverFemale_44TG1",
@@ -1310,7 +1310,7 @@
      "lastSeen": "2023-02-17",
      "daysInShop": 35,
      "stints": 5,
-     "daysAway": 1371
+     "daysAway": 1372
     },
     {
      "id": "Pickaxe_ID_752_RoverMale_I98VZ",
@@ -1325,7 +1325,7 @@
      "lastSeen": "2023-02-17",
      "daysInShop": 35,
      "stints": 5,
-     "daysAway": 1371
+     "daysAway": 1372
     }
    ]
   },
@@ -1346,7 +1346,7 @@
      "lastSeen": "2018-01-02",
      "daysInShop": 1,
      "stints": 1,
-     "daysAway": 3243
+     "daysAway": 3244
     },
     {
      "id": "Glider_ID_122_Valentines",
@@ -1361,7 +1361,7 @@
      "lastSeen": "2019-02-16",
      "daysInShop": 3,
      "stints": 1,
-     "daysAway": 2833
+     "daysAway": 2834
     },
     {
      "id": "Glider_ID_257_Historian_VS0BJ",
@@ -1376,7 +1376,7 @@
      "lastSeen": "2021-03-19",
      "daysInShop": 33,
      "stints": 3,
-     "daysAway": 2071
+     "daysAway": 2072
     },
     {
      "id": "Glider_ID_248_York",
@@ -1391,7 +1391,7 @@
      "lastSeen": "2021-12-01",
      "daysInShop": 21,
      "stints": 2,
-     "daysAway": 1814
+     "daysAway": 1815
     },
     {
      "id": "Glider_ID_340_TwentyTwoMale",
@@ -1406,7 +1406,7 @@
      "lastSeen": "2022-01-01",
      "daysInShop": 2,
      "stints": 1,
-     "daysAway": 1783
+     "daysAway": 1784
     },
     {
      "id": "Glider_ID_347_PeachMale",
@@ -1421,7 +1421,7 @@
      "lastSeen": "2022-04-09",
      "daysInShop": 8,
      "stints": 1,
-     "daysAway": 1685
+     "daysAway": 1686
     },
     {
      "id": "Glider_Shark_FNCS",
@@ -1436,7 +1436,7 @@
      "lastSeen": "2022-11-16",
      "daysInShop": 7,
      "stints": 1,
-     "daysAway": 1464
+     "daysAway": 1465
     },
     {
      "id": "Glider_ID_333_RustyBolt_13IXR",
@@ -1451,7 +1451,7 @@
      "lastSeen": "2022-12-12",
      "daysInShop": 49,
      "stints": 3,
-     "daysAway": 1438
+     "daysAway": 1439
     },
     {
      "id": "Glider_ID_192_Present",
@@ -1466,7 +1466,7 @@
      "lastSeen": "2022-12-14",
      "daysInShop": 4,
      "stints": 4,
-     "daysAway": 1436
+     "daysAway": 1437
     },
     {
      "id": "Glider_ID_092_StreetOps",
@@ -1481,7 +1481,7 @@
      "lastSeen": "2022-12-26",
      "daysInShop": 3,
      "stints": 2,
-     "daysAway": 1424
+     "daysAway": 1425
     },
     {
      "id": "Glider_ID_325_GrandeurMale_ES8I4",
@@ -1496,7 +1496,7 @@
      "lastSeen": "2023-01-07",
      "daysInShop": 20,
      "stints": 4,
-     "daysAway": 1412
+     "daysAway": 1413
     },
     {
      "id": "Glider_ID_357_JourneyFemale",
@@ -1511,7 +1511,7 @@
      "lastSeen": "2023-02-12",
      "daysInShop": 10,
      "stints": 3,
-     "daysAway": 1376
+     "daysAway": 1377
     },
     {
      "id": "Glider_ID_350_RoverMale_41XKF",
@@ -1526,7 +1526,7 @@
      "lastSeen": "2023-02-17",
      "daysInShop": 16,
      "stints": 3,
-     "daysAway": 1371
+     "daysAway": 1372
     },
     {
      "id": "Glider_ID_287_Alchemy_W87KL",
@@ -1541,7 +1541,7 @@
      "lastSeen": "2023-03-20",
      "daysInShop": 41,
      "stints": 4,
-     "daysAway": 1340
+     "daysAway": 1341
     },
     {
      "id": "Glider_ID_302_MajestyMale_T1ICF",
@@ -1556,7 +1556,7 @@
      "lastSeen": "2023-04-13",
      "daysInShop": 42,
      "stints": 4,
-     "daysAway": 1316
+     "daysAway": 1317
     },
     {
      "id": "Glider_CoyoteTrail",
@@ -1571,7 +1571,7 @@
      "lastSeen": "2023-04-18",
      "daysInShop": 20,
      "stints": 3,
-     "daysAway": 1311
+     "daysAway": 1312
     },
     {
      "id": "Glider_NightHawk",
@@ -1586,7 +1586,7 @@
      "lastSeen": "2023-04-24",
      "daysInShop": 14,
      "stints": 1,
-     "daysAway": 1305
+     "daysAway": 1306
     },
     {
      "id": "Glider_ID_353_ThriveSpiritFemale",
@@ -1601,7 +1601,7 @@
      "lastSeen": "2023-08-03",
      "daysInShop": 30,
      "stints": 5,
-     "daysAway": 1204
+     "daysAway": 1205
     },
     {
      "id": "Glider_ID_352_ThriveFemale",
@@ -1616,7 +1616,7 @@
      "lastSeen": "2023-08-03",
      "daysInShop": 30,
      "stints": 5,
-     "daysAway": 1204
+     "daysAway": 1205
     },
     {
      "id": "Glider_StallionSmoke",
@@ -1631,7 +1631,7 @@
      "lastSeen": "2023-08-09",
      "daysInShop": 14,
      "stints": 2,
-     "daysAway": 1198
+     "daysAway": 1199
     },
     {
      "id": "Glider_ID_376_ChiselMale",
@@ -1646,7 +1646,7 @@
      "lastSeen": "2023-10-16",
      "daysInShop": 20,
      "stints": 6,
-     "daysAway": 1130
+     "daysAway": 1131
     },
     {
      "id": "Glider_ID_246_BabaYaga",
@@ -1661,7 +1661,7 @@
      "lastSeen": "2023-11-02",
      "daysInShop": 28,
      "stints": 8,
-     "daysAway": 1113
+     "daysAway": 1114
     },
     {
      "id": "Glider_ID_268_SnowGlobeMint",
@@ -1676,7 +1676,7 @@
      "lastSeen": "2023-12-31",
      "daysInShop": 39,
      "stints": 10,
-     "daysAway": 1054
+     "daysAway": 1055
     },
     {
      "id": "Glider_ID_263_FancyCandyMale",
@@ -1691,7 +1691,7 @@
      "lastSeen": "2024-01-10",
      "daysInShop": 35,
      "stints": 10,
-     "daysAway": 1044
+     "daysAway": 1045
     },
     {
      "id": "Glider_Lettuce",
@@ -1706,13 +1706,13 @@
      "lastSeen": "2024-06-12",
      "daysInShop": 39,
      "stints": 5,
-     "daysAway": 890
+     "daysAway": 891
     }
    ]
   },
   {
    "label": "Emotes",
-   "total": 115,
+   "total": 116,
    "items": [
     {
      "id": "EID_Fresh",
@@ -1727,7 +1727,7 @@
      "lastSeen": "2018-11-21",
      "daysInShop": 30,
      "stints": 28,
-     "daysAway": 2920
+     "daysAway": 2921
     },
     {
      "id": "EID_WIR",
@@ -1742,7 +1742,7 @@
      "lastSeen": "2018-11-25",
      "daysInShop": 2,
      "stints": 1,
-     "daysAway": 2916
+     "daysAway": 2917
     },
     {
      "id": "EID_TrophyCelebration",
@@ -1757,7 +1757,7 @@
      "lastSeen": "2019-07-28",
      "daysInShop": 2,
      "stints": 1,
-     "daysAway": 2671
+     "daysAway": 2672
     },
     {
      "id": "EID_ProVisitorProtest",
@@ -1772,7 +1772,7 @@
      "lastSeen": "2019-10-13",
      "daysInShop": 3,
      "stints": 1,
-     "daysAway": 2594
+     "daysAway": 2595
     },
     {
      "id": "EID_CycloneHeadBang",
@@ -1787,7 +1787,7 @@
      "lastSeen": "2020-04-27",
      "daysInShop": 6,
      "stints": 1,
-     "daysAway": 2397
+     "daysAway": 2398
     },
     {
      "id": "EID_LetsPlay",
@@ -1802,7 +1802,7 @@
      "lastSeen": "2020-08-21",
      "daysInShop": 2,
      "stints": 1,
-     "daysAway": 2281
+     "daysAway": 2282
     },
     {
      "id": "EID_RigorMortis",
@@ -1817,7 +1817,7 @@
      "lastSeen": "2020-11-06",
      "daysInShop": 1,
      "stints": 1,
-     "daysAway": 2204
+     "daysAway": 2205
     },
     {
      "id": "EID_HNYGoodRiddance",
@@ -1832,7 +1832,7 @@
      "lastSeen": "2021-01-01",
      "daysInShop": 4,
      "stints": 1,
-     "daysAway": 2148
+     "daysAway": 2149
     },
     {
      "id": "EID_SingAlong",
@@ -1847,7 +1847,7 @@
      "lastSeen": "2021-01-05",
      "daysInShop": 23,
      "stints": 2,
-     "daysAway": 2144
+     "daysAway": 2145
     },
     {
      "id": "EID_RichFam",
@@ -1862,7 +1862,7 @@
      "lastSeen": "2021-08-21",
      "daysInShop": 12,
      "stints": 12,
-     "daysAway": 1916
+     "daysAway": 1917
     },
     {
      "id": "EID_Downward_8GZUA",
@@ -1877,7 +1877,7 @@
      "lastSeen": "2021-09-07",
      "daysInShop": 2,
      "stints": 1,
-     "daysAway": 1899
+     "daysAway": 1900
     },
     {
      "id": "EID_Kilo_VD0PK",
@@ -1892,7 +1892,7 @@
      "lastSeen": "2021-09-27",
      "daysInShop": 12,
      "stints": 3,
-     "daysAway": 1879
+     "daysAway": 1880
     },
     {
      "id": "EID_Eerie_8WGYK",
@@ -1907,7 +1907,7 @@
      "lastSeen": "2021-12-01",
      "daysInShop": 13,
      "stints": 1,
-     "daysAway": 1814
+     "daysAway": 1815
     },
     {
      "id": "EID_Dunk",
@@ -1922,7 +1922,7 @@
      "lastSeen": "2022-03-26",
      "daysInShop": 10,
      "stints": 7,
-     "daysAway": 1699
+     "daysAway": 1700
     },
     {
      "id": "EID_Flex02",
@@ -1937,7 +1937,7 @@
      "lastSeen": "2022-03-26",
      "daysInShop": 9,
      "stints": 6,
-     "daysAway": 1699
+     "daysAway": 1700
     },
     {
      "id": "EID_Laugh",
@@ -1952,7 +1952,7 @@
      "lastSeen": "2022-05-19",
      "daysInShop": 40,
      "stints": 39,
-     "daysAway": 1645
+     "daysAway": 1646
     },
     {
      "id": "EID_Slither_DAXD6",
@@ -1967,7 +1967,7 @@
      "lastSeen": "2022-09-10",
      "daysInShop": 19,
      "stints": 4,
-     "daysAway": 1531
+     "daysAway": 1532
     },
     {
      "id": "EID_Textile_3O8QG",
@@ -1982,7 +1982,7 @@
      "lastSeen": "2022-09-28",
      "daysInShop": 27,
      "stints": 4,
-     "daysAway": 1513
+     "daysAway": 1514
     },
     {
      "id": "EID_ScorecardTomato",
@@ -1997,7 +1997,7 @@
      "lastSeen": "2022-10-08",
      "daysInShop": 12,
      "stints": 11,
-     "daysAway": 1503
+     "daysAway": 1504
     },
     {
      "id": "EID_Martian_SK4J6",
@@ -2012,7 +2012,7 @@
      "lastSeen": "2022-10-12",
      "daysInShop": 41,
      "stints": 12,
-     "daysAway": 1499
+     "daysAway": 1500
     },
     {
      "id": "EID_LogarithmWhoa_T3PF9",
@@ -2027,7 +2027,7 @@
      "lastSeen": "2022-10-14",
      "daysInShop": 18,
      "stints": 9,
-     "daysAway": 1497
+     "daysAway": 1498
     },
     {
      "id": "EID_LogarithmKick_NJVD8",
@@ -2042,7 +2042,7 @@
      "lastSeen": "2022-10-14",
      "daysInShop": 18,
      "stints": 9,
-     "daysAway": 1497
+     "daysAway": 1498
     },
     {
      "id": "EID_Sahara",
@@ -2057,7 +2057,7 @@
      "lastSeen": "2022-11-03",
      "daysInShop": 14,
      "stints": 1,
-     "daysAway": 1477
+     "daysAway": 1478
     },
     {
      "id": "EID_Tidy",
@@ -2072,7 +2072,7 @@
      "lastSeen": "2022-12-06",
      "daysInShop": 12,
      "stints": 12,
-     "daysAway": 1444
+     "daysAway": 1445
     },
     {
      "id": "EID_Zippy",
@@ -2087,7 +2087,7 @@
      "lastSeen": "2022-12-07",
      "daysInShop": 8,
      "stints": 8,
-     "daysAway": 1443
+     "daysAway": 1444
     }
    ]
   },
@@ -2108,7 +2108,7 @@
      "lastSeen": "2025-03-30",
      "daysInShop": 20,
      "stints": 4,
-     "daysAway": 599
+     "daysAway": 600
     },
     {
      "id": "Trails_ID_088_Informer",
@@ -2123,7 +2123,7 @@
      "lastSeen": "2025-05-29",
      "daysInShop": 5,
      "stints": 3,
-     "daysAway": 539
+     "daysAway": 540
     }
    ]
   },
@@ -2144,7 +2144,7 @@
      "lastSeen": "2022-05-30",
      "daysInShop": 5,
      "stints": 1,
-     "daysAway": 1634
+     "daysAway": 1635
     },
     {
      "id": "Emoji_S20_JourneyMentor",
@@ -2159,7 +2159,7 @@
      "lastSeen": "2023-02-12",
      "daysInShop": 10,
      "stints": 3,
-     "daysAway": 1376
+     "daysAway": 1377
     },
     {
      "id": "Emoji_S25_RainbowRoyale",
@@ -2174,7 +2174,7 @@
      "lastSeen": "2023-08-24",
      "daysInShop": 7,
      "stints": 1,
-     "daysAway": 1183
+     "daysAway": 1184
     },
     {
      "id": "Emoji_S26_IWD",
@@ -2189,7 +2189,7 @@
      "lastSeen": "2023-10-09",
      "daysInShop": 11,
      "stints": 1,
-     "daysAway": 1137
+     "daysAway": 1138
     },
     {
      "id": "Emoji_S16_FlapjackWrangler",
@@ -2204,7 +2204,7 @@
      "lastSeen": "2024-09-08",
      "daysInShop": 3,
      "stints": 1,
-     "daysAway": 802
+     "daysAway": 803
     },
     {
      "id": "Emoji_S25_LastVoice",
@@ -2219,7 +2219,7 @@
      "lastSeen": "2024-09-27",
      "daysInShop": 17,
      "stints": 3,
-     "daysAway": 783
+     "daysAway": 784
     },
     {
      "id": "Emoji_S18_ClashV_I1DF9",
@@ -2234,7 +2234,7 @@
      "lastSeen": "2025-03-30",
      "daysInShop": 26,
      "stints": 5,
-     "daysAway": 599
+     "daysAway": 600
     },
     {
      "id": "Emoji_S20_Lyrical",
@@ -2249,7 +2249,7 @@
      "lastSeen": "2025-04-23",
      "daysInShop": 68,
      "stints": 9,
-     "daysAway": 575
+     "daysAway": 576
     },
     {
      "id": "Emoji_S14_Elastic_Water",
@@ -2264,7 +2264,7 @@
      "lastSeen": "2025-05-12",
      "daysInShop": 91,
      "stints": 49,
-     "daysAway": 556
+     "daysAway": 557
     }
    ]
   },
@@ -2285,7 +2285,7 @@
      "lastSeen": "2022-03-14",
      "daysInShop": 7,
      "stints": 1,
-     "daysAway": 1711
+     "daysAway": 1712
     },
     {
      "id": "SPID_333_RustyBoltCreature_ZGF9S",
@@ -2300,7 +2300,7 @@
      "lastSeen": "2022-12-12",
      "daysInShop": 49,
      "stints": 3,
-     "daysAway": 1438
+     "daysAway": 1439
     },
     {
      "id": "SPID_366_JourneyMentor",
@@ -2315,7 +2315,7 @@
      "lastSeen": "2023-02-12",
      "daysInShop": 10,
      "stints": 3,
-     "daysAway": 1376
+     "daysAway": 1377
     },
     {
      "id": "Spray_CoyoteTrail",
@@ -2330,7 +2330,7 @@
      "lastSeen": "2023-04-18",
      "daysInShop": 20,
      "stints": 3,
-     "daysAway": 1311
+     "daysAway": 1312
     },
     {
      "id": "Spray_IWD",
@@ -2345,7 +2345,7 @@
      "lastSeen": "2023-10-09",
      "daysInShop": 11,
      "stints": 1,
-     "daysAway": 1137
+     "daysAway": 1138
     },
     {
      "id": "SPID_421_ALT_Barium",
@@ -2360,7 +2360,7 @@
      "lastSeen": "2024-07-21",
      "daysInShop": 7,
      "stints": 5,
-     "daysAway": 851
+     "daysAway": 852
     },
     {
      "id": "Spray_LastVoice",
@@ -2375,7 +2375,7 @@
      "lastSeen": "2024-09-27",
      "daysInShop": 17,
      "stints": 3,
-     "daysAway": 783
+     "daysAway": 784
     },
     {
      "id": "Spray_VaultBreakers_Snake",
@@ -2390,7 +2390,7 @@
      "lastSeen": "2024-11-02",
      "daysInShop": 18,
      "stints": 4,
-     "daysAway": 747
+     "daysAway": 748
     },
     {
      "id": "Spray_Elevate",
@@ -2405,7 +2405,7 @@
      "lastSeen": "2025-02-18",
      "daysInShop": 5,
      "stints": 1,
-     "daysAway": 639
+     "daysAway": 640
     },
     {
      "id": "Spray_Elevate2",
@@ -2420,7 +2420,7 @@
      "lastSeen": "2025-02-18",
      "daysInShop": 5,
      "stints": 1,
-     "daysAway": 639
+     "daysAway": 640
     },
     {
      "id": "SPID_403_Lyrical_BoomBox",
@@ -2435,7 +2435,7 @@
      "lastSeen": "2025-04-23",
      "daysInShop": 68,
      "stints": 9,
-     "daysAway": 575
+     "daysAway": 576
     },
     {
      "id": "Spray_FirstClass_BattleBus",
@@ -2450,7 +2450,7 @@
      "lastSeen": "2025-05-20",
      "daysInShop": 18,
      "stints": 4,
-     "daysAway": 548
+     "daysAway": 549
     },
     {
      "id": "Spray_FirstClass_CourtniteMares",
@@ -2465,7 +2465,7 @@
      "lastSeen": "2025-05-20",
      "daysInShop": 18,
      "stints": 4,
-     "daysAway": 548
+     "daysAway": 549
     },
     {
      "id": "Spray_FirstClass_Cuddle",
@@ -2480,7 +2480,7 @@
      "lastSeen": "2025-05-20",
      "daysInShop": 18,
      "stints": 4,
-     "daysAway": 548
+     "daysAway": 549
     },
     {
      "id": "Spray_FirstClass_DriftRifts",
@@ -2495,7 +2495,7 @@
      "lastSeen": "2025-05-20",
      "daysInShop": 18,
      "stints": 4,
-     "daysAway": 548
+     "daysAway": 549
     },
     {
      "id": "Spray_FirstClass_Goat",
@@ -2510,7 +2510,7 @@
      "lastSeen": "2025-05-20",
      "daysInShop": 18,
      "stints": 4,
-     "daysAway": 548
+     "daysAway": 549
     },
     {
      "id": "Spray_FirstClass_Knights",
@@ -2525,7 +2525,7 @@
      "lastSeen": "2025-05-20",
      "daysInShop": 18,
      "stints": 4,
-     "daysAway": 548
+     "daysAway": 549
     },
     {
      "id": "Spray_FirstClass_LayupLlamas",
@@ -2540,7 +2540,7 @@
      "lastSeen": "2025-05-20",
      "daysInShop": 18,
      "stints": 4,
-     "daysAway": 548
+     "daysAway": 549
     },
     {
      "id": "Spray_FirstClass_Peelers",
@@ -2555,7 +2555,7 @@
      "lastSeen": "2025-05-20",
      "daysInShop": 18,
      "stints": 4,
-     "daysAway": 548
+     "daysAway": 549
     },
     {
      "id": "Spray_FirstClass_Raven",
@@ -2570,7 +2570,7 @@
      "lastSeen": "2025-05-20",
      "daysInShop": 18,
      "stints": 4,
-     "daysAway": 548
+     "daysAway": 549
     }
    ]
   },
@@ -2591,7 +2591,7 @@
      "lastSeen": "2019-02-03",
      "daysInShop": 1,
      "stints": 1,
-     "daysAway": 2846
+     "daysAway": 2847
     },
     {
      "id": "TOY_Basketball_Hookshot_LUWQ6",
@@ -2606,7 +2606,7 @@
      "lastSeen": "2022-12-27",
      "daysInShop": 29,
      "stints": 5,
-     "daysAway": 1423
+     "daysAway": 1424
     }
    ]
   },
@@ -2627,7 +2627,7 @@
      "lastSeen": "2019-07-20",
      "daysInShop": 3,
      "stints": 1,
-     "daysAway": 2679
+     "daysAway": 2680
     },
     {
      "id": "BannerToken_001_Cattus",
@@ -2642,7 +2642,7 @@
      "lastSeen": "2019-07-20",
      "daysInShop": 3,
      "stints": 1,
-     "daysAway": 2679
+     "daysAway": 2680
     },
     {
      "id": "BannerToken_003_2019WorldCup",
@@ -2657,7 +2657,7 @@
      "lastSeen": "2019-07-28",
      "daysInShop": 3,
      "stints": 1,
-     "daysAway": 2671
+     "daysAway": 2672
     },
     {
      "id": "BannerToken_015_GalileoA_0W6VH",
@@ -2672,7 +2672,7 @@
      "lastSeen": "2020-01-02",
      "daysInShop": 8,
      "stints": 4,
-     "daysAway": 2513
+     "daysAway": 2514
     },
     {
      "id": "BannerToken_018_GalileoD_5XXFQ",
@@ -2687,7 +2687,7 @@
      "lastSeen": "2020-01-02",
      "daysInShop": 8,
      "stints": 4,
-     "daysAway": 2513
+     "daysAway": 2514
     },
     {
      "id": "BannerToken_045_S12_BrazilToucan",
@@ -2702,7 +2702,7 @@
      "lastSeen": "2020-02-24",
      "daysInShop": 1,
      "stints": 1,
-     "daysAway": 2460
+     "daysAway": 2461
     },
     {
      "id": "BannerToken_075_S20_JourneyMentor",
@@ -2717,7 +2717,7 @@
      "lastSeen": "2023-02-12",
      "daysInShop": 4,
      "stints": 2,
-     "daysAway": 1376
+     "daysAway": 1377
     },
     {
      "id": "BannerToken_S26_IWD",
@@ -2732,7 +2732,7 @@
      "lastSeen": "2023-10-09",
      "daysInShop": 11,
      "stints": 1,
-     "daysAway": 1137
+     "daysAway": 1138
     },
     {
      "id": "BannerToken_077_S20_NeonCatSpeed",
@@ -2747,7 +2747,7 @@
      "lastSeen": "2025-04-05",
      "daysInShop": 15,
      "stints": 15,
-     "daysAway": 593
+     "daysAway": 594
     },
     {
      "id": "BannerToken_076_S20_Lyrical",
@@ -2762,7 +2762,7 @@
      "lastSeen": "2025-04-23",
      "daysInShop": 68,
      "stints": 9,
-     "daysAway": 575
+     "daysAway": 576
     },
     {
      "id": "BannerToken_S28_Tactic_Tank",
@@ -2777,7 +2777,7 @@
      "lastSeen": "2025-05-14",
      "daysInShop": 4,
      "stints": 2,
-     "daysAway": 554
+     "daysAway": 555
     },
     {
      "id": "BannerToken_S28_Tactic_Banana",
@@ -2792,7 +2792,7 @@
      "lastSeen": "2025-05-18",
      "daysInShop": 4,
      "stints": 2,
-     "daysAway": 550
+     "daysAway": 551
     }
    ]
   },
@@ -2813,7 +2813,7 @@
      "lastSeen": "2025-05-20",
      "daysInShop": 3,
      "stints": 1,
-     "daysAway": 548
+     "daysAway": 549
     },
     {
      "id": "Shoes_SprawlBringJay",
@@ -2828,7 +2828,7 @@
      "lastSeen": "2025-05-30",
      "daysInShop": 8,
      "stints": 1,
-     "daysAway": 538
+     "daysAway": 539
     },
     {
      "id": "Shoes_TunaCabinCanola",
@@ -2843,13 +2843,13 @@
      "lastSeen": "2025-06-28",
      "daysInShop": 19,
      "stints": 3,
-     "daysAway": 509
+     "daysAway": 510
     }
    ]
   },
   {
    "label": "Wraps",
-   "total": 188,
+   "total": 187,
    "items": [
     {
      "id": "Wrap_102_WorldCup2019",
@@ -2864,7 +2864,7 @@
      "lastSeen": "2019-07-28",
      "daysInShop": 3,
      "stints": 1,
-     "daysAway": 2671
+     "daysAway": 2672
     },
     {
      "id": "Wrap_210_Thermal",
@@ -2879,7 +2879,7 @@
      "lastSeen": "2020-04-27",
      "daysInShop": 6,
      "stints": 1,
-     "daysAway": 2397
+     "daysAway": 2398
     },
     {
      "id": "Wrap_448_WomensDay1",
@@ -2894,7 +2894,7 @@
      "lastSeen": "2022-03-14",
      "daysInShop": 7,
      "stints": 1,
-     "daysAway": 1711
+     "daysAway": 1712
     },
     {
      "id": "Wrap_162_PumpkinPattern",
@@ -2909,7 +2909,7 @@
      "lastSeen": "2022-11-01",
      "daysInShop": 15,
      "stints": 7,
-     "daysAway": 1479
+     "daysAway": 1480
     },
     {
      "id": "Wrap_315_NeonXmasSign",
@@ -2924,7 +2924,7 @@
      "lastSeen": "2022-12-25",
      "daysInShop": 27,
      "stints": 6,
-     "daysAway": 1425
+     "daysAway": 1426
     },
     {
      "id": "Wrap_297_Chip",
@@ -2939,7 +2939,7 @@
      "lastSeen": "2022-12-29",
      "daysInShop": 4,
      "stints": 2,
-     "daysAway": 1421
+     "daysAway": 1422
     },
     {
      "id": "Wrap_469_Trainer",
@@ -2954,7 +2954,7 @@
      "lastSeen": "2023-02-22",
      "daysInShop": 10,
      "stints": 7,
-     "daysAway": 1366
+     "daysAway": 1367
     },
     {
      "id": "Wrap_437_SneakerPrint",
@@ -2969,7 +2969,7 @@
      "lastSeen": "2023-02-22",
      "daysInShop": 13,
      "stints": 10,
-     "daysAway": 1366
+     "daysAway": 1367
     },
     {
      "id": "Wrap_280_Gel",
@@ -2984,7 +2984,7 @@
      "lastSeen": "2023-03-09",
      "daysInShop": 3,
      "stints": 3,
-     "daysAway": 1351
+     "daysAway": 1352
     },
     {
      "id": "Wrap_342_Mustang",
@@ -2999,7 +2999,7 @@
      "lastSeen": "2023-03-12",
      "daysInShop": 3,
      "stints": 3,
-     "daysAway": 1348
+     "daysAway": 1349
     },
     {
      "id": "Wrap_348_Alchemy_FYA4I",
@@ -3014,7 +3014,7 @@
      "lastSeen": "2023-03-20",
      "daysInShop": 41,
      "stints": 4,
-     "daysAway": 1340
+     "daysAway": 1341
     },
     {
      "id": "Wrap_290_Newspaper",
@@ -3029,7 +3029,7 @@
      "lastSeen": "2023-03-29",
      "daysInShop": 4,
      "stints": 4,
-     "daysAway": 1331
+     "daysAway": 1332
     },
     {
      "id": "Wrap_169_JetSki",
@@ -3044,7 +3044,7 @@
      "lastSeen": "2023-04-01",
      "daysInShop": 4,
      "stints": 4,
-     "daysAway": 1328
+     "daysAway": 1329
     },
     {
      "id": "Wrap_341_Koi",
@@ -3059,7 +3059,7 @@
      "lastSeen": "2023-04-03",
      "daysInShop": 5,
      "stints": 5,
-     "daysAway": 1326
+     "daysAway": 1327
     },
     {
      "id": "Wrap_048_Bunny2",
@@ -3074,7 +3074,7 @@
      "lastSeen": "2023-04-10",
      "daysInShop": 11,
      "stints": 4,
-     "daysAway": 1319
+     "daysAway": 1320
     },
     {
      "id": "Wrap_283_Plasticine",
@@ -3089,7 +3089,7 @@
      "lastSeen": "2023-04-11",
      "daysInShop": 4,
      "stints": 4,
-     "daysAway": 1318
+     "daysAway": 1319
     },
     {
      "id": "Wrap_353_Nautical",
@@ -3104,7 +3104,7 @@
      "lastSeen": "2023-04-17",
      "daysInShop": 7,
      "stints": 7,
-     "daysAway": 1312
+     "daysAway": 1313
     },
     {
      "id": "Wrap_CoyoteTrail",
@@ -3119,7 +3119,7 @@
      "lastSeen": "2023-04-18",
      "daysInShop": 20,
      "stints": 3,
-     "daysAway": 1311
+     "daysAway": 1312
     },
     {
      "id": "Wrap_331_Hazard",
@@ -3134,7 +3134,7 @@
      "lastSeen": "2023-04-22",
      "daysInShop": 3,
      "stints": 3,
-     "daysAway": 1307
+     "daysAway": 1308
     },
     {
      "id": "Wrap_064_Raptor",
@@ -3149,7 +3149,7 @@
      "lastSeen": "2023-04-23",
      "daysInShop": 4,
      "stints": 3,
-     "daysAway": 1306
+     "daysAway": 1307
     },
     {
      "id": "Wrap_117_Asteroid",
@@ -3164,7 +3164,7 @@
      "lastSeen": "2023-04-28",
      "daysInShop": 5,
      "stints": 5,
-     "daysAway": 1301
+     "daysAway": 1302
     },
     {
      "id": "Wrap_231_TargetPractice",
@@ -3179,7 +3179,7 @@
      "lastSeen": "2023-05-01",
      "daysInShop": 4,
      "stints": 4,
-     "daysAway": 1298
+     "daysAway": 1299
     },
     {
      "id": "Wrap_028_DevilLace",
@@ -3194,7 +3194,7 @@
      "lastSeen": "2023-05-04",
      "daysInShop": 18,
      "stints": 16,
-     "daysAway": 1295
+     "daysAway": 1296
     },
     {
      "id": "Wrap_126_CircleFade",
@@ -3209,7 +3209,7 @@
      "lastSeen": "2023-05-12",
      "daysInShop": 4,
      "stints": 2,
-     "daysAway": 1287
+     "daysAway": 1288
     },
     {
      "id": "Wrap_Comp24",
@@ -3224,7 +3224,7 @@
      "lastSeen": "2023-05-15",
      "daysInShop": 5,
      "stints": 1,
-     "daysAway": 1284
+     "daysAway": 1285
     }
    ]
   },
@@ -3245,7 +3245,7 @@
      "lastSeen": "2019-08-07",
      "daysInShop": 3,
      "stints": 3,
-     "daysAway": 2661
+     "daysAway": 2662
     },
     {
      "id": "MusicPack_045_Carnaval",
@@ -3260,7 +3260,7 @@
      "lastSeen": "2020-02-25",
      "daysInShop": 1,
      "stints": 1,
-     "daysAway": 2459
+     "daysAway": 2460
     },
     {
      "id": "MusicPack_064_FortniteFright",
@@ -3275,7 +3275,7 @@
      "lastSeen": "2020-10-31",
      "daysInShop": 1,
      "stints": 1,
-     "daysAway": 2210
+     "daysAway": 2211
     },
     {
      "id": "MusicPack_066_ComicBookTrack",
@@ -3290,7 +3290,7 @@
      "lastSeen": "2020-12-01",
      "daysInShop": 2,
      "stints": 1,
-     "daysAway": 2179
+     "daysAway": 2180
     },
     {
      "id": "MusicPack_010_RunningMan",
@@ -3305,7 +3305,7 @@
      "lastSeen": "2021-02-15",
      "daysInShop": 4,
      "stints": 4,
-     "daysAway": 2103
+     "daysAway": 2104
     },
     {
      "id": "MusicPack_049_BalletSpinRemix",
@@ -3320,7 +3320,7 @@
      "lastSeen": "2021-03-11",
      "daysInShop": 2,
      "stints": 2,
-     "daysAway": 2079
+     "daysAway": 2080
     },
     {
      "id": "MusicPack_079_S16_Cine",
@@ -3335,7 +3335,7 @@
      "lastSeen": "2021-03-23",
      "daysInShop": 1,
      "stints": 1,
-     "daysAway": 2067
+     "daysAway": 2068
     },
     {
      "id": "MusicPack_060_TakeTheW",
@@ -3350,7 +3350,7 @@
      "lastSeen": "2021-04-28",
      "daysInShop": 3,
      "stints": 3,
-     "daysAway": 2031
+     "daysAway": 2032
     },
     {
      "id": "MusicPack_017_PhoneItIn",
@@ -3365,7 +3365,7 @@
      "lastSeen": "2021-06-01",
      "daysInShop": 14,
      "stints": 14,
-     "daysAway": 1997
+     "daysAway": 1998
     },
     {
      "id": "MusicPack_027_LasagnaDope",
@@ -3380,7 +3380,7 @@
      "lastSeen": "2021-06-13",
      "daysInShop": 13,
      "stints": 4,
-     "daysAway": 1985
+     "daysAway": 1986
     },
     {
      "id": "MusicPack_026_LasagnaChill",
@@ -3395,7 +3395,7 @@
      "lastSeen": "2021-06-13",
      "daysInShop": 13,
      "stints": 4,
-     "daysAway": 1985
+     "daysAway": 1986
     },
     {
      "id": "MusicPack_092_Cine",
@@ -3410,7 +3410,7 @@
      "lastSeen": "2021-06-27",
      "daysInShop": 1,
      "stints": 1,
-     "daysAway": 1971
+     "daysAway": 1972
     },
     {
      "id": "MusicPack_099_FNCS",
@@ -3425,7 +3425,7 @@
      "lastSeen": "2021-09-06",
      "daysInShop": 5,
      "stints": 1,
-     "daysAway": 1900
+     "daysAway": 1901
     },
     {
      "id": "MusicPack_041_Slick",
@@ -3440,7 +3440,7 @@
      "lastSeen": "2021-11-21",
      "daysInShop": 4,
      "stints": 4,
-     "daysAway": 1824
+     "daysAway": 1825
     },
     {
      "id": "MusicPack_113_S18_FNCS",
@@ -3455,7 +3455,7 @@
      "lastSeen": "2021-11-22",
      "daysInShop": 5,
      "stints": 1,
-     "daysAway": 1823
+     "daysAway": 1824
     },
     {
      "id": "MusicPack_106_Bistro_DQZH0",
@@ -3470,7 +3470,7 @@
      "lastSeen": "2021-11-28",
      "daysInShop": 2,
      "stints": 2,
-     "daysAway": 1817
+     "daysAway": 1818
     },
     {
      "id": "MusicPack_071_FortniteCarollingRemix",
@@ -3485,7 +3485,7 @@
      "lastSeen": "2021-12-20",
      "daysInShop": 6,
      "stints": 4,
-     "daysAway": 1795
+     "daysAway": 1796
     },
     {
      "id": "MusicPack_119_CH1_DefaultMusic",
@@ -3500,7 +3500,7 @@
      "lastSeen": "2022-01-31",
      "daysInShop": 1,
      "stints": 1,
-     "daysAway": 1753
+     "daysAway": 1754
     },
     {
      "id": "MusicPack_112_Uproar_59WME",
@@ -3515,7 +3515,7 @@
      "lastSeen": "2022-02-05",
      "daysInShop": 21,
      "stints": 2,
-     "daysAway": 1748
+     "daysAway": 1749
     },
     {
      "id": "MusicPack_125_S19_FNCS",
@@ -3530,7 +3530,7 @@
      "lastSeen": "2022-03-07",
      "daysInShop": 5,
      "stints": 1,
-     "daysAway": 1718
+     "daysAway": 1719
     },
     {
      "id": "MusicPack_126_Woman",
@@ -3545,7 +3545,7 @@
      "lastSeen": "2022-03-14",
      "daysInShop": 7,
      "stints": 1,
-     "daysAway": 1711
+     "daysAway": 1712
     },
     {
      "id": "MusicPack_131_MC",
@@ -3560,7 +3560,7 @@
      "lastSeen": "2022-05-01",
      "daysInShop": 3,
      "stints": 1,
-     "daysAway": 1663
+     "daysAway": 1664
     },
     {
      "id": "MusicPack_134_FNCS20",
@@ -3575,7 +3575,7 @@
      "lastSeen": "2022-05-30",
      "daysInShop": 5,
      "stints": 1,
-     "daysAway": 1634
+     "daysAway": 1635
     },
     {
      "id": "MusicPack_086_Hype",
@@ -3590,7 +3590,7 @@
      "lastSeen": "2022-06-07",
      "daysInShop": 5,
      "stints": 5,
-     "daysAway": 1626
+     "daysAway": 1627
     },
     {
      "id": "MusicPack_143_S21_FNCS",
@@ -3605,7 +3605,7 @@
      "lastSeen": "2022-08-17",
      "daysInShop": 7,
      "stints": 1,
-     "daysAway": 1555
+     "daysAway": 1556
     }
    ]
   },
@@ -3626,7 +3626,7 @@
      "lastSeen": "2020-05-28",
      "daysInShop": 3,
      "stints": 1,
-     "daysAway": 2366
+     "daysAway": 2367
     },
     {
      "id": "LSID_305_Downpour_CHB8O",
@@ -3641,7 +3641,7 @@
      "lastSeen": "2021-11-07",
      "daysInShop": 11,
      "stints": 6,
-     "daysAway": 1838
+     "daysAway": 1839
     },
     {
      "id": "LSID_367_Paperbag_3WGO8",
@@ -3656,7 +3656,7 @@
      "lastSeen": "2021-11-22",
      "daysInShop": 4,
      "stints": 1,
-     "daysAway": 1823
+     "daysAway": 1824
     },
     {
      "id": "LSID_350_CerealBoxParade",
@@ -3671,7 +3671,7 @@
      "lastSeen": "2021-11-25",
      "daysInShop": 2,
      "stints": 1,
-     "daysAway": 1820
+     "daysAway": 1821
     },
     {
      "id": "LSID_374_GuavaKey_IY0H9",
@@ -3686,7 +3686,7 @@
      "lastSeen": "2021-12-07",
      "daysInShop": 3,
      "stints": 1,
-     "daysAway": 1808
+     "daysAway": 1809
     },
     {
      "id": "LSID_405_FNCS_Iris",
@@ -3701,7 +3701,7 @@
      "lastSeen": "2022-03-07",
      "daysInShop": 5,
      "stints": 1,
-     "daysAway": 1718
+     "daysAway": 1719
     },
     {
      "id": "LoadingScreen_Sahara",
@@ -3716,7 +3716,7 @@
      "lastSeen": "2022-11-03",
      "daysInShop": 14,
      "stints": 1,
-     "daysAway": 1477
+     "daysAway": 1478
     },
     {
      "id": "LSID_372_Grandeur_UOK4E",
@@ -3731,7 +3731,7 @@
      "lastSeen": "2023-01-07",
      "daysInShop": 20,
      "stints": 4,
-     "daysAway": 1412
+     "daysAway": 1413
     },
     {
      "id": "LSID_421_SCRN_JourneyMentor",
@@ -3746,7 +3746,7 @@
      "lastSeen": "2023-02-12",
      "daysInShop": 10,
      "stints": 3,
-     "daysAway": 1376
+     "daysAway": 1377
     },
     {
      "id": "LSID_294_Alchemy_09U3R",
@@ -3761,7 +3761,7 @@
      "lastSeen": "2023-03-20",
      "daysInShop": 41,
      "stints": 4,
-     "daysAway": 1340
+     "daysAway": 1341
     },
     {
      "id": "LSID_323_Majesty_0P2RG",
@@ -3776,7 +3776,7 @@
      "lastSeen": "2023-04-13",
      "daysInShop": 42,
      "stints": 4,
-     "daysAway": 1316
+     "daysAway": 1317
     },
     {
      "id": "LoadingScreen_NightHawk",
@@ -3791,7 +3791,7 @@
      "lastSeen": "2023-04-24",
      "daysInShop": 14,
      "stints": 1,
-     "daysAway": 1305
+     "daysAway": 1306
     },
     {
      "id": "LoadingScreen_Stallion",
@@ -3806,7 +3806,7 @@
      "lastSeen": "2023-08-09",
      "daysInShop": 14,
      "stints": 2,
-     "daysAway": 1198
+     "daysAway": 1199
     },
     {
      "id": "LoadingScreen_Possession",
@@ -3821,7 +3821,7 @@
      "lastSeen": "2023-09-14",
      "daysInShop": 8,
      "stints": 7,
-     "daysAway": 1162
+     "daysAway": 1163
     },
     {
      "id": "LoadingScreen_Veiled",
@@ -3836,7 +3836,7 @@
      "lastSeen": "2023-10-02",
      "daysInShop": 13,
      "stints": 11,
-     "daysAway": 1144
+     "daysAway": 1145
     },
     {
      "id": "LoadingScreen_SCRN_Veiled",
@@ -3851,7 +3851,7 @@
      "lastSeen": "2023-10-02",
      "daysInShop": 13,
      "stints": 11,
-     "daysAway": 1144
+     "daysAway": 1145
     },
     {
      "id": "LoadingScreen_Mirage",
@@ -3866,7 +3866,7 @@
      "lastSeen": "2023-11-23",
      "daysInShop": 8,
      "stints": 6,
-     "daysAway": 1092
+     "daysAway": 1093
     },
     {
      "id": "LSID_287_BuffCatComic_JBE9O",
@@ -3881,7 +3881,7 @@
      "lastSeen": "2023-11-24",
      "daysInShop": 30,
      "stints": 28,
-     "daysAway": 1091
+     "daysAway": 1092
     },
     {
      "id": "LoadingScreen_Sunburst_KeyArt",
@@ -3896,7 +3896,7 @@
      "lastSeen": "2023-11-29",
      "daysInShop": 53,
      "stints": 6,
-     "daysAway": 1086
+     "daysAway": 1087
     },
     {
      "id": "LoadingScreen_HeadHunter",
@@ -3911,7 +3911,7 @@
      "lastSeen": "2024-04-02",
      "daysInShop": 12,
      "stints": 8,
-     "daysAway": 961
+     "daysAway": 962
     },
     {
      "id": "LoadingScreen_Mochi",
@@ -3926,7 +3926,7 @@
      "lastSeen": "2024-05-09",
      "daysInShop": 12,
      "stints": 11,
-     "daysAway": 924
+     "daysAway": 925
     },
     {
      "id": "LSID_477_RainbowRoyale",
@@ -3941,7 +3941,7 @@
      "lastSeen": "2024-07-02",
      "daysInShop": 29,
      "stints": 4,
-     "daysAway": 870
+     "daysAway": 871
     },
     {
      "id": "LSID_473_Barium",
@@ -3956,7 +3956,7 @@
      "lastSeen": "2024-07-21",
      "daysInShop": 7,
      "stints": 5,
-     "daysAway": 851
+     "daysAway": 852
     },
     {
      "id": "LoadingScreen_BoneMarrow",
@@ -3971,7 +3971,7 @@
      "lastSeen": "2024-08-02",
      "daysInShop": 14,
      "stints": 7,
-     "daysAway": 839
+     "daysAway": 840
     },
     {
      "id": "LoadingScreen_ArcticIce",
@@ -3986,7 +3986,7 @@
      "lastSeen": "2024-08-16",
      "daysInShop": 40,
      "stints": 6,
-     "daysAway": 825
+     "daysAway": 826
     }
    ]
   },
@@ -4007,7 +4007,7 @@
      "lastSeen": "2025-01-30",
      "daysInShop": 1,
      "stints": 1,
-     "daysAway": 658
+     "daysAway": 659
     },
     {
      "id": "CarBody_Sassy",
@@ -4022,7 +4022,7 @@
      "lastSeen": "2025-03-25",
      "daysInShop": 28,
      "stints": 3,
-     "daysAway": 604
+     "daysAway": 605
     }
    ]
   },
@@ -4043,7 +4043,7 @@
      "lastSeen": "2024-08-17",
      "daysInShop": 2,
      "stints": 1,
-     "daysAway": 824
+     "daysAway": 825
     },
     {
      "id": "ID_Skin_Octane_Lightning",
@@ -4058,7 +4058,7 @@
      "lastSeen": "2024-08-17",
      "daysInShop": 2,
      "stints": 1,
-     "daysAway": 824
+     "daysAway": 825
     },
     {
      "id": "ID_Skin_Octane_Stripes",
@@ -4073,7 +4073,7 @@
      "lastSeen": "2024-08-17",
      "daysInShop": 2,
      "stints": 1,
-     "daysAway": 824
+     "daysAway": 825
     },
     {
      "id": "ID_Skin_Octane_Wings",
@@ -4088,7 +4088,7 @@
      "lastSeen": "2024-08-17",
      "daysInShop": 2,
      "stints": 1,
-     "daysAway": 824
+     "daysAway": 825
     },
     {
      "id": "CarSkin_SassyFlames",
@@ -4103,7 +4103,7 @@
      "lastSeen": "2025-03-25",
      "daysInShop": 28,
      "stints": 3,
-     "daysAway": 604
+     "daysAway": 605
     },
     {
      "id": "CarSkin_SassyLightning",
@@ -4118,7 +4118,7 @@
      "lastSeen": "2025-03-25",
      "daysInShop": 28,
      "stints": 3,
-     "daysAway": 604
+     "daysAway": 605
     },
     {
      "id": "CarSkin_SassyStripes",
@@ -4133,7 +4133,7 @@
      "lastSeen": "2025-03-25",
      "daysInShop": 28,
      "stints": 3,
-     "daysAway": 604
+     "daysAway": 605
     },
     {
      "id": "CarSkin_SassyWings",
@@ -4148,7 +4148,7 @@
      "lastSeen": "2025-03-25",
      "daysInShop": 28,
      "stints": 3,
-     "daysAway": 604
+     "daysAway": 605
     }
    ]
   },
@@ -4169,7 +4169,7 @@
      "lastSeen": "2024-08-22",
      "daysInShop": 15,
      "stints": 1,
-     "daysAway": 819
+     "daysAway": 820
     },
     {
      "id": "Wheel_Law",
@@ -4184,7 +4184,7 @@
      "lastSeen": "2024-08-22",
      "daysInShop": 15,
      "stints": 1,
-     "daysAway": 819
+     "daysAway": 820
     },
     {
      "id": "Wheel_SassyA",
@@ -4199,7 +4199,7 @@
      "lastSeen": "2025-03-25",
      "daysInShop": 28,
      "stints": 3,
-     "daysAway": 604
+     "daysAway": 605
     },
     {
      "id": "Wheel_Gray",
@@ -4214,7 +4214,7 @@
      "lastSeen": "2025-06-06",
      "daysInShop": 20,
      "stints": 2,
-     "daysAway": 531
+     "daysAway": 532
     }
    ]
   },
@@ -4235,7 +4235,7 @@
      "lastSeen": "2024-02-13",
      "daysInShop": 7,
      "stints": 1,
-     "daysAway": 1010
+     "daysAway": 1011
     },
     {
      "id": "ID_Booster_Starbeam",
@@ -4250,7 +4250,7 @@
      "lastSeen": "2024-02-13",
      "daysInShop": 7,
      "stints": 1,
-     "daysAway": 1010
+     "daysAway": 1011
     },
     {
      "id": "ID_Booster_AW",
@@ -4265,7 +4265,7 @@
      "lastSeen": "2024-08-22",
      "daysInShop": 15,
      "stints": 1,
-     "daysAway": 819
+     "daysAway": 820
     },
     {
      "id": "ID_Booster_Pumpkin",
@@ -4280,7 +4280,7 @@
      "lastSeen": "2024-11-01",
      "daysInShop": 17,
      "stints": 1,
-     "daysAway": 748
+     "daysAway": 749
     },
     {
      "id": "ID_Booster_Meteors",
@@ -4295,7 +4295,7 @@
      "lastSeen": "2024-12-10",
      "daysInShop": 9,
      "stints": 1,
-     "daysAway": 709
+     "daysAway": 710
     },
     {
      "id": "ID_Booster_EvilOrnament02",
@@ -4310,7 +4310,7 @@
      "lastSeen": "2025-05-16",
      "daysInShop": 14,
      "stints": 1,
-     "daysAway": 552
+     "daysAway": 553
     },
     {
      "id": "ID_Booster_Gray",
@@ -4325,7 +4325,7 @@
      "lastSeen": "2025-06-06",
      "daysInShop": 20,
      "stints": 2,
-     "daysAway": 531
+     "daysAway": 532
     }
    ]
   },
@@ -4346,7 +4346,7 @@
      "lastSeen": "2024-08-02",
      "daysInShop": 1,
      "stints": 1,
-     "daysAway": 839
+     "daysAway": 840
     },
     {
      "id": "sid_placeholder_475",
@@ -4361,7 +4361,7 @@
      "lastSeen": "2025-01-07",
      "daysInShop": 18,
      "stints": 1,
-     "daysAway": 681
+     "daysAway": 682
     },
     {
      "id": "sid_placeholder_138",
@@ -4376,7 +4376,7 @@
      "lastSeen": "2025-01-23",
      "daysInShop": 50,
      "stints": 7,
-     "daysAway": 665
+     "daysAway": 666
     },
     {
      "id": "sid_placeholder_527",
@@ -4391,7 +4391,7 @@
      "lastSeen": "2025-02-28",
      "daysInShop": 1,
      "stints": 1,
-     "daysAway": 629
+     "daysAway": 630
     },
     {
      "id": "sid_placeholder_525",
@@ -4406,7 +4406,7 @@
      "lastSeen": "2025-04-01",
      "daysInShop": 7,
      "stints": 1,
-     "daysAway": 597
+     "daysAway": 598
     },
     {
      "id": "sid_placeholder_583",
@@ -4421,7 +4421,7 @@
      "lastSeen": "2025-05-15",
      "daysInShop": 3,
      "stints": 1,
-     "daysAway": 553
+     "daysAway": 554
     }
    ]
   },
@@ -4442,7 +4442,7 @@
      "lastSeen": "2024-03-24",
      "daysInShop": 11,
      "stints": 1,
-     "daysAway": 970
+     "daysAway": 971
     },
     {
      "id": "Sparks_Guitar_ShakeCrunch",
@@ -4457,7 +4457,7 @@
      "lastSeen": "2025-02-28",
      "daysInShop": 20,
      "stints": 3,
-     "daysAway": 629
+     "daysAway": 630
     },
     {
      "id": "Sparks_Guitar_BandageTime",
@@ -4472,7 +4472,7 @@
      "lastSeen": "2025-03-31",
      "daysInShop": 10,
      "stints": 2,
-     "daysAway": 598
+     "daysAway": 599
     },
     {
      "id": "Sparks_Guitar_PastaSauce",
@@ -4487,7 +4487,7 @@
      "lastSeen": "2025-04-21",
      "daysInShop": 7,
      "stints": 2,
-     "daysAway": 577
+     "daysAway": 578
     },
     {
      "id": "Sparks_Guitar_WidePlane",
@@ -4502,7 +4502,7 @@
      "lastSeen": "2025-05-10",
      "daysInShop": 8,
      "stints": 2,
-     "daysAway": 558
+     "daysAway": 559
     },
     {
      "id": "Sparks_Guitar_PCB",
@@ -4517,7 +4517,7 @@
      "lastSeen": "2025-05-17",
      "daysInShop": 22,
      "stints": 6,
-     "daysAway": 551
+     "daysAway": 552
     },
     {
      "id": "Sparks_Guitar_Insectoid",
@@ -4532,7 +4532,7 @@
      "lastSeen": "2025-07-05",
      "daysInShop": 35,
      "stints": 8,
-     "daysAway": 502
+     "daysAway": 503
     },
     {
      "id": "Sparks_Guitar_PlasticGradient",
@@ -4547,7 +4547,7 @@
      "lastSeen": "2025-07-07",
      "daysInShop": 1,
      "stints": 1,
-     "daysAway": 500
+     "daysAway": 501
     }
    ]
   },
@@ -4568,7 +4568,7 @@
      "lastSeen": "2024-03-24",
      "daysInShop": 11,
      "stints": 1,
-     "daysAway": 970
+     "daysAway": 971
     },
     {
      "id": "Sparks_Bass_SpeedDial",
@@ -4583,7 +4583,7 @@
      "lastSeen": "2025-02-10",
      "daysInShop": 7,
      "stints": 2,
-     "daysAway": 647
+     "daysAway": 648
     },
     {
      "id": "Sparks_Bass_PastaSauce",
@@ -4598,7 +4598,7 @@
      "lastSeen": "2025-04-16",
      "daysInShop": 83,
      "stints": 6,
-     "daysAway": 582
+     "daysAway": 583
     },
     {
      "id": "Sparks_Bass_Jungle",
@@ -4613,7 +4613,7 @@
      "lastSeen": "2025-06-30",
      "daysInShop": 67,
      "stints": 14,
-     "daysAway": 507
+     "daysAway": 508
     },
     {
      "id": "Sparks_Bass_MarkOne",
@@ -4628,7 +4628,7 @@
      "lastSeen": "2025-07-01",
      "daysInShop": 21,
      "stints": 7,
-     "daysAway": 506
+     "daysAway": 507
     }
    ]
   },
@@ -4649,7 +4649,7 @@
      "lastSeen": "2024-10-15",
      "daysInShop": 5,
      "stints": 1,
-     "daysAway": 765
+     "daysAway": 766
     },
     {
      "id": "Sparks_Drum_Orb",
@@ -4664,7 +4664,7 @@
      "lastSeen": "2025-03-14",
      "daysInShop": 9,
      "stints": 2,
-     "daysAway": 615
+     "daysAway": 616
     },
     {
      "id": "Sparks_Drum_FanFavorite",
@@ -4679,7 +4679,7 @@
      "lastSeen": "2025-03-26",
      "daysInShop": 4,
      "stints": 1,
-     "daysAway": 603
+     "daysAway": 604
     },
     {
      "id": "Sparks_Drum_WidePlane",
@@ -4694,7 +4694,7 @@
      "lastSeen": "2025-05-10",
      "daysInShop": 28,
      "stints": 3,
-     "daysAway": 558
+     "daysAway": 559
     },
     {
      "id": "Sparks_Drum_HoneyBear",
@@ -4709,7 +4709,7 @@
      "lastSeen": "2025-05-19",
      "daysInShop": 5,
      "stints": 2,
-     "daysAway": 549
+     "daysAway": 550
     },
     {
      "id": "Sparks_Drum_CheckMate",
@@ -4724,7 +4724,7 @@
      "lastSeen": "2025-06-04",
      "daysInShop": 32,
      "stints": 9,
-     "daysAway": 533
+     "daysAway": 534
     },
     {
      "id": "Sparks_Drum_CeremonialGuard",
@@ -4739,7 +4739,7 @@
      "lastSeen": "2025-06-29",
      "daysInShop": 37,
      "stints": 9,
-     "daysAway": 508
+     "daysAway": 509
     },
     {
      "id": "Sparks_Drum_Insectoid",
@@ -4754,7 +4754,7 @@
      "lastSeen": "2025-07-03",
      "daysInShop": 41,
      "stints": 9,
-     "daysAway": 504
+     "daysAway": 505
     },
     {
      "id": "Sparks_Drum_Jungle",
@@ -4769,7 +4769,7 @@
      "lastSeen": "2025-07-04",
      "daysInShop": 14,
      "stints": 6,
-     "daysAway": 503
+     "daysAway": 504
     }
    ]
   },
@@ -4790,7 +4790,7 @@
      "lastSeen": "2025-04-21",
      "daysInShop": 7,
      "stints": 2,
-     "daysAway": 577
+     "daysAway": 578
     },
     {
      "id": "Sparks_Keytar_Insectoid",
@@ -4805,7 +4805,7 @@
      "lastSeen": "2025-05-09",
      "daysInShop": 18,
      "stints": 5,
-     "daysAway": 559
+     "daysAway": 560
     },
     {
      "id": "Sparks_Keytar_WidePlane",
@@ -4820,7 +4820,7 @@
      "lastSeen": "2025-05-10",
      "daysInShop": 32,
      "stints": 4,
-     "daysAway": 558
+     "daysAway": 559
     },
     {
      "id": "Sparks_Keytar_PhoneCharger",
@@ -4835,7 +4835,7 @@
      "lastSeen": "2025-05-20",
      "daysInShop": 7,
      "stints": 2,
-     "daysAway": 548
+     "daysAway": 549
     },
     {
      "id": "Sparks_Keytar_Wafer",
@@ -4850,7 +4850,7 @@
      "lastSeen": "2025-06-25",
      "daysInShop": 36,
      "stints": 8,
-     "daysAway": 512
+     "daysAway": 513
     }
    ]
   },
@@ -4871,7 +4871,7 @@
      "lastSeen": "2025-02-10",
      "daysInShop": 7,
      "stints": 2,
-     "daysAway": 647
+     "daysAway": 648
     },
     {
      "id": "Sparks_Mic_ElegantLily_Plush",
@@ -4886,7 +4886,7 @@
      "lastSeen": "2025-03-26",
      "daysInShop": 74,
      "stints": 2,
-     "daysAway": 603
+     "daysAway": 604
     },
     {
      "id": "Sparks_Mic_PastaSauce",
@@ -4901,7 +4901,7 @@
      "lastSeen": "2025-04-16",
      "daysInShop": 83,
      "stints": 6,
-     "daysAway": 582
+     "daysAway": 583
     },
     {
      "id": "Sparks_Mic_PhoneCharger",
@@ -4916,7 +4916,7 @@
      "lastSeen": "2025-05-20",
      "daysInShop": 7,
      "stints": 2,
-     "daysAway": 548
+     "daysAway": 549
     }
    ]
   },
@@ -4937,7 +4937,7 @@
      "lastSeen": "2024-08-13",
      "daysInShop": 55,
      "stints": 8,
-     "daysAway": 828
+     "daysAway": 829
     },
     {
      "id": "JBSID_LK_Castle_Large_01",
@@ -4952,7 +4952,7 @@
      "lastSeen": "2024-08-13",
      "daysInShop": 55,
      "stints": 8,
-     "daysAway": 828
+     "daysAway": 829
     },
     {
      "id": "JBSID_LK_Keep_Medium_01",
@@ -4967,7 +4967,7 @@
      "lastSeen": "2024-08-13",
      "daysInShop": 55,
      "stints": 8,
-     "daysAway": 828
+     "daysAway": 829
     },
     {
      "id": "JBSID_LK_Def_Tower_Small_01",
@@ -4982,7 +4982,7 @@
      "lastSeen": "2024-08-13",
      "daysInShop": 55,
      "stints": 8,
-     "daysAway": 828
+     "daysAway": 829
     },
     {
      "id": "JBSID_LK_Def_TowerCrnStair_Small_01",
@@ -4997,7 +4997,7 @@
      "lastSeen": "2024-08-13",
      "daysInShop": 55,
      "stints": 8,
-     "daysAway": 828
+     "daysAway": 829
     },
     {
      "id": "JBSID_LK_Def_Wall_Small_01",
@@ -5012,7 +5012,7 @@
      "lastSeen": "2024-08-13",
      "daysInShop": 55,
      "stints": 8,
-     "daysAway": 828
+     "daysAway": 829
     },
     {
      "id": "JBSID_LK_Def_Corner_Small_01",
@@ -5027,7 +5027,7 @@
      "lastSeen": "2024-08-13",
      "daysInShop": 55,
      "stints": 8,
-     "daysAway": 828
+     "daysAway": 829
     },
     {
      "id": "JBSID_LK_Def_WallStair_Small_01",
@@ -5042,7 +5042,7 @@
      "lastSeen": "2024-08-13",
      "daysInShop": 55,
      "stints": 8,
-     "daysAway": 828
+     "daysAway": 829
     },
     {
      "id": "JBSID_DB_ShopMed_01",
@@ -5057,7 +5057,7 @@
      "lastSeen": "2024-08-24",
      "daysInShop": 69,
      "stints": 10,
-     "daysAway": 817
+     "daysAway": 818
     },
     {
      "id": "JBSID_LK_WizardTower_Medium_01",
@@ -5072,7 +5072,7 @@
      "lastSeen": "2025-03-19",
      "daysInShop": 69,
      "stints": 10,
-     "daysAway": 610
+     "daysAway": 611
     },
     {
      "id": "JBSID_LK_Workshop_Medium_01",
@@ -5087,7 +5087,7 @@
      "lastSeen": "2025-03-19",
      "daysInShop": 69,
      "stints": 10,
-     "daysAway": 610
+     "daysAway": 611
     },
     {
      "id": "JBSID_NYA_Apartment_01",
@@ -5102,7 +5102,7 @@
      "lastSeen": "2025-03-26",
      "daysInShop": 28,
      "stints": 3,
-     "daysAway": 603
+     "daysAway": 604
     },
     {
      "id": "JBSID_NPB_TheDailyBugle",
@@ -5117,7 +5117,7 @@
      "lastSeen": "2025-03-26",
      "daysInShop": 28,
      "stints": 3,
-     "daysAway": 603
+     "daysAway": 604
     },
     {
      "id": "JBSID_DB_ShopMed_02",
@@ -5132,7 +5132,7 @@
      "lastSeen": "2025-06-05",
      "daysInShop": 88,
      "stints": 13,
-     "daysAway": 532
+     "daysAway": 533
     },
     {
      "id": "JBSID_DB_ShopSm_01",
@@ -5147,7 +5147,7 @@
      "lastSeen": "2025-06-05",
      "daysInShop": 88,
      "stints": 13,
-     "daysAway": 532
+     "daysAway": 533
     }
    ]
   },
@@ -5168,7 +5168,7 @@
      "lastSeen": "2024-08-13",
      "daysInShop": 55,
      "stints": 8,
-     "daysAway": 828
+     "daysAway": 829
     },
     {
      "id": "JBPID_LK_DefWell",
@@ -5183,7 +5183,7 @@
      "lastSeen": "2024-08-13",
      "daysInShop": 55,
      "stints": 8,
-     "daysAway": 828
+     "daysAway": 829
     },
     {
      "id": "JBPID_LK_DefFlags",
@@ -5198,7 +5198,7 @@
      "lastSeen": "2024-08-13",
      "daysInShop": 55,
      "stints": 8,
-     "daysAway": 828
+     "daysAway": 829
     },
     {
      "id": "JBPID_LK_Def",
@@ -5213,7 +5213,7 @@
      "lastSeen": "2024-08-13",
      "daysInShop": 55,
      "stints": 8,
-     "daysAway": 828
+     "daysAway": 829
     },
     {
      "id": "JBPID_PT_CaptainsCabin",
@@ -5228,7 +5228,7 @@
      "lastSeen": "2024-09-03",
      "daysInShop": 15,
      "stints": 2,
-     "daysAway": 807
+     "daysAway": 808
     },
     {
      "id": "JBPID_PT_SeaportStyle",
@@ -5243,7 +5243,7 @@
      "lastSeen": "2024-09-03",
      "daysInShop": 15,
      "stints": 2,
-     "daysAway": 807
+     "daysAway": 808
     },
     {
      "id": "JBPID_COL_WeaponXBedroom",
@@ -5258,7 +5258,7 @@
      "lastSeen": "2024-10-04",
      "daysInShop": 14,
      "stints": 1,
-     "daysAway": 776
+     "daysAway": 777
     },
     {
      "id": "JBPID_COL_WeaponXLaboratory",
@@ -5273,7 +5273,7 @@
      "lastSeen": "2024-10-04",
      "daysInShop": 14,
      "stints": 1,
-     "daysAway": 776
+     "daysAway": 777
     },
     {
      "id": "JBPID_COL_WeaponXLaboratoryBroken",
@@ -5288,7 +5288,7 @@
      "lastSeen": "2024-10-04",
      "daysInShop": 14,
      "stints": 1,
-     "daysAway": 776
+     "daysAway": 777
     },
     {
      "id": "JBPID_BBS_BattleBusBedroom",
@@ -5303,7 +5303,7 @@
      "lastSeen": "2024-10-11",
      "daysInShop": 10,
      "stints": 1,
-     "daysAway": 769
+     "daysAway": 770
     },
     {
      "id": "JBPID_BBS_BattleBusBreakroom",
@@ -5318,7 +5318,7 @@
      "lastSeen": "2024-10-11",
      "daysInShop": 10,
      "stints": 1,
-     "daysAway": 769
+     "daysAway": 770
     },
     {
      "id": "JBPID_LK_Workshop",
@@ -5333,7 +5333,7 @@
      "lastSeen": "2025-03-19",
      "daysInShop": 69,
      "stints": 10,
-     "daysAway": 610
+     "daysAway": 611
     },
     {
      "id": "JBPID_LK_WizardTower",
@@ -5348,7 +5348,7 @@
      "lastSeen": "2025-03-19",
      "daysInShop": 69,
      "stints": 10,
-     "daysAway": 610
+     "daysAway": 611
     },
     {
      "id": "JBPID_NPB_Essentials",
@@ -5363,7 +5363,7 @@
      "lastSeen": "2025-03-26",
      "daysInShop": 28,
      "stints": 3,
-     "daysAway": 603
+     "daysAway": 604
     },
     {
      "id": "JBPID_NPB_AssistantsOffice",
@@ -5378,7 +5378,7 @@
      "lastSeen": "2025-03-26",
      "daysInShop": 28,
      "stints": 3,
-     "daysAway": 603
+     "daysAway": 604
     },
     {
      "id": "JBPID_NYA_FriendlyNeighborhoodBodega",
@@ -5393,7 +5393,7 @@
      "lastSeen": "2025-03-26",
      "daysInShop": 28,
      "stints": 3,
-     "daysAway": 603
+     "daysAway": 604
     },
     {
      "id": "JBPID_NYA_FriendlyNeighborhoodEssentials",
@@ -5408,7 +5408,7 @@
      "lastSeen": "2025-03-26",
      "daysInShop": 28,
      "stints": 3,
-     "daysAway": 603
+     "daysAway": 604
     },
     {
      "id": "JBPID_NPB_JamesonsOffice",
@@ -5423,7 +5423,7 @@
      "lastSeen": "2025-03-26",
      "daysInShop": 28,
      "stints": 3,
-     "daysAway": 603
+     "daysAway": 604
     },
     {
      "id": "JBPID_NPB_Mailroom",
@@ -5438,7 +5438,7 @@
      "lastSeen": "2025-03-26",
      "daysInShop": 28,
      "stints": 3,
-     "daysAway": 603
+     "daysAway": 604
     },
     {
      "id": "JBPID_NYA_SpiderDen",
@@ -5453,7 +5453,7 @@
      "lastSeen": "2025-03-26",
      "daysInShop": 28,
      "stints": 3,
-     "daysAway": 603
+     "daysAway": 604
     },
     {
      "id": "JBPID_NYA_SpideyInTheCity",
@@ -5468,7 +5468,7 @@
      "lastSeen": "2025-03-26",
      "daysInShop": 28,
      "stints": 3,
-     "daysAway": 603
+     "daysAway": 604
     },
     {
      "id": "JBPID_NPB_Lobby",
@@ -5483,7 +5483,7 @@
      "lastSeen": "2025-03-26",
      "daysInShop": 28,
      "stints": 3,
-     "daysAway": 603
+     "daysAway": 604
     },
     {
      "id": "JBPID_DB_Restaurant",
@@ -5498,7 +5498,7 @@
      "lastSeen": "2025-06-05",
      "daysInShop": 88,
      "stints": 13,
-     "daysAway": 532
+     "daysAway": 533
     },
     {
      "id": "JBPID_DB_Kitchen",
@@ -5513,7 +5513,7 @@
      "lastSeen": "2025-06-05",
      "daysInShop": 88,
      "stints": 13,
-     "daysAway": 532
+     "daysAway": 533
     },
     {
      "id": "JBPID_DB_Outdoor",
@@ -5528,510 +5528,958 @@
      "lastSeen": "2025-06-05",
      "daysInShop": 88,
      "stints": 13,
-     "daysAway": 532
+     "daysAway": 533
     }
    ]
   }
  ],
  "today": [
   {
-   "id": "Wrap_434_8-BitCat",
-   "name": "8-Kit",
-   "type": "Wrap",
-   "category": "Wraps",
-   "rarity": "Rare",
-   "series": null,
-   "image": "https://fortnite-api.com/images/cosmetics/br/wrap_434_8-bitcat/smallicon.png",
+   "id": "Character_SunBurstAlt",
+   "name": "The Rogue LAROI",
+   "type": "Outfit",
+   "category": "Outfits",
+   "rarity": "Icon Series",
+   "series": "Icon Series",
+   "image": "https://fortnite-api.com/images/cosmetics/br/character_sunburstalt/smallicon.png",
    "isNew": false,
-   "lastSeenBefore": "2024-04-29",
-   "daysAway": 934,
-   "stints": 17,
+   "lastSeenBefore": "2023-11-29",
+   "daysAway": 1087,
+   "stints": 7,
    "rare": true
   },
   {
-   "id": "Pickaxe_ID_236_Multibot1H",
-   "name": "Combo Cleavers",
+   "id": "Backpack_Sunburst_Alt",
+   "name": "The Tragic BLADE",
+   "type": "Back Bling",
+   "category": "Back Blings",
+   "rarity": "Icon Series",
+   "series": "Icon Series",
+   "image": "https://fortnite-api.com/images/cosmetics/br/backpack_sunburst_alt/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2023-11-29",
+   "daysAway": 1087,
+   "stints": 7,
+   "rare": true
+  },
+  {
+   "id": "Pickaxe_SunBurstAlt",
+   "name": "The Tragic BLADE",
+   "type": "Pickaxe",
+   "category": "Pickaxes",
+   "rarity": "Icon Series",
+   "series": "Icon Series",
+   "image": "https://fortnite-api.com/images/cosmetics/br/pickaxe_sunburstalt/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2023-11-29",
+   "daysAway": 1087,
+   "stints": 7,
+   "rare": true
+  },
+  {
+   "id": "Character_SunBurst",
+   "name": "The Kid LAROI",
+   "type": "Outfit",
+   "category": "Outfits",
+   "rarity": "Icon Series",
+   "series": "Icon Series",
+   "image": "https://fortnite-api.com/images/cosmetics/br/character_sunburst/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2023-11-29",
+   "daysAway": 1087,
+   "stints": 7,
+   "rare": true
+  },
+  {
+   "id": "Backpack_SunBurst",
+   "name": "Get My Bag",
+   "type": "Back Bling",
+   "category": "Back Blings",
+   "rarity": "Icon Series",
+   "series": "Icon Series",
+   "image": "https://fortnite-api.com/images/cosmetics/br/backpack_sunburst/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2023-11-29",
+   "daysAway": 1087,
+   "stints": 7,
+   "rare": true
+  },
+  {
+   "id": "Wrap_SunBurst",
+   "name": "LAROI Free Style",
+   "type": "Wrap",
+   "category": "Wraps",
+   "rarity": "Icon Series",
+   "series": "Icon Series",
+   "image": "https://fortnite-api.com/images/cosmetics/br/wrap_sunburst/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2023-11-29",
+   "daysAway": 1087,
+   "stints": 7,
+   "rare": true
+  },
+  {
+   "id": "Pickaxe_ID_259_CupidFemale1H",
+   "name": "Cupid's Daggers",
    "type": "Pickaxe",
    "category": "Pickaxes",
    "rarity": "Rare",
    "series": null,
-   "image": "https://fortnite-api.com/images/cosmetics/br/pickaxe_id_236_multibot1h/smallicon.png",
+   "image": "https://fortnite-api.com/images/cosmetics/br/pickaxe_id_259_cupidfemale1h/smallicon.png",
    "isNew": false,
-   "lastSeenBefore": "2024-07-02",
-   "daysAway": 870,
-   "stints": 43,
+   "lastSeenBefore": "2025-02-13",
+   "daysAway": 645,
+   "stints": 15,
    "rare": true
   },
   {
-   "id": "EID_Rhubarb",
-   "name": "Barbaras Rhabarberbar",
-   "type": "Emote",
-   "category": "Emotes",
-   "rarity": "Icon Series",
-   "series": "Icon Series",
-   "image": "https://fortnite-api.com/images/cosmetics/br/eid_rhubarb/smallicon.png",
+   "id": "sid_placeholder_33",
+   "name": "Heat Waves",
+   "type": "Jam Track",
+   "category": "Jam Tracks",
+   "rarity": null,
+   "series": null,
+   "image": "https://cdn.fortnite-api.com/tracks/7d7b6b1d27b314e0.jpg",
+   "isNew": false,
+   "lastSeenBefore": "2025-11-25",
+   "daysAway": 360,
+   "stints": 26,
+   "rare": false
+  },
+  {
+   "id": "BID_022_Cupid",
+   "name": "Love Wings",
+   "type": "Back Bling",
+   "category": "Back Blings",
+   "rarity": "Legendary",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/bid_022_cupid/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-02-18",
+   "daysAway": 275,
+   "stints": 14,
+   "rare": false
+  },
+  {
+   "id": "CID_070_Athena_Commando_M_Cupid",
+   "name": "Love Ranger",
+   "type": "Outfit",
+   "category": "Outfits",
+   "rarity": "Legendary",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/cid_070_athena_commando_m_cupid/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-02-18",
+   "daysAway": 275,
+   "stints": 28,
+   "rare": false
+  },
+  {
+   "id": "Character_TwinGinger",
+   "name": "Mira",
+   "type": "Outfit",
+   "category": "Outfits",
+   "rarity": "Epic",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/character_twinginger/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-02-20",
+   "daysAway": 273,
+   "stints": 5,
+   "rare": false
+  },
+  {
+   "id": "Backpack_DemoCrook",
+   "name": "Meaty TNT",
+   "type": "Back Bling",
+   "category": "Back Blings",
+   "rarity": "Rare",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/backpack_democrook/smallicon.png",
    "isNew": false,
    "lastSeenBefore": "2026-03-09",
-   "daysAway": 255,
-   "stints": 3,
-   "rare": false
-  },
-  {
-   "id": "CID_A_325_Athena_Commando_F_Scout",
-   "name": "Mel",
-   "type": "Outfit",
-   "category": "Outfits",
-   "rarity": "Uncommon",
-   "series": null,
-   "image": "https://fortnite-api.com/images/cosmetics/br/cid_a_325_athena_commando_f_scout/smallicon.png",
-   "isNew": false,
-   "lastSeenBefore": "2026-05-24",
-   "daysAway": 179,
-   "stints": 23,
-   "rare": false
-  },
-  {
-   "id": "Character_FelineWarrior",
-   "name": "Curious",
-   "type": "Outfit",
-   "category": "Outfits",
-   "rarity": "Rare",
-   "series": null,
-   "image": "https://fortnite-api.com/images/cosmetics/br/character_felinewarrior/smallicon.png",
-   "isNew": false,
-   "lastSeenBefore": "2026-05-28",
-   "daysAway": 175,
-   "stints": 7,
-   "rare": false
-  },
-  {
-   "id": "Backpack_FelineWarrior",
-   "name": "Pathwalker's Pack",
-   "type": "Back Bling",
-   "category": "Back Blings",
-   "rarity": "Uncommon",
-   "series": null,
-   "image": "https://fortnite-api.com/images/cosmetics/br/backpack_felinewarrior/smallicon.png",
-   "isNew": false,
-   "lastSeenBefore": "2026-05-28",
-   "daysAway": 175,
-   "stints": 7,
-   "rare": false
-  },
-  {
-   "id": "EID_SummitReedGrit",
-   "name": "EVIL J0RDAN",
-   "type": "Emote",
-   "category": "Emotes",
-   "rarity": "Icon Series",
-   "series": "Icon Series",
-   "image": "https://fortnite-api.com/images/cosmetics/br/eid_summitreedgrit/smallicon.png",
-   "isNew": false,
-   "lastSeenBefore": "2026-07-12",
-   "daysAway": 130,
-   "stints": 4,
-   "rare": false
-  },
-  {
-   "id": "EID_VouchTrig",
-   "name": "Oooohhh!",
-   "type": "Emote",
-   "category": "Emotes",
-   "rarity": "Uncommon",
-   "series": null,
-   "image": "https://fortnite-api.com/images/cosmetics/br/eid_vouchtrig/smallicon.png",
-   "isNew": false,
-   "lastSeenBefore": "2026-08-13",
-   "daysAway": 98,
-   "stints": 4,
-   "rare": false
-  },
-  {
-   "id": "Pickaxe_VouchTrig",
-   "name": "Maximum Glove",
-   "type": "Pickaxe",
-   "category": "Pickaxes",
-   "rarity": "Rare",
-   "series": null,
-   "image": "https://fortnite-api.com/images/cosmetics/br/pickaxe_vouchtrig/smallicon.png",
-   "isNew": false,
-   "lastSeenBefore": "2026-08-13",
-   "daysAway": 98,
-   "stints": 4,
-   "rare": false
-  },
-  {
-   "id": "Character_RobustTorn",
-   "name": "Skips",
-   "type": "Outfit",
-   "category": "Outfits",
-   "rarity": "Epic",
-   "series": null,
-   "image": "https://fortnite-api.com/images/cosmetics/br/character_robusttorn/smallicon.png",
-   "isNew": false,
-   "lastSeenBefore": "2026-08-13",
-   "daysAway": 98,
-   "stints": 4,
-   "rare": false
-  },
-  {
-   "id": "Pickaxe_RobustTorn",
-   "name": "Fists of Justice",
-   "type": "Pickaxe",
-   "category": "Pickaxes",
-   "rarity": "Rare",
-   "series": null,
-   "image": "https://fortnite-api.com/images/cosmetics/br/pickaxe_robusttorn/smallicon.png",
-   "isNew": false,
-   "lastSeenBefore": "2026-08-13",
-   "daysAway": 98,
-   "stints": 4,
-   "rare": false
-  },
-  {
-   "id": "EID_RobustTorn",
-   "name": "Skips' Skip",
-   "type": "Emote",
-   "category": "Emotes",
-   "rarity": "Uncommon",
-   "series": null,
-   "image": "https://fortnite-api.com/images/cosmetics/br/eid_robusttorn/smallicon.png",
-   "isNew": false,
-   "lastSeenBefore": "2026-08-13",
-   "daysAway": 98,
-   "stints": 4,
-   "rare": false
-  },
-  {
-   "id": "Backpack_RobustTorn",
-   "name": "Rattle & Mace",
-   "type": "Back Bling",
-   "category": "Back Blings",
-   "rarity": "Rare",
-   "series": null,
-   "image": "https://fortnite-api.com/images/cosmetics/br/backpack_robusttorn/smallicon.png",
-   "isNew": false,
-   "lastSeenBefore": "2026-08-13",
-   "daysAway": 98,
-   "stints": 4,
-   "rare": false
-  },
-  {
-   "id": "Backpack_VouchTrig",
-   "name": "BABY DUCKS",
-   "type": "Back Bling",
-   "category": "Back Blings",
-   "rarity": "Rare",
-   "series": null,
-   "image": "https://fortnite-api.com/images/cosmetics/br/backpack_vouchtrig/smallicon.png",
-   "isNew": false,
-   "lastSeenBefore": "2026-08-13",
-   "daysAway": 98,
-   "stints": 4,
-   "rare": false
-  },
-  {
-   "id": "Companion_PromDutch",
-   "name": "Rigby",
-   "type": "Sidekick",
-   "category": "Sidekicks",
-   "rarity": "Uncommon",
-   "series": null,
-   "image": "https://fortnite-api.com/images/cosmetics/br/companion_promdutch/smallicon.png",
-   "isNew": false,
-   "lastSeenBefore": "2026-08-13",
-   "daysAway": 98,
-   "stints": 4,
-   "rare": false
-  },
-  {
-   "id": "Character_VouchTrig",
-   "name": "Mordecai",
-   "type": "Outfit",
-   "category": "Outfits",
-   "rarity": "Epic",
-   "series": null,
-   "image": "https://fortnite-api.com/images/cosmetics/br/character_vouchtrig/smallicon.png",
-   "isNew": false,
-   "lastSeenBefore": "2026-08-13",
-   "daysAway": 98,
-   "stints": 4,
-   "rare": false
-  },
-  {
-   "id": "Backpack_BoldDormWork",
-   "name": "Courage Shield",
-   "type": "Back Bling",
-   "category": "Back Blings",
-   "rarity": "Icon Series",
-   "series": "Icon Series",
-   "image": "https://fortnite-api.com/images/cosmetics/br/backpack_bolddormwork/smallicon.png",
-   "isNew": false,
-   "lastSeenBefore": "2026-08-24",
-   "daysAway": 87,
-   "stints": 5,
-   "rare": false
-  },
-  {
-   "id": "Pickaxe_BoldDormWork",
-   "name": "Courageous Axe",
-   "type": "Pickaxe",
-   "category": "Pickaxes",
-   "rarity": "Icon Series",
-   "series": "Icon Series",
-   "image": "https://fortnite-api.com/images/cosmetics/br/pickaxe_bolddormwork/smallicon.png",
-   "isNew": false,
-   "lastSeenBefore": "2026-08-24",
-   "daysAway": 87,
-   "stints": 5,
-   "rare": false
-  },
-  {
-   "id": "Pickaxe_BoldDormRise",
-   "name": "Courageous Scepter",
-   "type": "Pickaxe",
-   "category": "Pickaxes",
-   "rarity": "Icon Series",
-   "series": "Icon Series",
-   "image": "https://fortnite-api.com/images/cosmetics/br/pickaxe_bolddormrise/smallicon.png",
-   "isNew": false,
-   "lastSeenBefore": "2026-08-24",
-   "daysAway": 87,
-   "stints": 5,
-   "rare": false
-  },
-  {
-   "id": "EID_BoldDorm_Bagel",
-   "name": "Win-ception",
-   "type": "Emote",
-   "category": "Emotes",
-   "rarity": "Icon Series",
-   "series": "Icon Series",
-   "image": "https://fortnite-api.com/images/cosmetics/br/eid_bolddorm_bagel/smallicon.png",
-   "isNew": false,
-   "lastSeenBefore": "2026-08-24",
-   "daysAway": 87,
-   "stints": 5,
-   "rare": false
-  },
-  {
-   "id": "Backpack_BoldDormMum",
-   "name": "Lion Shield",
-   "type": "Back Bling",
-   "category": "Back Blings",
-   "rarity": "Icon Series",
-   "series": "Icon Series",
-   "image": "https://fortnite-api.com/images/cosmetics/br/backpack_bolddormmum/smallicon.png",
-   "isNew": false,
-   "lastSeenBefore": "2026-08-24",
-   "daysAway": 87,
-   "stints": 5,
-   "rare": false
-  },
-  {
-   "id": "EID_BoldDorm",
-   "name": "Proud Victory",
-   "type": "Emote",
-   "category": "Emotes",
-   "rarity": "Icon Series",
-   "series": "Icon Series",
-   "image": "https://fortnite-api.com/images/cosmetics/br/eid_bolddorm/smallicon.png",
-   "isNew": false,
-   "lastSeenBefore": "2026-08-24",
-   "daysAway": 87,
-   "stints": 5,
-   "rare": false
-  },
-  {
-   "id": "Character_BoldDormRise",
-   "name": "CouRage",
-   "type": "Outfit",
-   "category": "Outfits",
-   "rarity": "Icon Series",
-   "series": "Icon Series",
-   "image": "https://fortnite-api.com/images/cosmetics/br/character_bolddormrise/smallicon.png",
-   "isNew": false,
-   "lastSeenBefore": "2026-08-24",
-   "daysAway": 87,
-   "stints": 5,
-   "rare": false
-  },
-  {
-   "id": "Companion_ScrollVessel",
-   "name": "Louis",
-   "type": "Sidekick",
-   "category": "Sidekicks",
-   "rarity": "Icon Series",
-   "series": "Icon Series",
-   "image": "https://fortnite-api.com/images/cosmetics/br/companion_scrollvessel/smallicon.png",
-   "isNew": false,
-   "lastSeenBefore": "2026-08-24",
-   "daysAway": 87,
-   "stints": 5,
-   "rare": false
-  },
-  {
-   "id": "Character_BoldDormWork",
-   "name": "Courageous Knight",
-   "type": "Outfit",
-   "category": "Outfits",
-   "rarity": "Icon Series",
-   "series": "Icon Series",
-   "image": "https://fortnite-api.com/images/cosmetics/br/character_bolddormwork/smallicon.png",
-   "isNew": false,
-   "lastSeenBefore": "2026-08-24",
-   "daysAway": 87,
-   "stints": 5,
-   "rare": false
-  },
-  {
-   "id": "Wrap_BoldDorm",
-   "name": "The Lion's Pride",
-   "type": "Wrap",
-   "category": "Wraps",
-   "rarity": "Icon Series",
-   "series": "Icon Series",
-   "image": "https://fortnite-api.com/images/cosmetics/br/wrap_bolddorm/smallicon.png",
-   "isNew": false,
-   "lastSeenBefore": "2026-08-24",
-   "daysAway": 87,
-   "stints": 5,
-   "rare": false
-  },
-  {
-   "id": "Shoes_ElbowGroutShy",
-   "name": "Air Jordan 5 Retro 'Wolf Grey'",
-   "type": "Shoes",
-   "category": "Kicks",
-   "rarity": "Uncommon",
-   "series": null,
-   "image": "https://fortnite-api.com/images/cosmetics/br/shoes_elbowgroutshy/smallicon.png",
-   "isNew": false,
-   "lastSeenBefore": "2026-09-29",
-   "daysAway": 51,
-   "stints": 2,
-   "rare": false
-  },
-  {
-   "id": "CID_A_031_Athena_Commando_M_Builder",
-   "name": "Lazarbeam",
-   "type": "Outfit",
-   "category": "Outfits",
-   "rarity": "Icon Series",
-   "series": "Icon Series",
-   "image": "https://fortnite-api.com/images/cosmetics/br/cid_a_031_athena_commando_m_builder/smallicon.png",
-   "isNew": false,
-   "lastSeenBefore": "2026-10-09",
-   "daysAway": 41,
-   "stints": 30,
-   "rare": false
-  },
-  {
-   "id": "BID_708_GingerbreadBuilder",
-   "name": "Baby Gingy",
-   "type": "Back Bling",
-   "category": "Back Blings",
-   "rarity": "Icon Series",
-   "series": "Icon Series",
-   "image": "https://fortnite-api.com/images/cosmetics/br/bid_708_gingerbreadbuilder/smallicon.png",
-   "isNew": false,
-   "lastSeenBefore": "2026-10-09",
-   "daysAway": 41,
-   "stints": 30,
-   "rare": false
-  },
-  {
-   "id": "EID_Builders",
-   "name": "Lunch Break",
-   "type": "Emote",
-   "category": "Emotes",
-   "rarity": "Icon Series",
-   "series": "Icon Series",
-   "image": "https://fortnite-api.com/images/cosmetics/br/eid_builders/smallicon.png",
-   "isNew": false,
-   "lastSeenBefore": "2026-10-09",
-   "daysAway": 41,
-   "stints": 27,
-   "rare": false
-  },
-  {
-   "id": "Pickaxe_ID_555_BuilderMale",
-   "name": "Ol' Mate Sledgy",
-   "type": "Pickaxe",
-   "category": "Pickaxes",
-   "rarity": "Icon Series",
-   "series": "Icon Series",
-   "image": "https://fortnite-api.com/images/cosmetics/br/pickaxe_id_555_buildermale/smallicon.png",
-   "isNew": false,
-   "lastSeenBefore": "2026-10-09",
-   "daysAway": 41,
-   "stints": 30,
-   "rare": false
-  },
-  {
-   "id": "EID_FareSporeMilk",
-   "name": "mau5lab",
-   "type": "Emote",
-   "category": "Emotes",
-   "rarity": "Icon Series",
-   "series": "Icon Series",
-   "image": "https://fortnite-api.com/images/cosmetics/br/eid_faresporemilk/smallicon.png",
-   "isNew": false,
-   "lastSeenBefore": "2026-10-17",
-   "daysAway": 33,
-   "stints": 4,
-   "rare": false
-  },
-  {
-   "id": "Shoes_NumbGulpSew",
-   "name": "Converse Chuck 70 Hi Canvas 'White'",
-   "type": "Shoes",
-   "category": "Kicks",
-   "rarity": "Uncommon",
-   "series": null,
-   "image": "https://fortnite-api.com/images/cosmetics/br/shoes_numbgulpsew/smallicon.png",
-   "isNew": false,
-   "lastSeenBefore": "2026-10-22",
-   "daysAway": 28,
-   "stints": 5,
-   "rare": false
-  },
-  {
-   "id": "EID_TangyRadishFlame",
-   "name": "Agora Hills",
-   "type": "Emote",
-   "category": "Emotes",
-   "rarity": "Icon Series",
-   "series": "Icon Series",
-   "image": "https://fortnite-api.com/images/cosmetics/br/eid_tangyradishflame/smallicon.png",
-   "isNew": false,
-   "lastSeenBefore": "2026-10-30",
-   "daysAway": 20,
-   "stints": 4,
-   "rare": false
-  },
-  {
-   "id": "Shoes_StrandModeAcai",
-   "name": "Air Jordan 11 'Legend Blue'",
-   "type": "Shoes",
-   "category": "Kicks",
-   "rarity": "Uncommon",
-   "series": null,
-   "image": "https://fortnite-api.com/images/cosmetics/br/shoes_strandmodeacai/smallicon.png",
-   "isNew": false,
-   "lastSeenBefore": "2026-11-08",
-   "daysAway": 11,
+   "daysAway": 256,
    "stints": 8,
    "rare": false
   },
   {
-   "id": "Wheel_MapleRed",
-   "name": "Jurassic Jeep® Wrangler - Staff",
-   "type": "Wheel",
-   "category": "Wheels",
+   "id": "Character_DemoCrook",
+   "name": "Aubrey",
+   "type": "Character",
+   "category": "Outfits",
+   "rarity": "Rare",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/character_democrook/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-03-09",
+   "daysAway": 256,
+   "stints": 8,
+   "rare": false
+  },
+  {
+   "id": "Pickaxe_KneeLens",
+   "name": "Red Tail Reaver",
+   "type": "Pickaxe",
+   "category": "Pickaxes",
+   "rarity": "Rare",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/pickaxe_kneelens/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-05-06",
+   "daysAway": 198,
+   "stints": 5,
+   "rare": false
+  },
+  {
+   "id": "Character_StudyBench",
+   "name": "Spike Spiegel",
+   "type": "Outfit",
+   "category": "Outfits",
+   "rarity": "Epic",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/character_studybench/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-05-06",
+   "daysAway": 198,
+   "stints": 5,
+   "rare": false
+  },
+  {
+   "id": "EID_StudyBench",
+   "name": "Lil' Swordfish II",
+   "type": "Emote",
+   "category": "Emotes",
    "rarity": "Uncommon",
    "series": null,
-   "image": "https://fortnite-api.com/images/cosmetics/cars/wheel_maplered/small.png",
+   "image": "https://fortnite-api.com/images/cosmetics/br/eid_studybench/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-05-06",
+   "daysAway": 198,
+   "stints": 5,
+   "rare": false
+  },
+  {
+   "id": "Wrap_KneeLens",
+   "name": "Valentine Blue",
+   "type": "Wrap",
+   "category": "Wraps",
+   "rarity": "Rare",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/wrap_kneelens/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-05-06",
+   "daysAway": 198,
+   "stints": 5,
+   "rare": false
+  },
+  {
+   "id": "Character_KneeLens",
+   "name": "Faye Valentine",
+   "type": "Outfit",
+   "category": "Outfits",
+   "rarity": "Epic",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/character_kneelens/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-05-06",
+   "daysAway": 198,
+   "stints": 5,
+   "rare": false
+  },
+  {
+   "id": "Backpack_KneeLens",
+   "name": "Multi-Purpose Phone",
+   "type": "Back Bling",
+   "category": "Back Blings",
+   "rarity": "Rare",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/backpack_kneelens/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-05-06",
+   "daysAway": 198,
+   "stints": 5,
+   "rare": false
+  },
+  {
+   "id": "Pickaxe_StudyBench",
+   "name": "Swordfish II Slasher",
+   "type": "Pickaxe",
+   "category": "Pickaxes",
+   "rarity": "Rare",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/pickaxe_studybench/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-05-06",
+   "daysAway": 198,
+   "stints": 5,
+   "rare": false
+  },
+  {
+   "id": "EID_KneeLens",
+   "name": "Jukebox Bop",
+   "type": "Emote",
+   "category": "Emotes",
+   "rarity": "Uncommon",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/eid_kneelens/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-05-06",
+   "daysAway": 198,
+   "stints": 5,
+   "rare": false
+  },
+  {
+   "id": "Backpack_StudyBench",
+   "name": "Roses For Julia",
+   "type": "Back Bling",
+   "category": "Back Blings",
+   "rarity": "Rare",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/backpack_studybench/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-05-06",
+   "daysAway": 198,
+   "stints": 5,
+   "rare": false
+  },
+  {
+   "id": "CID_393_Athena_Commando_M_Shiny",
+   "name": "Sterling",
+   "type": "Outfit",
+   "category": "Outfits",
+   "rarity": "Epic",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/cid_393_athena_commando_m_shiny/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-05-14",
+   "daysAway": 190,
+   "stints": 9,
+   "rare": false
+  },
+  {
+   "id": "BID_254_ShinyMale",
+   "name": "Diamond Star",
+   "type": "Back Bling",
+   "category": "Back Blings",
+   "rarity": "Epic",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/bid_254_shinymale/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-05-14",
+   "daysAway": 190,
+   "stints": 7,
+   "rare": false
+  },
+  {
+   "id": "Pickaxe_JoltMosaic",
+   "name": "Meteor Hammer",
+   "type": "Pickaxe",
+   "category": "Pickaxes",
+   "rarity": "Rare",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/pickaxe_joltmosaic/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-06-05",
+   "daysAway": 168,
+   "stints": 4,
+   "rare": false
+  },
+  {
+   "id": "Backpack_WaterMolecules",
+   "name": "Illuminator of the Ice",
+   "type": "Back Bling",
+   "category": "Back Blings",
+   "rarity": "Rare",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/backpack_watermolecules/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-06-24",
+   "daysAway": 149,
+   "stints": 12,
+   "rare": false
+  },
+  {
+   "id": "Character_WaterMolecules",
+   "name": "The Ageless Explorer",
+   "type": "Character",
+   "category": "Outfits",
+   "rarity": "Rare",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/character_watermolecules/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-06-24",
+   "daysAway": 149,
+   "stints": 12,
+   "rare": false
+  },
+  {
+   "id": "sid_placeholder_751",
+   "name": "CRUISING TO SELF SOOTHE",
+   "type": "Jam Track",
+   "category": "Jam Tracks",
+   "rarity": null,
+   "series": null,
+   "image": "https://cdn.fortnite-api.com/tracks/c9565dfb8ca73e28.jpg",
+   "isNew": false,
+   "lastSeenBefore": "2026-06-25",
+   "daysAway": 148,
+   "stints": 4,
+   "rare": false
+  },
+  {
+   "id": "sid_placeholder_652",
+   "name": "Bum Bum",
+   "type": "Jam Track",
+   "category": "Jam Tracks",
+   "rarity": null,
+   "series": null,
+   "image": "https://cdn.fortnite-api.com/tracks/3f5043aef5387b1b.jpg",
+   "isNew": false,
+   "lastSeenBefore": "2026-06-30",
+   "daysAway": 143,
+   "stints": 7,
+   "rare": false
+  },
+  {
+   "id": "CID_264_Athena_Commando_M_AnimalJackets",
+   "name": "Growler",
+   "type": "Outfit",
+   "category": "Outfits",
+   "rarity": "Epic",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/cid_264_athena_commando_m_animaljackets/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-07-01",
+   "daysAway": 142,
+   "stints": 48,
+   "rare": false
+  },
+  {
+   "id": "BID_145_AnimalJacketsMale",
+   "name": "Woofs",
+   "type": "Back Bling",
+   "category": "Back Blings",
+   "rarity": "Epic",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/bid_145_animaljacketsmale/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-07-01",
+   "daysAway": 142,
+   "stints": 34,
+   "rare": false
+  },
+  {
+   "id": "Character_CyberMittHomer",
+   "name": "Street Rōnin Kendo",
+   "type": "Outfit",
+   "category": "Outfits",
+   "rarity": "Epic",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/character_cybermitthomer/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-07-05",
+   "daysAway": 138,
+   "stints": 3,
+   "rare": false
+  },
+  {
+   "id": "CID_523_Athena_Commando_F_Cupid",
+   "name": "Stoneheart",
+   "type": "Outfit",
+   "category": "Outfits",
+   "rarity": "Epic",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/cid_523_athena_commando_f_cupid/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-07-20",
+   "daysAway": 123,
+   "stints": 23,
+   "rare": false
+  },
+  {
+   "id": "BID_352_CupidFemale",
+   "name": "Wings of Love",
+   "type": "Back Bling",
+   "category": "Back Blings",
+   "rarity": "Epic",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/bid_352_cupidfemale/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-07-20",
+   "daysAway": 123,
+   "stints": 17,
+   "rare": false
+  },
+  {
+   "id": "Companion_BurrBaby",
+   "name": "Lil' Lootie",
+   "type": "Sidekick",
+   "category": "Sidekicks",
+   "rarity": "Uncommon",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/companion_burrbaby/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-08-04",
+   "daysAway": 108,
+   "stints": 6,
+   "rare": false
+  },
+  {
+   "id": "Companion_FondCuddles",
+   "name": "Cupid Kitty",
+   "type": "Sidekick",
+   "category": "Sidekicks",
+   "rarity": "Uncommon",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/companion_fondcuddles/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-08-04",
+   "daysAway": 108,
+   "stints": 4,
+   "rare": false
+  },
+  {
+   "id": "Companion_CaninePack",
+   "name": "Remus",
+   "type": "Sidekick",
+   "category": "Sidekicks",
+   "rarity": "Uncommon",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/companion_caninepack/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-08-24",
+   "daysAway": 88,
+   "stints": 5,
+   "rare": false
+  },
+  {
+   "id": "Pickaxe_ID_019_Heart",
+   "name": "Tat Axe",
+   "type": "Pickaxe",
+   "category": "Pickaxes",
+   "rarity": "Rare",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/pickaxe_id_019_heart/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-08-26",
+   "daysAway": 86,
+   "stints": 32,
+   "rare": false
+  },
+  {
+   "id": "BID_795_MechanicalEngineerSummer",
+   "name": "Plasmatic Gear",
+   "type": "Back Bling",
+   "category": "Back Blings",
+   "rarity": "Rare",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/bid_795_mechanicalengineersummer/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-08-30",
+   "daysAway": 82,
+   "stints": 22,
+   "rare": false
+  },
+  {
+   "id": "CID_A_127_Athena_Commando_F_MechanicalEngineerSummer",
+   "name": "Beach Jules",
+   "type": "Outfit",
+   "category": "Outfits",
+   "rarity": "Rare",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/cid_a_127_athena_commando_f_mechanicalengineersummer/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-08-30",
+   "daysAway": 82,
+   "stints": 22,
+   "rare": false
+  },
+  {
+   "id": "sid_placeholder_671",
+   "name": "As Alive As You Need Me To Be",
+   "type": "Jam Track",
+   "category": "Jam Tracks",
+   "rarity": null,
+   "series": null,
+   "image": "https://cdn.fortnite-api.com/tracks/b3ffa70f132df6e6.jpg",
+   "isNew": false,
+   "lastSeenBefore": "2026-08-31",
+   "daysAway": 81,
+   "stints": 9,
+   "rare": false
+  },
+  {
+   "id": "sid_placeholder_297",
+   "name": "Best of You",
+   "type": "Jam Track",
+   "category": "Jam Tracks",
+   "rarity": null,
+   "series": null,
+   "image": "https://cdn.fortnite-api.com/tracks/adcc3426251575c4.jpg",
+   "isNew": false,
+   "lastSeenBefore": "2026-08-31",
+   "daysAway": 81,
+   "stints": 11,
+   "rare": false
+  },
+  {
+   "id": "sid_placeholder_593",
+   "name": "Who",
+   "type": "Jam Track",
+   "category": "Jam Tracks",
+   "rarity": null,
+   "series": null,
+   "image": "https://cdn.fortnite-api.com/tracks/da13e9a835084aad.jpg",
+   "isNew": false,
+   "lastSeenBefore": "2026-08-31",
+   "daysAway": 81,
+   "stints": 8,
+   "rare": false
+  },
+  {
+   "id": "sid_placeholder_45",
+   "name": "Tusa",
+   "type": "Jam Track",
+   "category": "Jam Tracks",
+   "rarity": null,
+   "series": null,
+   "image": "https://cdn.fortnite-api.com/tracks/7064f4ebd83d331b.jpg",
+   "isNew": false,
+   "lastSeenBefore": "2026-08-31",
+   "daysAway": 81,
+   "stints": 13,
+   "rare": false
+  },
+  {
+   "id": "sid_placeholder_731",
+   "name": "Chicken Banana",
+   "type": "Jam Track",
+   "category": "Jam Tracks",
+   "rarity": null,
+   "series": null,
+   "image": "https://cdn.fortnite-api.com/tracks/75ebfac6f2f0d002.jpg",
+   "isNew": false,
+   "lastSeenBefore": "2026-08-31",
+   "daysAway": 81,
+   "stints": 7,
+   "rare": false
+  },
+  {
+   "id": "sid_placeholder_421",
+   "name": "Lean Back",
+   "type": "Jam Track",
+   "category": "Jam Tracks",
+   "rarity": null,
+   "series": null,
+   "image": "https://cdn.fortnite-api.com/tracks/7cbc7b247abd4a2e.jpg",
+   "isNew": false,
+   "lastSeenBefore": "2026-08-31",
+   "daysAway": 81,
+   "stints": 12,
+   "rare": false
+  },
+  {
+   "id": "sid_placeholder_279",
+   "name": "Take Over Control",
+   "type": "Jam Track",
+   "category": "Jam Tracks",
+   "rarity": null,
+   "series": null,
+   "image": "https://cdn.fortnite-api.com/tracks/bce10cbb3c143ece.jpg",
+   "isNew": false,
+   "lastSeenBefore": "2026-08-31",
+   "daysAway": 81,
+   "stints": 8,
+   "rare": false
+  },
+  {
+   "id": "sid_placeholder_447",
+   "name": "Bang Bang",
+   "type": "Jam Track",
+   "category": "Jam Tracks",
+   "rarity": null,
+   "series": null,
+   "image": "https://cdn.fortnite-api.com/tracks/d4725a571ffb5396.jpg",
+   "isNew": false,
+   "lastSeenBefore": "2026-08-31",
+   "daysAway": 81,
+   "stints": 14,
+   "rare": false
+  },
+  {
+   "id": "sid_placeholder_660",
+   "name": "Big Dawgs",
+   "type": "Jam Track",
+   "category": "Jam Tracks",
+   "rarity": null,
+   "series": null,
+   "image": "https://cdn.fortnite-api.com/tracks/ea0241594a091af6.jpg",
+   "isNew": false,
+   "lastSeenBefore": "2026-08-31",
+   "daysAway": 81,
+   "stints": 9,
+   "rare": false
+  },
+  {
+   "id": "sid_placeholder_399",
+   "name": "Dancing in the Flames",
+   "type": "Jam Track",
+   "category": "Jam Tracks",
+   "rarity": null,
+   "series": null,
+   "image": "https://cdn.fortnite-api.com/tracks/12390c5020de389c.jpg",
+   "isNew": false,
+   "lastSeenBefore": "2026-08-31",
+   "daysAway": 81,
+   "stints": 13,
+   "rare": false
+  },
+  {
+   "id": "sid_placeholder_170",
+   "name": "Friday I'm In Love",
+   "type": "Jam Track",
+   "category": "Jam Tracks",
+   "rarity": null,
+   "series": null,
+   "image": "https://cdn.fortnite-api.com/tracks/bb77941d7f41eb80.jpg",
+   "isNew": false,
+   "lastSeenBefore": "2026-08-31",
+   "daysAway": 81,
+   "stints": 12,
+   "rare": false
+  },
+  {
+   "id": "sid_placeholder_654",
+   "name": "PLAYERS",
+   "type": "Jam Track",
+   "category": "Jam Tracks",
+   "rarity": null,
+   "series": null,
+   "image": "https://cdn.fortnite-api.com/tracks/aaa7042e1502370d.jpg",
+   "isNew": false,
+   "lastSeenBefore": "2026-08-31",
+   "daysAway": 81,
+   "stints": 10,
+   "rare": false
+  },
+  {
+   "id": "Companion_EggBawk",
+   "name": "Doodle-Doo",
+   "type": "Sidekick",
+   "category": "Sidekicks",
+   "rarity": "Uncommon",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/companion_eggbawk/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-09-13",
+   "daysAway": 68,
+   "stints": 7,
+   "rare": false
+  },
+  {
+   "id": "Wrap_SteelyKendama",
+   "name": "Old World",
+   "type": "Wrap",
+   "category": "Wraps",
+   "rarity": "Rare",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/wrap_steelykendama/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-09-14",
+   "daysAway": 67,
+   "stints": 7,
+   "rare": false
+  },
+  {
+   "id": "Companion_CarrierShade",
+   "name": "Empress",
+   "type": "Sidekick",
+   "category": "Sidekicks",
+   "rarity": "Uncommon",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/companion_carriershade/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-09-28",
+   "daysAway": 53,
+   "stints": 5,
+   "rare": false
+  },
+  {
+   "id": "sid_placeholder_696",
+   "name": "Rockstar",
+   "type": "Jam Track",
+   "category": "Jam Tracks",
+   "rarity": null,
+   "series": null,
+   "image": "https://cdn.fortnite-api.com/tracks/04a094918afe52c3.jpg",
+   "isNew": false,
+   "lastSeenBefore": "2026-09-30",
+   "daysAway": 51,
+   "stints": 7,
+   "rare": false
+  },
+  {
+   "id": "Companion_RockCrest",
+   "name": "Stone Gryphon",
+   "type": "Sidekick",
+   "category": "Sidekicks",
+   "rarity": "Uncommon",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/companion_rockcrest/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-10-03",
+   "daysAway": 48,
+   "stints": 2,
+   "rare": false
+  },
+  {
+   "id": "EID_TrueLove",
+   "name": "True Love",
+   "type": "Emote",
+   "category": "Emotes",
+   "rarity": "Uncommon",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/eid_truelove/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-10-06",
+   "daysAway": 45,
+   "stints": 26,
+   "rare": false
+  },
+  {
+   "id": "Backpack_QuicheLorraineCrisp",
+   "name": "Kim's Kit",
+   "type": "Back Bling",
+   "category": "Back Blings",
+   "rarity": "Icon Series",
+   "series": "Icon Series",
+   "image": "https://fortnite-api.com/images/cosmetics/br/backpack_quichelorrainecrisp/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-10-12",
+   "daysAway": 39,
+   "stints": 8,
+   "rare": false
+  },
+  {
+   "id": "Backpack_QuicheLorraineLime",
+   "name": "Ring Light To Go",
+   "type": "Back Bling",
+   "category": "Back Blings",
+   "rarity": "Icon Series",
+   "series": "Icon Series",
+   "image": "https://fortnite-api.com/images/cosmetics/br/backpack_quichelorrainelime/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-10-12",
+   "daysAway": 39,
+   "stints": 8,
+   "rare": false
+  },
+  {
+   "id": "Pickaxe_QuicheLorraineLime",
+   "name": "Bag Basher",
+   "type": "Pickaxe",
+   "category": "Pickaxes",
+   "rarity": "Icon Series",
+   "series": "Icon Series",
+   "image": "https://fortnite-api.com/images/cosmetics/br/pickaxe_quichelorrainelime/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-10-12",
+   "daysAway": 39,
+   "stints": 8,
+   "rare": false
+  },
+  {
+   "id": "Pickaxe_QuicheLorraineCrisp",
+   "name": "Full Beat Brush",
+   "type": "Pickaxe",
+   "category": "Pickaxes",
+   "rarity": "Icon Series",
+   "series": "Icon Series",
+   "image": "https://fortnite-api.com/images/cosmetics/br/pickaxe_quichelorrainecrisp/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-10-12",
+   "daysAway": 39,
+   "stints": 8,
+   "rare": false
+  },
+  {
+   "id": "EID_QuicheLorraineLime",
+   "name": "Diamond Drop",
+   "type": "Emote",
+   "category": "Emotes",
+   "rarity": "Icon Series",
+   "series": "Icon Series",
+   "image": "https://fortnite-api.com/images/cosmetics/br/eid_quichelorrainelime/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-10-12",
+   "daysAway": 39,
+   "stints": 8,
+   "rare": false
+  },
+  {
+   "id": "Character_QuicheLorraineLime",
+   "name": "Iconic Kim Kardashian",
+   "type": "Outfit",
+   "category": "Outfits",
+   "rarity": "Icon Series",
+   "series": "Icon Series",
+   "image": "https://fortnite-api.com/images/cosmetics/br/character_quichelorrainelime/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-10-12",
+   "daysAway": 39,
+   "stints": 8,
+   "rare": false
+  },
+  {
+   "id": "Character_QuicheLorraineCrisp",
+   "name": "Kim Kardashian",
+   "type": "Outfit",
+   "category": "Outfits",
+   "rarity": "Icon Series",
+   "series": "Icon Series",
+   "image": "https://fortnite-api.com/images/cosmetics/br/character_quichelorrainecrisp/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-10-12",
+   "daysAway": 39,
+   "stints": 8,
+   "rare": false
+  },
+  {
+   "id": "EID_QuicheLorraineCrisp",
+   "name": "Slurp the Internet",
+   "type": "Emote",
+   "category": "Emotes",
+   "rarity": "Icon Series",
+   "series": "Icon Series",
+   "image": "https://fortnite-api.com/images/cosmetics/br/eid_quichelorrainecrisp/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-10-12",
+   "daysAway": 39,
+   "stints": 8,
+   "rare": false
+  },
+  {
+   "id": "Glider_QuicheLorraineLime",
+   "name": "Private Jet",
+   "type": "Glider",
+   "category": "Gliders",
+   "rarity": "Icon Series",
+   "series": "Icon Series",
+   "image": "https://fortnite-api.com/images/cosmetics/br/glider_quichelorrainelime/smallicon.png",
+   "isNew": false,
+   "lastSeenBefore": "2026-10-12",
+   "daysAway": 39,
+   "stints": 8,
+   "rare": false
+  },
+  {
+   "id": "Pickaxe_ID_805_GlareMale",
+   "name": "Inline Impactor",
+   "type": "Pickaxe",
+   "category": "Pickaxes",
+   "rarity": "Rare",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/pickaxe_id_805_glaremale/smallicon.png",
    "isNew": true,
    "lastSeenBefore": null,
    "daysAway": null,
@@ -6039,13 +6487,13 @@
    "rare": false
   },
   {
-   "id": "Wheel_MapleB",
-   "name": "Jurassic Jeep® Wrangler - Tour",
-   "type": "Wheel",
-   "category": "Wheels",
-   "rarity": "Uncommon",
+   "id": "Character_WingedEye",
+   "name": "Greta Grim",
+   "type": "Outfit",
+   "category": "Outfits",
+   "rarity": "Epic",
    "series": null,
-   "image": "https://fortnite-api.com/images/cosmetics/cars/wheel_mapleb/small.png",
+   "image": "https://fortnite-api.com/images/cosmetics/br/character_wingedeye/smallicon.png",
    "isNew": true,
    "lastSeenBefore": null,
    "daysAway": null,
@@ -6053,13 +6501,13 @@
    "rare": false
   },
   {
-   "id": "CarBody_Maple",
-   "name": "Jurassic Jeep® Wrangler",
-   "type": "Body",
-   "category": "Cars",
-   "rarity": "Uncommon",
+   "id": "Backpack_WingedEye",
+   "name": "Ivor",
+   "type": "Back Bling",
+   "category": "Back Blings",
+   "rarity": "Rare",
    "series": null,
-   "image": "https://fortnite-api.com/images/cosmetics/cars/carbody_maple/small.png",
+   "image": "https://fortnite-api.com/images/cosmetics/br/backpack_wingedeye/smallicon.png",
    "isNew": true,
    "lastSeenBefore": null,
    "daysAway": null,
@@ -6067,13 +6515,13 @@
    "rare": false
   },
   {
-   "id": "CarSkin_MapleDefaultA",
-   "name": "Staff Vehicle",
-   "type": "Skin",
-   "category": "Decals",
-   "rarity": "Uncommon",
+   "id": "CID_A_413_Athena_Commando_M_Glare",
+   "name": "Toni",
+   "type": "Outfit",
+   "category": "Outfits",
+   "rarity": "Rare",
    "series": null,
-   "image": "https://fortnite-api.com/images/cosmetics/cars/carskin_mapledefaulta/small.png",
+   "image": "https://fortnite-api.com/images/cosmetics/br/cid_a_413_athena_commando_m_glare/smallicon.png",
    "isNew": true,
    "lastSeenBefore": null,
    "daysAway": null,
@@ -6081,13 +6529,13 @@
    "rare": false
   },
   {
-   "id": "CarSkin_MapleDefaultB",
-   "name": "Staff Vehicle - Blue",
-   "type": "Skin",
-   "category": "Decals",
-   "rarity": "Uncommon",
+   "id": "BID_A_014_GlareMale",
+   "name": "Ollie-Oop",
+   "type": "Back Bling",
+   "category": "Back Blings",
+   "rarity": "Rare",
    "series": null,
-   "image": "https://fortnite-api.com/images/cosmetics/cars/carskin_mapledefaultb/small.png",
+   "image": "https://fortnite-api.com/images/cosmetics/br/bid_a_014_glaremale/smallicon.png",
    "isNew": true,
    "lastSeenBefore": null,
    "daysAway": null,
@@ -6095,13 +6543,13 @@
    "rare": false
   },
   {
-   "id": "CarSkin_MapleLivery01",
-   "name": "Tour Vehicle",
-   "type": "Skin",
-   "category": "Decals",
-   "rarity": "Uncommon",
+   "id": "Pickaxe_WingedEye",
+   "name": "Demon Slashers",
+   "type": "Pickaxe",
+   "category": "Pickaxes",
+   "rarity": "Rare",
    "series": null,
-   "image": "https://fortnite-api.com/images/cosmetics/cars/carskin_maplelivery01/small.png",
+   "image": "https://fortnite-api.com/images/cosmetics/br/pickaxe_wingedeye/smallicon.png",
    "isNew": true,
    "lastSeenBefore": null,
    "daysAway": null,
@@ -6109,13 +6557,13 @@
    "rare": false
   },
   {
-   "id": "Wheel_Maple",
-   "name": "Jurassic Jeep® Wrangler",
-   "type": "Wheel",
-   "category": "Wheels",
-   "rarity": "Uncommon",
+   "id": "Character_GoldenPleats",
+   "name": "Dara",
+   "type": "Outfit",
+   "category": "Outfits",
+   "rarity": "Epic",
    "series": null,
-   "image": "https://fortnite-api.com/images/cosmetics/cars/wheel_maple/small.png",
+   "image": "https://fortnite-api.com/images/cosmetics/br/character_goldenpleats/smallicon.png",
    "isNew": true,
    "lastSeenBefore": null,
    "daysAway": null,
@@ -6123,13 +6571,41 @@
    "rare": false
   },
   {
-   "id": "Shoes_PurityJadeYen",
-   "name": "Air Jordan 14 Retro 'Yellow/Black'",
-   "type": "Shoes",
-   "category": "Kicks",
-   "rarity": "Uncommon",
+   "id": "Pickaxe_GoldenPleats",
+   "name": "Mercenary Razorsword",
+   "type": "Pickaxe",
+   "category": "Pickaxes",
+   "rarity": "Rare",
    "series": null,
-   "image": "https://fortnite-api.com/images/cosmetics/br/shoes_purityjadeyen/smallicon.png",
+   "image": "https://fortnite-api.com/images/cosmetics/br/pickaxe_goldenpleats/smallicon.png",
+   "isNew": true,
+   "lastSeenBefore": null,
+   "daysAway": null,
+   "stints": 1,
+   "rare": false
+  },
+  {
+   "id": "Backpack_GoldenPleats",
+   "name": "Razorsword Scabbard",
+   "type": "Back Bling",
+   "category": "Back Blings",
+   "rarity": "Rare",
+   "series": null,
+   "image": "https://fortnite-api.com/images/cosmetics/br/backpack_goldenpleats/smallicon.png",
+   "isNew": true,
+   "lastSeenBefore": null,
+   "daysAway": null,
+   "stints": 1,
+   "rare": false
+  },
+  {
+   "id": "sid_placeholder_998",
+   "name": "Perfect Night",
+   "type": "Jam Track",
+   "category": "Jam Tracks",
+   "rarity": null,
+   "series": null,
+   "image": "https://cdn.fortnite-api.com/tracks/bed9b710eae8052d.jpg",
    "isNew": true,
    "lastSeenBefore": null,
    "daysAway": null,
